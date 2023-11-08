@@ -1,0 +1,10 @@
+.btn{
+    @apply block rounded-md px-3 text-center text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600;
+    &.cover{
+        @apply bg-primary-200 hover:bg-primary-100;
+
+    }
+    &.resume{
+        @apply bg-white hover:bg-primary-100;
+    }
+}

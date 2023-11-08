@@ -1,0 +1,294 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+  
+}
+
+// Necessary for Next auth
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+enum RoleEnumType {
+  user
+  admin
+  owner
+  member
+  superAdmin
+}
+
+enum MembershipStatus {
+  ACTIVE
+  PENDING
+  DISABLED
+}
+
+enum UserStatus {
+  PENDING // User is invited but has not accepted the invitation yet
+  ACTIVE  // User has accepted the invitation and completed the onboarding
+  INACTIVE // User deactivated or invitation revoked
+}
+
+
+enum TokenStatus {
+  UNUSED
+  USED
+}
+
+enum StripeSubscriptionStatus {
+    incomplete
+    incomplete_expired
+    trialing
+    active
+    past_due
+    canceled
+    unpaid
+    paused
+}
+
+enum PermissionType {
+  EDITOR
+  VIEWER
+  LEAD
+}
+
+
+enum ResumeStatus {
+  BACKLOG
+  TODO
+  INPROGRESS
+  CANCELED
+  DONE
+}
+
+enum PlanType {
+   FREE
+   STANDARD
+   PREMIUM
+   ENTERPRISE
+   CREDIT
+} 
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  RENEWED
+  CANCELED
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model User {
+  id                    String          @id @default(cuid())
+  email                 String?         @unique
+  password              String?
+  passwordLastUpdate    DateTime?
+  isVerified            Boolean?        @default(false)
+  avatarId              String?  @unique
+  avatar                Avatar?
+  country               String?
+  firstName             String?
+  lastName              String?
+  createdAt             DateTime        @default(now())
+  role                  RoleEnumType    @default(user)
+  accounts              Account[]
+  sessions              Session[]
+  loginToken            String?
+  loginTokenExpires     DateTime?
+  verificationLinksSent Int             @default(0)
+  memberships           OrgMembership[]
+  status                UserStatus? @default(PENDING)
+  tempOrgName           String?
+  payments SubscriptionPayment[]
+  // createdDocuments Resume[]
+  // documentPermissions ResumePermission[]
+  resumes  Resume[]
+
+
+}
+
+model Avatar {
+  id        String  @id @default(cuid())
+  url       String
+  public_id String
+  userId    String  @unique
+  user      User    @relation(fields: [userId], references: [id])
+  imgName   String
+}
+model OrganizationAvatar {
+  id             String         @id @default(cuid())
+  url            String
+  public_id      String
+  organizationId String         @unique
+  organization   Organization   @relation(fields: [organizationId], references: [id])
+  imgName   String
+}
+model VerificationToken {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  token      String   @unique
+  expires    DateTime
+  identifier String?
+  orgId      String?
+  actionType String
+
+  @@index([email, token])
+}
+
+model OrgMembership {
+  orgId           String
+  userId          String
+  role            String  
+  user            User        @relation(fields: [userId], references: [id])
+  org             Organization @relation(fields: [orgId], references: [id])
+  joinedAt        DateTime     @default(now())
+  status          MembershipStatus? @default(PENDING)
+  
+  @@id([orgId, userId])
+}
+model Organization {
+  id          String               @id @default(cuid())
+  name        String
+  members     OrgMembership[]
+  location    String?
+  headcount   Int?
+  orgAvatarId String?              @unique
+  orgAvatar   OrganizationAvatar?
+  phone       String?
+  website     String?
+  about       String?              @db.VarChar(500)
+  createdAt   DateTime             @default(now())
+  //stripe logic
+  stripeCustomerId         String?
+  stripeSubscriptionId String?
+  stripeSubscriptionStatus StripeSubscriptionStatus?
+  subscriptionPayments SubscriptionPayment[]
+  planType       PlanType @default(FREE)
+  billingCycle BillingCycle?
+  availableCredits Int @default(0)
+  usedAvailableCredits Int @default(0)
+  //if user decided to change plan
+  pendingPlanType        String?      @map("pending_plan_type") 
+  pendingStripePriceId  String?
+  pendingNewPlanCredits   Int?
+  pendingBillingCycle String?
+  //if user runs out of credits 
+  additionalCredits Int @default(0)
+  usedAdditionalCredits Int @default(0)
+  creditPurchases  CreditPurchase[]
+}
+
+model CreditPurchase {
+  id              String         @id @default(cuid())
+  organization    Organization   @relation(fields: [organizationId], references: [id])
+  organizationId  String
+  userId          String
+  purchasedCredits Int
+  stripeCheckoutSessionId String  
+  createdAt       DateTime       @default(now())
+  amount          Int @default(0)
+  planType        PlanType @default(CREDIT)
+  invoiceId     String
+} 
+
+model SubscriptionPayment {
+  id            String   @id @default(cuid())
+  organization  Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+  stripePriceId  String
+  createdAt      DateTime @default(now())
+  planType       PlanType
+   billingCycle BillingCycle
+  paymentStatus PaymentStatus? @default(PENDING)
+  invoiceId     String
+  isAcknowledged Boolean @default(false)
+  subscriptionStartDate DateTime?
+  subscriptionEndDate DateTime?
+  cancelDate DateTime?
+  attempts    Int?
+  last4                 String?     
+  cardBrand             String?
+  amount Int? 
+  availableCredits Int? @default(0)
+
+    @@unique([organizationId, invoiceId])
+}
+
+model ResetToken {
+  email           String   @id
+  token           String
+  expires         DateTime
+  requests        Int      @default(0)
+  lastRequestedAt DateTime
+}
+
+model StripeEvent {
+    id               String   @id @unique
+    api_version      String?
+    data             Json
+    request          Json?
+    type             String
+    object           String
+    account          String?
+    created          DateTime
+    livemode         Boolean
+    pending_webhooks Int
+}
+
+
+model Resume {
+  id        Int @unique @default(autoincrement())
+  shortId   String
+  name      String
+  slug      String
+  image     String
+  recruiter String? @db.Text
+  basics    String? @db.Text
+  sections  String? @db.Text
+  metadata  String? @db.Text
+  public    Boolean
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "resume-vetting-ai",
+  "private_key_id": "30f397c1c13d9a4d0658b705de36ca9bef458270",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDA5a86MMotfivM\neRrrL6/QAX/MjB5n14ZKTAlK49Nt5iThGNtQnSxe5GLJqULg6VtLe1mmKMAo1y/5\nsssEcX0g1sIz2TiVKQVfQDi66Rar689IKHPPI/C4kMFGdz7Rpf1ELmUg2QtQjAqz\n+VIqQ8EaMZa7WDjHqBnn6SQ8poWxQSLXi+yPi23ZUmtGmU1z8eIAInntYI7OZ/XW\nhzauEtBSJ1AF0mIhuZLGMzjr2BDlT7BSmqHrjV6ybOhRSyepF6uvzgAGzfV1Md8C\naKYR8l08G6SmXh3sJXW/go1Ki71MwcqnhHSqoyswlV/fRo2bZj8JcPqMUAJveF5g\nLiHKweYdAgMBAAECggEAF9Gk0AYrSO/N/7sqkET8rC4rNjpNHNx3qB/4e8djGaxz\n/Fmh5zPpQTRpYGZmrDgUfl8WZFae18wuj+I8gGl1HoN2Som1m3GLyMW425ehpYwC\nNfJMzpStClVRkF50ItYgznT+Js62P3VzcuLD+xUPuKjL6IlNxZWj0UewIk8brhXa\nkgzgBh65FZXtZ/Tg733YFrKcuLNj3j91n1U7jVCWJmypddK1+VodRkSiMKSZ1Wjj\nJBI/nhkTVXKQVgoG9dse7gNTWn78YgwAkhDfFjuonNqB9/79Jd9nqc+YebzU9FrP\nPup2WgRK1bpJVQQJ5dOcpOOrbpTAgOGEp7oQKr9QEQKBgQDgZGD+lJmRigTjM9tZ\nH/L8Sc7g7Dr1SzDOMbeUd/srAF7tqw13x4paW+CTJZF4yXbxSJC1LbMIyEAqFSJX\nhbblssinSEftpLTsYAN1nxKgPysBYFLIQ272HbY/v+6m8agPnnwYlli2GmDS2VZM\nGCg6ut8Ybc2PVj21XM//V0wU1QKBgQDcEZf4b35HSXdJ+piZCSwBU9vRNWcw6NyX\nFPmNeTtMdWSdDWb76ERM8xy2Z8ZtyCa9JHkAnN46kPQj96jqdimH7v+0RIf+5HwK\n4T0OcEm7zScV/rnrW0lT5BBGml+huvm6ukXM+4RGC8coZqX/TnXSDk+RWVv2wYnS\n35ERrNBQKQKBgH4OxhKexnrlb4N38WTrNuUWTbs72o9Ms1lSwtAMazSoG6wm6QT+\nOzIx5UKk20lg3IoF+w1dY/OuE6XQg59phesaefDIAWh2nBEiiy77s0oE0pMOWtMY\nVvC6llTP7TEqFwDXRt3FMIb04Kny4LEU7Ry5OHWP0egRSc9mGY9Xqm0VAoGBAJr+\n0Tgq3pe6yIeUNhHjAdlVhMaOhEVQXL0UCsd3kSpCrEBpBhV5+1DvEVPvNzRu+cnR\nfF/QHDzHhwwmDBRGcO3KiNIgSmBd8HeBOA2JTIU28sZtB+kZ/EVXpZb0d1JjbCv1\nsd+zbfAfr39m/JcaXaU6axQGCd17ZmTdDUGTo4wxAoGBAJsX/5DRrXPMxOucoqOF\nmG9K9qkMWnZdbfduoGZYzYZlBskxr3cfL8gc7dv93tfwfzZDcDt/fmYwWJmBmbKE\nR4/eOhLD3CwOJbEsymC7yXj25Mv3md9alB7V6f1Au0SP3FCLlnc7imrTVPaKFBae\nE9cgt1LBpqFdG2cOt7plX6+A\n-----END PRIVATE KEY-----\n",
+  "client_email": "storing-resumes-1@resume-vetting-ai.iam.gserviceaccount.com",
+  "client_id": "101024342470868534716",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storing-resumes-1%40resume-vetting-ai.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

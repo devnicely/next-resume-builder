@@ -1,0 +1,26 @@
+.header {
+    @apply mx-0 flex justify-between shadow;
+    @apply text-black;
+    @apply transition-[margin-left,margin-right] duration-200;
+
+    button > svg {
+      @apply text-base text-black;
+    }
+  }
+  
+  .pushLeft {
+    @apply xl:ml-[23vw] 2xl:ml-[28vw];
+  }
+  
+  .pushRight {
+    @apply xl:mr-[26vw] 2xl:mr-[28vw];
+  }
+  
+  .title {
+    @apply flex items-center justify-center;
+  
+    h1 {
+      @apply ml-2 text-black;
+    }
+  }
+  
