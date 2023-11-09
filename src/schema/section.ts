@@ -31,15 +31,6 @@ export type Certificate = {
 };
 
 
-export type Publication = {
-  id?: string;
-  name: string;
-  publisher: string;
-  date?: string;
-  url?: string;
-  summary?: string;
-};
-
 export type Skill = {
   skills: string;
 };
@@ -129,6 +120,7 @@ export type ListItem =
   | Reference
   | Custom;
 
+
 export type SectionType =
   | 'basic'
   | 'location'
@@ -144,7 +136,13 @@ export type SectionType =
   | 'strengths'
   | 'candidate_information'
   | 'candidate_summary'
-  | 'activities';
+  | 'activities'
+  
+  | 'cover_agency_name'
+  | 'cover_recruiter_name'
+  | 'cover_recruiter_title'
+  | 'cover_recruiter_email'
+  | 'cover_recruiter_phone';
 
 export type SectionPath = `sections.${string}`;
 

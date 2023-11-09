@@ -9,7 +9,7 @@ import Heading from '~/components/shared/Heading';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { addPage, deletePage, setResumeState } from '~/store/resume/resumeSlice';
 
-import styles from './Layout.module.scss';
+import styles from './CoverLayout.module.scss';
 import { TemplateType } from '~/constants';
 
 const getIndices = (location: DraggableLocation) => ({
@@ -86,8 +86,7 @@ const Layout = () => {
                   <Droppable key={index} droppableId={index}>
                     {(provided) => (
                       <div ref={provided.innerRef} className={styles.column} {...provided.droppableProps}>
-                        <p className={styles.heading}>{columnIndex ? 'Sidebar' : 'Main'}</p> 
-
+                        <p className={styles.heading}>{columnIndex ? 'Candiate Information' : 'Recruiter Information'}</p> 
                         <div className={styles.base} />
                         {/* Sections */}
                         {sections.map((sectionId, sectionIndex) => (

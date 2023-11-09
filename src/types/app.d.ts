@@ -2,6 +2,7 @@ import React from 'react';
 
 export type SidebarSection = {
   id: string;
-  icon: React.ReactElement;
+  kind?: string; // cover or resume?
+  icon?: React.ReactElement;
   component: React.ReactElement;
 };

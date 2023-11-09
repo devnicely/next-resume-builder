@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button } from "~/components/common/button";
 import UserLayout from "~/components/layout/UserLayout";
 import ResumePreview from "~/components/resume/resume-preview/ResumePreview";
-import { Resume } from "~/schema";
 import styles from "~/styles/template-mgmt.module.scss";
 import localStyles from "./Resumes.module.scss";
 import { useRouter } from "next/router";

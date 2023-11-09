@@ -1,5 +1,5 @@
 import { Add, Star } from '@mui/icons-material';
-import { Button, Divider, IconButton, SwipeableDrawer, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { SwipeableDrawer, useMediaQuery, useTheme } from '@mui/material';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import React, { ReactComponentElement, useMemo } from 'react';
@@ -14,6 +14,7 @@ import { addSection } from '~/store/resume/resumeSlice';
 import styles from './LeftSidebar.module.scss';
 import Section from './sections/Section';
 import { api } from '~/utils/api';
+import { TemplateType } from '~/constants';
 
 const LeftSidebar = () => {
   const theme = useTheme();
@@ -21,6 +22,8 @@ const LeftSidebar = () => {
   const dispatch = useAppDispatch();
 
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+
+  const resume = useAppSelector((state) => state.resume.present);
 
   const sections = useAppSelector((state) => state.resume.present.sections);
   const { open } = useAppSelector((state) => state.build.sidebar.left);
@@ -60,13 +63,22 @@ const LeftSidebar = () => {
       const id = (item as any).id;
       const component = (item as any).component;
       const type = component.props.type;
+      const kind = (item as any).kind;
       const addMore = !!component.props.addMore;
 
-      sectionsComponents.push(
-        <section key={id} id={id}>
-          {component}
-        </section>,
-      );
+      if (kind == resume.type)
+        if(kind == TemplateType.RESUME)
+          sectionsComponents.push(
+            <section key={id} id={id}>
+              {component}
+            </section>
+          );
+        else
+          sectionsComponents.push(
+            <div className={styles.inputSection} key={id} id={id}>
+              {component}
+            </div>
+          );
 
       if (addMore) {
         const additionalSections = getSectionsByType(sections, type);
@@ -94,33 +106,7 @@ const LeftSidebar = () => {
     return sectionsComponents;
   };
 
-  const resume: Resume = useAppSelector((state) => state.resume.present);
-  const {
-    mutateAsync: updateResum,
-    isLoading,
-    isSuccess,
-  } = api.resume.updateResum.useMutation();
-
-  const onClickedBtnResumeSave = () => {
-    try {
-      updateResum({
-        id: resume.id,
-        shortId: resume.shortId,
-        name: resume.name,
-        userId: resume.userid,
-        slug: resume.slug,
-        image: resume.image,
-        recruiter: JSON.stringify(resume.recruiter),
-        basics: JSON.stringify(resume.basics),
-        sections: JSON.stringify(resume.sections),
-        metadata: JSON.stringify(resume.metadata),
-        public: resume.public
-      });
-      alert("Saved Successfully");
-    } catch (error) {
-      alert("fail");
-    }
-  }
+  
 
   return (
     <SwipeableDrawer
@@ -133,8 +119,6 @@ const LeftSidebar = () => {
     >
       <div className={styles.container}>
         <main>
-          <Button onClick={onClickedBtnResumeSave} fullWidth color='primary' variant='outlined'>Resume Save</Button>
-
           {sectionsList()}
           
           {/* {customSections.map(({ id }) => (

@@ -26,6 +26,18 @@ const RightSidebar = () => {
   };
 
 
+  const sections = () => {
+    const rightSidebar =  right.map(({ id, component }) => (
+      <section key={id} id={id}>
+        {component}
+      </section>
+    ))
+
+
+    return rightSidebar;
+  }
+
+
   return (
     <SwipeableDrawer
       open={open}
@@ -37,11 +49,7 @@ const RightSidebar = () => {
     >
       <div className={styles.container}>
         <main>
-          {right.map(({ id, component }) => (
-            <section key={id} id={id}>
-              {component}
-            </section>
-          ))}
+          {sections()}
         </main>
       </div>
     </SwipeableDrawer>

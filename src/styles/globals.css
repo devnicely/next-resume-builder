@@ -82,6 +82,15 @@
   position: absolute!important;
 }
 
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
+  height: 100vh!important;
+}
+
+.css-18sg6k4-MuiPaper-root-MuiDrawer-paper{
+  height: 100vh!important;
+}
+
 .css-7fxnxu-MuiPaper-root-MuiAppBar-root{
   background-color: #F4F4F5!important;
 }

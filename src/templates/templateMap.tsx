@@ -1,13 +1,12 @@
 import { PageProps } from '~/utils/template';
 
-import Castform from './Leafish/Leafish';
-import Gengar from './Leafish/Leafish';
-import Glalie from './Leafish/Leafish';
-import Kakuna from './Leafish/Leafish';
-import Leafish from './Leafish/Leafish';
-import Onyx from './Leafish/Leafish';
-import Pikachu from './Leafish/Leafish';
-
+import Simple from './resume/simple/Simple';
+import Gengar from './resume/simple/Simple';
+import Glalie from './resume/simple/Simple';
+import Kakuna from './resume/simple/Simple';
+import Leafish from './resume/simple/Simple';
+import Onyx from './resume/simple/Simple';
+import Pikachu from './resume/simple/Simple';
 
 
 export type TemplateMeta = {
@@ -43,10 +42,10 @@ const templateMap: Record<string, TemplateMeta> = {
     component: Gengar,
   },
   castform: {
-    id: 'castform',
-    name: 'Castform',
+    id: 'simple',
+    name: 'Simple',
     preview: '/images/templates/castform.jpg',
-    component: Castform,
+    component: Simple,
   },
   glalie: {
     id: 'glalie',
