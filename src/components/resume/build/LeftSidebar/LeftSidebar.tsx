@@ -56,7 +56,7 @@ const LeftSidebar = () => {
       const kind = (item as any).kind;
       const addMore = !!component.props.addMore;
 
-      if (kind == resume.type)
+      if (kind == resume.type || kind == TemplateType.BOTH)
         if(resume.type == TemplateType.RESUME)
           sectionsComponents.push(
             <section key={id} id={id}>

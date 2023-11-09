@@ -37,8 +37,6 @@ const schema = Joi.object({
 const CreateResumeModal: React.FC = () => {
 
     const router = useRouter();
-
-
     const dispatch = useAppDispatch();
     const { open: isOpen } = useAppSelector((state) => state.modal['create-resume']);
 

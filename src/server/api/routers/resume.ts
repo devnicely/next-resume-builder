@@ -213,9 +213,6 @@ export const resumeRouter = createTRPCRouter({
       try {
         const shortId = nanoid(SHORT_ID_LENGTH);
         const { name, slug, isPublic, type } = input;
-
-        console.log("=========", type);
-
         const user = ctx.session?.user;
         const userId = user?.userId;
         const username = user?.name;
