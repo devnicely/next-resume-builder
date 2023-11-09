@@ -2,13 +2,22 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Home as HomeIcon,
+  ChevronDown as KeyboardArrowDownIcon,
+  Save,
 } from 'lucide-react';
 
 import {
-  KeyboardArrowDown as KeyboardArrowDownIcon,
-  Save,
-} from '@mui/icons-material';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '~/components/common/dropdown-menu';
 
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+
+import { Button } from '~/components/common/button';
 
 import get from 'lodash/get';
 import { useRouter } from 'next/router';
@@ -30,7 +39,7 @@ import { cn } from '~/utils/styles';
 import styles from './Header.module.scss';
 
 import { api } from '~/utils/api';
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+
 
 const Header = () => {
 
@@ -130,21 +139,18 @@ const Header = () => {
 
               <span className="opacity-50">{'/'}</span>
 
-              <h1>{name}</h1>
+              <h1>{name} &nbsp;</h1>
 
-              <IconButton onClick={handleClick}>
-                <KeyboardArrowDownIcon />
-              </IconButton>
-
-              <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
-                <MenuItem onClick={onClickedBtnResumeSave}>
-                  <ListItemIcon>
-                    <Save className="scale-90" />
-                  </ListItemIcon>
-                  <ListItemText>Save Resume</ListItemText>
-                </MenuItem>
-
-              </Menu>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <KeyboardArrowDownIcon />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
+                  <DropdownMenuItem onClick={onClickedBtnResumeSave} >
+                    <Save className="scale-90" />&nbsp;Save Resume
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             <IconButton onClick={toggleRightSidebar}>{right.open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
