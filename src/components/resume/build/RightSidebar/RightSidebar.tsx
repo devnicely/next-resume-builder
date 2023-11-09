@@ -4,43 +4,44 @@ import { setSidebarState } from '~/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 
 import styles from './RightSidebar.module.scss';
+import { TemplateType } from '~/constants';
 
 const RightSidebar = () => {
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  // const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsDesktop(window.innerWidth >= 1280); // Set breakpoint value according to your needs
-  //   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1280); // Set breakpoint value according to your needs
+    };
 
-  //   handleResize(); // Initial check
+    handleResize(); // Initial check
 
-  //   window.addEventListener('resize', handleResize);
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const { open } = useAppSelector((state) => state.build.sidebar.right);
+  const handleOpen = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: true } }));
+  const handleClose = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: false } }));
+  const handleClick = (id: string) => {
+    const section = document.querySelector(`#${id}`);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
-  // const handleOpen = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: true } }));
-
-  // const handleClose = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: false } }));
-
-  // const handleClick = (id: string) => {
-  //   const section = document.querySelector(`#${id}`);
-  //   if (section) {
-  //     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  //   }
-  // };
+  const resume = useAppSelector((state) => state.resume.present);
 
 
   const sections = () => {
-    const rightSidebar =  right.map(({ id, component }) => (
-      <section key={id} id={id}>
+    const rightSidebar =  right.map(({ id, component, kind }) => (
+      (kind == resume.type || kind == TemplateType.BOTH) && 
+        <section key={id} id={id}>
         {component}
       </section>
     ))
