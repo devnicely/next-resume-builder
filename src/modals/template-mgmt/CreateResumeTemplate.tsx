@@ -7,7 +7,7 @@ import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Button, TextField } from "@mui/material";
 import queryClient from "~/services/react-query";
-import { RESUMES_QUERY } from "~/constants";
+import { RESUMES_QUERY, TemplateType } from "~/constants";
 import { useEffect } from "react";
 import { api } from "~/utils/api";
 import {useRouter} from 'next/router';
@@ -66,14 +66,17 @@ const CreateResumeModal: React.FC = () => {
     }, [name, setValue]);
 
     const onSubmit = async ({ name, slug, isPublic }: FormData) => {
-        const result = await createResume({ name, slug, isPublic });
-        await queryClient.invalidateQueries(RESUMES_QUERY);  
-        handleClose();
-        
-        router.push({
-            pathname: '/resume/[slug]/build',
-            query: { slug: slug }
-        });
+        await createResume({ name, slug, isPublic, type: TemplateType.RESUME })
+            .then(() => {
+                handleClose();
+
+                router.push({
+                    pathname: '/resume/[slug]/build',
+                    query: { slug: slug }
+                });
+            }).catch(() => {
+
+            })
     };
 
     const handleClose = () => {
