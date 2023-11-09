@@ -1,4 +1,4 @@
-import { SwipeableDrawer, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { right } from '~/config/sections';
 import { setSidebarState } from '~/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -6,35 +6,40 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import styles from './RightSidebar.module.scss';
 
 const RightSidebar = () => {
-  const theme = useTheme();
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+  // const [isDesktop, setIsDesktop] = useState(false);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsDesktop(window.innerWidth >= 1280); // Set breakpoint value according to your needs
+  //   };
+
+  //   handleResize(); // Initial check
+
+  //   window.addEventListener('resize', handleResize);
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
 
   const { open } = useAppSelector((state) => state.build.sidebar.right);
 
-  const handleOpen = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: true } }));
+  // const handleOpen = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: true } }));
 
-  const handleClose = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: false } }));
+  // const handleClose = () => dispatch(setSidebarState({ sidebar: 'right', state: { open: false } }));
 
-  const handleClick = (id: string) => {
-    const section = document.querySelector(`#${id}`);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  // const handleClick = (id: string) => {
+  //   const section = document.querySelector(`#${id}`);
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   }
+  // };
 
 
   return (
-    <SwipeableDrawer
-      open={open}
-      anchor="right"
-      onOpen={handleOpen}
-      onClose={handleClose}
-      PaperProps={{ className: '!shadow-lg' }}
-      variant={isDesktop ? 'persistent' : 'temporary'}
-    >
+    <div className={`absolute top-0 bottom-0 right-0 bg-white z-20 ${open ? 'block' : 'hidden'}`}>
       <div className={styles.container}>
         <main>
           {right.map(({ id, component }) => (
@@ -44,7 +49,7 @@ const RightSidebar = () => {
           ))}
         </main>
       </div>
-    </SwipeableDrawer>
+    </div>
   );
 };
 

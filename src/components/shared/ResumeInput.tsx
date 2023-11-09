@@ -1,5 +1,10 @@
 import { TextField } from '@mui/material';
+import { Label } from 'src/components/common/label';
+import { Input } from 'src/components/common/input';
+import { Textarea } from 'src/components/common/textarea';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import { cn } from "src/components/common/Classnames";
 import dayjs from 'dayjs';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
@@ -44,9 +49,7 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
 
   if (type === 'textarea') {
     return (
-      <TextField
-        rows={5}
-        multiline
+      <Textarea
         label={label}
         value={value}
         onChange={onChange}
@@ -72,7 +75,11 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
     );
   }
 
-  return <TextField type={type} label={label} value={value} onChange={onChange} className={className} />;
+  // return <TextField type={type} label={label} value={value} onChange={onChange} className={className} />;
+  return <div className={cn("grid w-full items-center gap-1.5",className)}>
+    <Label>{label}</Label>
+    <Input value={value} onChange={onChange}></Input>
+  </div>
 };
 
 export default ResumeInput;

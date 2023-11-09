@@ -1,6 +1,13 @@
 import { DragDropContext, Draggable, DraggableLocation, Droppable, DropResult } from '@hello-pangea/dnd';
-import { Add, Close, Restore } from '@mui/icons-material';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Plus as Add, XIcon as Close, RotateCcw as Restore } from 'lucide-react';
+
+import { Button } from 'src/components/common/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from 'src/components/common/Tooltip';
 import clsx from 'clsx';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
@@ -60,11 +67,16 @@ const Layout = () => {
         path="metadata.layout"
         name="Layout"
         action={
-          <Tooltip title="Reset Layout">
-            <IconButton onClick={handleResetLayout}>
-              <Restore />
-            </IconButton>
-          </Tooltip>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Restore onClick={handleResetLayout} />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Reset Layout</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         }
       />
 
@@ -78,13 +90,7 @@ const Layout = () => {
               </p>
 
               <div className={clsx(styles.delete, { hidden: pageIndex === 0 })}>
-                <Tooltip
-                  title="Delete Page"
-                >
-                  <IconButton size="small" onClick={() => handleDeletePage(pageIndex)}>
-                    <Close fontSize="small" />
-                  </IconButton>
-                </Tooltip>
+                <Close onClick={() => handleDeletePage(pageIndex)} size="28" />
               </div>
             </div>
 
@@ -97,7 +103,7 @@ const Layout = () => {
                   <Droppable key={index} droppableId={index}>
                     {(provided) => (
                       <div ref={provided.innerRef} className={styles.column} {...provided.droppableProps}>
-                        <p className={styles.heading}>{columnIndex ? 'Sidebar' : 'Main'}</p> 
+                        <p className={styles.heading}>{columnIndex ? 'Sidebar' : 'Main'}</p>
 
                         <div className={styles.base} />
                         {/* Sections */}
@@ -126,8 +132,8 @@ const Layout = () => {
         ))}
 
         <div className="flex items-center justify-end">
-          <Button variant="outlined" startIcon={<Add />} onClick={handleAddPage}>
-            Add New Page
+          <Button variant="secondary" onClick={handleAddPage}>
+            <Add className="mr-2 h-4 w-4" /> Add New Page
           </Button>
         </div>
       </DragDropContext>

@@ -32,11 +32,11 @@ const Theme = () => {
       <Heading path="metadata.theme" name="Theme" />
 
       <div className={styles.container}>
-        <div className={styles.colorOptions}>
+        {/* <div className={styles.colorOptions}>
           {colorOptions.map((color) => (
             <ColorAvatar key={color} color={color} onClick={(color) => handleChange('primary', color)} />
           ))}
-        </div>
+        </div> */}
 
         <ColorPicker
           label="Primary"

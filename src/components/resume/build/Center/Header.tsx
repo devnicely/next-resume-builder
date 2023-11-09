@@ -1,15 +1,10 @@
 import {
-    ChevronLeft as ChevronLeftIcon,
-    ChevronRight as ChevronRightIcon,
-    Home as HomeIcon,
-  } from '@mui/icons-material';
-  import {
-    AppBar,
-    IconButton,
-    Toolbar,
-    useMediaQuery,
-    useTheme,
-  } from '@mui/material';
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  Home as HomeIcon,
+} from 'lucide-react';
+
+
   import get from 'lodash/get';
   import { useRouter } from 'next/router';
   import { useTranslation } from 'next-i18next';
@@ -31,7 +26,6 @@ import {
   import styles from './Header.module.scss';
   
   const Header = () => {
-    const theme = useTheme();
   
     const router = useRouter();
   
@@ -39,7 +33,23 @@ import {
   
     const dispatch = useAppDispatch();
   
-    const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setIsDesktop(window.innerWidth >= 1280); // Set breakpoint value according to your needs
+      };
+  
+      handleResize(); // Initial check
+  
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+
+
   
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   
@@ -126,79 +136,29 @@ import {
     };
   
     return (
-      <AppBar elevation={0} position="absolute">
-        <Toolbar
-          variant="dense"
-          className={cn({
-            [styles.header]: true,
-            [styles.pushLeft]: left.open,
-            [styles.pushRight]: right.open,
-          })}
-        >
-          <IconButton onClick={toggleLeftSidebar}>{left.open ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
+      <div className="bg-white shadow-sm absolute top-0 left-0 right-0 z-10">
+      <div
+        className={`${styles.header} ${left.open ? styles.pushLeft : ''} ${right.open ? styles.pushRight : ''}`}
+      >
+        <button onClick={toggleLeftSidebar} className="p-2">
+          {left.open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        </button>
   
-          <div className={styles.title}>
-            <IconButton className="opacity-50 hover:opacity-100" onClick={goBack}>
-              <HomeIcon color='primary'/>
-            </IconButton>
+        <div className={styles.title}>
+          <button className="p-2 opacity-50 hover:opacity-100" onClick={goBack}>
+            <HomeIcon/>
+          </button>
   
-            <span className="opacity-50">{'/'}</span>
+          <span className="opacity-50">{'/'}</span>
   
-            <h1>{name}</h1>
+          <h1>{name}</h1>
+        </div>
   
-            {/* <IconButton onClick={handleClick}>
-              <KeyboardArrowDownIcon />
-            </IconButton>
-  
-            <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
-              <MenuItem onClick={handleRename}>
-                <ListItemIcon>
-                  <DriveFileRenameOutline className="scale-90" />
-                </ListItemIcon>
-                <ListItemText>Rename</ListItemText>
-              </MenuItem>
-  
-              <MenuItem onClick={handleDuplicate}>
-                <ListItemIcon>
-                  <CopyAll className="scale-90" />
-                </ListItemIcon>
-                <ListItemText>Duplicate</ListItemText>
-              </MenuItem>
-  
-              {resume.public ? (
-                <MenuItem onClick={handleShareLink}>
-                  <ListItemIcon>
-                    <LinkIcon className="scale-90" />
-                  </ListItemIcon>
-                  <ListItemText>Share Link</ListItemText>
-                </MenuItem>
-              ) : (
-                <Tooltip arrow placement="right" title="You need to change the visibility of your resume to public to make it visible to others.">
-                  <div>
-                    <MenuItem>
-                      <ListItemIcon>
-                        <LinkIcon className="scale-90" />
-                      </ListItemIcon>
-                      <ListItemText>Share Link</ListItemText>
-                    </MenuItem>
-                  </div>
-                </Tooltip>
-              )}
-  
-              <Tooltip arrow placement="right" title="Are you sure you want to delete this resume? This is an irreversible action.">
-                <MenuItem onClick={handleDelete}>
-                  <ListItemIcon>
-                    <Delete className="scale-90" />
-                  </ListItemIcon>
-                  <ListItemText>Delete</ListItemText>
-                </MenuItem>
-              </Tooltip>
-            </Menu> */}
-          </div>
-  
-          <IconButton onClick={toggleRightSidebar}>{right.open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
-        </Toolbar>
-      </AppBar>
+        <button onClick={toggleRightSidebar} className="p-2">
+          {right.open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </button>
+      </div>
+    </div>
     );
   };
   

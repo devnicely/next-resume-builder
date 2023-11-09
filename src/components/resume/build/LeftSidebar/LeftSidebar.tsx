@@ -1,7 +1,5 @@
-import { Add, Star } from '@mui/icons-material';
-import { Button, Divider, IconButton, SwipeableDrawer, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Button } from 'src/components/common/button';
 import cloneDeep from 'lodash/cloneDeep';
-import get from 'lodash/get';
 import React, { ReactComponentElement, useMemo } from 'react';
 import { Resume, Section as SectionRecord } from '~/schema';
 import { validate } from 'uuid';
@@ -16,11 +14,8 @@ import Section from './sections/Section';
 import { api } from '~/utils/api';
 
 const LeftSidebar = () => {
-  const theme = useTheme();
 
   const dispatch = useAppDispatch();
-
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
 
   const sections = useAppSelector((state) => state.resume.present.sections);
   const { open } = useAppSelector((state) => state.build.sidebar.left);
@@ -123,17 +118,10 @@ const LeftSidebar = () => {
   }
 
   return (
-    <SwipeableDrawer
-      open={open}
-      anchor="left"
-      onOpen={handleOpen}
-      onClose={handleClose}
-      PaperProps={{ className: '!shadow-lg' }}
-      variant={isDesktop ? 'persistent' : 'temporary'}
-    >
+    <div className={`${open ? 'left-0' : '-left-full'} absolute top-0 bg-white h-full !shadow-lg transition-all duration-300 z-20`}>
       <div className={styles.container}>
         <main>
-          <Button onClick={onClickedBtnResumeSave} fullWidth color='primary' variant='outlined'>Resume Save</Button>
+          <Button onClick={onClickedBtnResumeSave} color='primary' variant="outline" className={"w-full"}>Resume Save</Button>
 
           {sectionsList()}
           
@@ -150,7 +138,7 @@ const LeftSidebar = () => {
           </div> */}
         </main>
       </div>
-    </SwipeableDrawer>
+    </div>
   );
 };
 

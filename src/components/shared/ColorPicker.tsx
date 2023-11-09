@@ -1,4 +1,13 @@
-import { Popover, TextField } from '@mui/material';
+import { Input as TextField } from 'src/components/common/input';
+import { Label } from 'src/components/common/label';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from 'src/components/common/popover';
+
+import { cn } from 'src/components/common/Classnames';
+
 import React, { useMemo, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
@@ -35,21 +44,32 @@ const ColorPicker: React.FC<Props> = ({ label, color, onChange, className }) => 
 
   return (
     <>
-      <TextField
-        label={label}
-        value={color}
-        error={!isValid}
-        onClick={handleOpen}
-        onChange={handleChange}
-        className={className}
-        InputProps={{
-          startAdornment: (
-            <div className="mr-2">
-              <ColorAvatar color={color} />
-            </div>
-          ),
-        }}
-      />
+      <Popover>
+        <PopoverTrigger asChild>
+          <Label>
+            {label}
+            <TextField
+            value={color}
+            error={!isValid}
+            onClick={handleOpen}
+            onChange={handleChange}
+            className={cn("mt-1",className)}
+            InputProps={{
+              startAdornment: (
+                <div className="mr-2">
+                  <ColorAvatar color={color} />
+                </div>
+              ),
+            }}
+          />
+          </Label>
+        </PopoverTrigger>
+        <PopoverContent className='w-full h-full p-0.5'>
+          <HexColorPicker color={color} onChange={onChange} className="overflow-hidden" />
+        </PopoverContent>
+
+      </Popover>
+      {/*      
       <Popover
         open={isOpen}
         anchorEl={anchorEl}
@@ -60,7 +80,7 @@ const ColorPicker: React.FC<Props> = ({ label, color, onChange, className }) => 
         }}
       >
         <HexColorPicker color={color} onChange={onChange} className="overflow-hidden" />
-      </Popover>
+      </Popover> */}
     </>
   );
 };
