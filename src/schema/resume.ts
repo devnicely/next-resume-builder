@@ -7,6 +7,7 @@ import { User } from './user';
 
 export type Resume = {
   id: number;
+  type: string;
   shortId: string;
   name: string;
   slug: string;
@@ -45,5 +46,15 @@ export const ResumeSchema = object(
     userId: string(),
   }
 );
+
+export const DeleteResumeParamsSchema = object({
+  id: number(),
+})
+
+export const RenameResumeParamsSchema = object({
+  id: number(),
+  name: string(),
+  slug: string(),
+});
 
 export type ResumeSchemaType = TypeOf<typeof ResumeSchema>

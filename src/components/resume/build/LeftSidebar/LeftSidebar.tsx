@@ -12,6 +12,7 @@ import { addSection } from '~/store/resume/resumeSlice';
 import styles from './LeftSidebar.module.scss';
 import Section from './sections/Section';
 import { api } from '~/utils/api';
+import { TemplateType } from '~/constants';
 
 const LeftSidebar = () => {
 
@@ -55,13 +56,22 @@ const LeftSidebar = () => {
       const id = (item as any).id;
       const component = (item as any).component;
       const type = component.props.type;
+      const kind = (item as any).kind;
       const addMore = !!component.props.addMore;
 
-      sectionsComponents.push(
-        <section key={id} id={id}>
-          {component}
-        </section>,
-      );
+      if (kind == resume.type)
+        if(kind == TemplateType.RESUME)
+          sectionsComponents.push(
+            <section key={id} id={id}>
+              {component}
+            </section>
+          );
+        else
+          sectionsComponents.push(
+            <div className={styles.inputSection} key={id} id={id}>
+              {component}
+            </div>
+          );
 
       if (addMore) {
         const additionalSections = getSectionsByType(sections, type);
@@ -89,40 +99,12 @@ const LeftSidebar = () => {
     return sectionsComponents;
   };
 
-  const resume: Resume = useAppSelector((state) => state.resume.present);
-  const {
-    mutateAsync: updateResum,
-    isLoading,
-    isSuccess,
-  } = api.resume.updateResum.useMutation();
-
-  const onClickedBtnResumeSave = () => {
-    try {
-      updateResum({
-        id: resume.id,
-        shortId: resume.shortId,
-        name: resume.name,
-        userId: resume.userid,
-        slug: resume.slug,
-        image: resume.image,
-        recruiter: JSON.stringify(resume.recruiter),
-        basics: JSON.stringify(resume.basics),
-        sections: JSON.stringify(resume.sections),
-        metadata: JSON.stringify(resume.metadata),
-        public: resume.public
-      });
-      alert("Saved Successfully");
-    } catch (error) {
-      alert("fail");
-    }
-  }
+  
 
   return (
     <div className={`${open ? 'left-0' : '-left-full'} absolute top-0 bg-white h-full !shadow-lg transition-all duration-300 z-20`}>
       <div className={styles.container}>
         <main>
-          <Button onClick={onClickedBtnResumeSave} color='primary' variant="outline" className={"w-full"}>Resume Save</Button>
-
           {sectionsList()}
           
           {/* {customSections.map(({ id }) => (

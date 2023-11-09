@@ -24,11 +24,12 @@ const Center = () => {
       <TransformWrapper
         centerOnInit
         minScale={0.25}
-        initialScale={0.95}
+        initialScale={0.5}
         limitToBounds={false}
         centerZoomedOut={false}
         pinch={{ step: 1 }}
         wheel={{ step: 0.1 }}
+        
       >
         {(controllerProps) => (
           <>

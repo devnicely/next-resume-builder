@@ -18,7 +18,7 @@ import { Readable } from "stream";
 import path from "path";
 import { SHORT_ID_LENGTH, defaultResumeState } from "~/constants";
 import { nanoid } from "nanoid";
-import { CreateResumeParamsSchema, ResumeSchema, ResumeSchemaType, Resume, Basics } from "~/schema";
+import { CreateResumeParamsSchema, ResumeSchema, ResumeSchemaType, Resume, Basics, DeleteResumeParamsSchema, RenameResumeParamsSchema } from "~/schema";
 import { z } from "zod";
 
 interface CTX {
@@ -324,8 +324,45 @@ export const resumeRouter = createTRPCRouter({
     }
   }),
 
+  deleteResume: protectedProcedure
+  .input(DeleteResumeParamsSchema)
+  .mutation(async ({ input, ctx }) => {
+    try {
+      const {id} = input;
+      await ctx.prisma.resume.delete({
+        where: { id: id },
+      });
+      return { success: true }
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to upload avatar",
+      });
+    }
+  }),
 
+  renameResumeTemplate: protectedProcedure
+  .input(RenameResumeParamsSchema)
+  .mutation(async ({ input, ctx }) => {
+    try {
+      const {id, name, slug} = input;
+      await ctx.prisma.resume.update({
+        where: { id: id },
+        data: {
+          name: name,
+          slug: slug,
+        }
+      });
+      return { success: true }
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to upload avatar",
+      });
+    }
+  }),
 
+  
 
 
 
@@ -394,7 +431,7 @@ export const resumeRouter = createTRPCRouter({
     .use(roleAuthorization(["admin", "owner", "member"]))
     .query(async ({ ctx }) => {
       try {
-        const userId = ctx.session.user.userId;
+        const userId = ctx.session?.user.userId;
 
         const createdByUser = await ctx.prisma.resume.findMany({
           where: { uploadedById: userId },

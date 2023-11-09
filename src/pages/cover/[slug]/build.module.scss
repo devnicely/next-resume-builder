@@ -1,0 +1,7 @@
+.container {
+    @apply m-4 grid gap-6 sm:mx-6;
+    header {
+      @apply flex flex-row gap-3;
+    }
+}
+  

@@ -14,9 +14,9 @@ const useRefetch = () => {
   const { data: sessionData } = useSession() as { data: SessionData | null };
   const userId: string | undefined = sessionData?.user.userId;
 
-  const { refetch: refetchResumes } = api.resume.getAllUserResumes.useQuery();
+  const {refetch: refetchGetResumes} = api.resume.getResumes.useQuery();
 
-  return { refetchResumes };
+  return { refetchGetResumes };
 };
 
 export default useRefetch;

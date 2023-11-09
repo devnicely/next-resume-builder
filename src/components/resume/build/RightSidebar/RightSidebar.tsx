@@ -38,15 +38,23 @@ const RightSidebar = () => {
   // };
 
 
+  const sections = () => {
+    const rightSidebar =  right.map(({ id, component }) => (
+      <section key={id} id={id}>
+        {component}
+      </section>
+    ))
+
+
+    return rightSidebar;
+  }
+
+
   return (
     <div className={`absolute top-0 bottom-0 right-0 bg-white z-20 ${open ? 'block' : 'hidden'}`}>
       <div className={styles.container}>
         <main>
-          {right.map(({ id, component }) => (
-            <section key={id} id={id}>
-              {component}
-            </section>
-          ))}
+          {sections()}
         </main>
       </div>
     </div>

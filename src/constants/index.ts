@@ -1,4 +1,5 @@
 import { Resume } from "~/schema";
+import { Cover } from "~/schema/cover";
 
 // React Queries
 export const FONTS_QUERY = 'fonts';
@@ -26,6 +27,11 @@ export const GITHUB_ISSUES_URL = 'https://github.com/AmruthPillai/Reactive-Resum
 export const DEFAULT_ERROR_MESSAGE =
   'Something went wrong while performing this action, please report this issue on GitHub.';
 
+export enum TemplateType{
+  RESUME = 'resume',
+  COVER = 'cover',
+  BOTH = 'both',
+}
 
 
 const defaultCSS = `/* Enter custom CSS here */
@@ -71,34 +77,21 @@ export const defaultResumeState: Partial<Resume> = {
     profiles: [],
   },
   "sections": {
+    "candidate_summary": {
+        "id": "candidate_summary",
+        "name": "Candidate Summary",
+        "type": "basic",
+        "items": [],
+        "item": "",
+        "columns": 1,
+        "visible": true
+    },
       "work": {
           "id": "work",
           "name": "Work Experience",
           "type": "work",
-          "items": [
-              {
-                  "id": "27f44ddc-afdd-42b9-b6cf-481f1784ab1e",
-                  "url": "",
-                  "date": {
-                      "end": "2023-09-14",
-                      "start": "2022-04-01"
-                  },
-                  "name": "Orange System",
-                  "summary": "•\tLed the design and execution of technical projects. Delivered the partner showcase portal for presentation towards investors in Italy.\n•\t Saved over 100 hours of the developer’s time by optimizing the project development pipeline from 40+ minutes to under five minutes.\n•\tBuilt mobile wallet app for Solana, SPL token based payment EcoSystem using React Native.",
-                  "position": "Fullstack Developer"
-              },
-              {
-                  "id": "184cd72d-96c8-4fce-8a2f-e695741a1512",
-                  "url": "",
-                  "date": {
-                      "end": "2022-02-10",
-                      "start": "2020-01-15"
-                  },
-                  "name": "AMAZD",
-                  "summary": "• Planned and executed the migration from Heroku to Google Cloud for the company’s back-end infrastructure, including APIs, databases, caching, workflows, etc. Saved lots of money for the client and improved the scalability of systems.\n• Integrated Segment.io tracking in their back-end application to better understand the customer behavior and system actions. It helped them in generating useful metrics to show to their investors.",
-                  "position": "Fullstack Web Developer"
-              },
-          ],
+          "items": [],
+          "item": "",
           "columns": 1,
           "visible": true
       },
@@ -107,152 +100,67 @@ export const defaultResumeState: Partial<Resume> = {
           "name": "Awards",
           "type": "basic",
           "items": [],
-          "columns": 2,
+          "item": "",
+          "columns": 1,
           "visible": true
       },
       "skills": {
           "id": "skills",
           "name": "Skills",
           "type": "basic",
-          "items": [
-              {
-                  "summary": "Next, Android, Telegram, React, IOS, Asp.net, Laravel, GPT, Ruby on Rails"
-              },
-          ],
+          "items": [],
+          "item": "",
           "columns": 1,
           "visible": true
-      },
-      
-      "work-1": {
-          "name": "Work Experience-1",
-          "type": "work",
-          "items": [],
-          "columns": 2,
-          "visible": true,
-          "isDuplicated": true
-      },
-      "projects": {
-          "id": "projects",
-          "name": "Projects",
-          "type": "basic",
-          "items": [],
-          "columns": 2,
-          "visible": true
-      },
+      }, 
       "education": {
           "id": "education",
           "name": "Education",
           "type": "basic",
           "items": [],
-          "columns": 2,
-          "visible": true
-      },
-      "interests": {
-          "id": "interests",
-          "name": "Interests",
-          "type": "basic",
-          "items": [],
-          "columns": 2,
-          "visible": true
-      },
-      "languages": {
-          "id": "languages",
-          "name": "Languages",
-          "type": "basic",
-          "items": [
-              {
-                  "id": "2579d148-92e2-459d-ab33-b9a86260dc37",
-                  "name": "English",
-                  "level": "8",
-                  "levelNum": 9
-              },
-              {
-                  "id": "910f7bc5-c6e4-441c-9b65-7cc3a815515f",
-                  "name": "Chinese",
-                  "level": "5",
-                  "levelNum": 0
-              }
-          ],
-          "columns": 2,
-          "visible": true
-      },
-      "volunteer": {
-          "id": "volunteer",
-          "name": "Volunteer Experience",
-          "type": "basic",
-          "items": [],
-          "columns": 2,
+          "item": "",
+          "columns": 1,
           "visible": true
       },
       "references": {
           "id": "references",
           "name": "References",
           "type": "basic",
-          "items": [
-              {
-                  "id": "d982ead7-a9bd-465e-80da-118ae8f6a27b",
-                  "name": "Helane Anderson",
-                  "organization": "The Key Consulting for the Performing Arts",
-                  "location": "Culver City, Calif.90232",
-                  "title": "Director",
-                  "phone": "301.945.5481",
-                  "email": "hemander@yahoo.com"
-              },
-              {
-                  "id": "879c704c-561f-4a0c-8e5f-2b7f39ef2239",
-                  "name": "Dr. George Keeler",
-                  "organization": "University of Laverne",
-                  "location": "La Verne, Calif.91750",
-                  "title": "Director",
-                  "phone": "301.945.5481",
-                  "email": "hemander@yahoo.com"
-              }
-          ],
+          "items": [],
+          "item": "",
           "columns": 1,
           "visible": true
       },
-      "publications": {
-          "id": "publications",
-          "name": "Publications",
-          "type": "basic",
-          "items": [],
-          "columns": 2,
-          "visible": true
-      },
+      
       "certifications": {
           "id": "certifications",
           "name": "Certifications",
           "type": "basic",
           "items": [],
-          "columns": 2,
-          "visible": true
-      },
-      "profile_summary": {
-          "id": "profile_summary",
-          "name": "Profile Summary",
-          "type": "work",
-          "items": [
-              {
-                  "summary": "**Most recently working as City Life Editor at The Madison Commons, with a total working experience of 2 years.**\
-                  \nExprerienced jounalist with a background in reporting, editing, breaking coverage, feature writing, interstiative reporting,\
-                  interviewing, research, fact-checking, copy editing, AP Style, leadership, mentoring, training, headlines, cutines, and digital photo."
-              },
-          ],
+          "item": "",
           "columns": 1,
           "visible": true
       },
-      "strenths": {
-          "id": "strenths",
-          "name": "Strenths",
-          "type": "work",
-          "items": [
-              {
-                  "summary": "Breaking coverage, Feature writing, Investigative, reporting, Interviewing, Research, Fact-checking, Copy editing, AP Style, Leadership, Mentoring, Training, Headlines, Cutlines, Digital Photo"
-              },
-          ],
+      
+      "strengths": {
+          "id": "strengths",
+          "name": "Strengths",
+          "type": "basic",
+          "items": [],
+          "item": "",
           "columns": 1,
           "visible": true
       },
+      
+      "activities": {
+        "id": "activities",
+        "name": "Activities",
+        "type": "basic",
+        "items": [],
+        "item": "",
+        "columns": 1,
+        "visible": true
+    },
   },
   metadata: {
     css: {
@@ -273,8 +181,8 @@ export const defaultResumeState: Partial<Resume> = {
     },
     layout: [
       [
-        ['work', 'candidate_summary', 'education', 'projects', 'volunteer', 'references'],
-        ['skills', 'interests', 'languages', 'awards', 'certifications', 'publications'],
+        ['candidate_summary', "strengths", 'work', 'education', 'references', 'activities'],
+          ['certifications', 'skills', 'awards'],
       ],
     ],
     template: 'kakuna',
@@ -291,3 +199,79 @@ export const defaultResumeState: Partial<Resume> = {
   },
   public: true,
 };
+
+
+
+export const defaultCoverState: Cover = {
+  id: 1,
+  shortId: '2323',
+  name: 'first cover',
+  slug: 'first-cover',
+  image: '/images/templates/covers/1.jpg',
+  userid: 'clod19f1p0000vj0o5yxuk7fd',
+  metadata: {
+    css: {
+      value: defaultCSS,
+      visible: false,
+    },
+    theme: {
+      text: '#000000',
+      background: '#ffffff',
+      primary: '#f44336',
+    },
+    locale: 'en',
+    date: {
+      format: 'MMMM DD, YYYY',
+    },
+    page: {
+      format: 'A4',
+    },
+    layout: [
+      [
+        ['candidate_summary', "strengths", 'work', 'education', 'references', 'activities'],
+          ['certifications', 'skills', 'awards'],
+      ],
+    ],
+    template: 'kakuna',
+    typography: {
+      family: {
+        heading: 'Open Sans',
+        body: 'Open Sans',
+      },
+      size: {
+        heading: 28,
+        body: 14,
+      },
+    },
+  },
+  sections: {
+    "cover_agency_name": {
+          "id": "cover_agency_name",
+          "name": "Agency Name",
+          "type": "cover_agency_name",
+          "items": [],
+          "item": "Apple Recruiter Firm",
+          "columns": 1,
+          "visible": true
+    },
+    "cover_recruiter_name": {
+      "id": "cover_recruiter_name",
+      "name": "Recruiter Name",
+      "type": "cover_recruiter_name",
+      "items": [],
+      "item": "Daisy Chen",
+      "columns": 1,
+      "visible": true
+    },
+    "cover_recruiter_title": {
+      "id": "cover_recruiter_title",
+      "name": "Cover Recruiter Title",
+      "type": "cover_recruiter_title",
+      "items": [],
+      "item": "Senior Recruiting Consultant, focused on media and marketing",
+      "columns": 1,
+      "visible": true
+    }
+  },
+  public: true,
+}

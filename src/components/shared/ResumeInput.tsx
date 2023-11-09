@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import { Label } from 'src/components/common/label';
 import { Input } from 'src/components/common/input';
 import { Textarea } from 'src/components/common/textarea';
@@ -12,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setResumeState } from '~/store/resume/resumeSlice';
 import MarkdownSupported from './MarkdownSupported';
+
 
 
 interface Props {
@@ -39,8 +39,6 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
     setValue(event.target.value);
     dispatch(setResumeState({ path, value: event.target.value }));
   };
-
-
 
   const onChangeValue = (value: string) => {
     setValue(value);

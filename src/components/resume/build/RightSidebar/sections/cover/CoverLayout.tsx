@@ -1,13 +1,6 @@
 import { DragDropContext, Draggable, DraggableLocation, Droppable, DropResult } from '@hello-pangea/dnd';
-import { Plus as Add, XIcon as Close, RotateCcw as Restore } from 'lucide-react';
-
-import { Button } from 'src/components/common/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from 'src/components/common/Tooltip';
+import { Add, Close } from '@mui/icons-material';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import clsx from 'clsx';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
@@ -16,7 +9,7 @@ import Heading from '~/components/shared/Heading';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { addPage, deletePage, setResumeState } from '~/store/resume/resumeSlice';
 
-import styles from './Layout.module.scss';
+import styles from './CoverLayout.module.scss';
 import { TemplateType } from '~/constants';
 
 const getIndices = (location: DraggableLocation) => ({
@@ -74,7 +67,13 @@ const Layout = () => {
               </p>
 
               <div className={clsx(styles.delete, { hidden: pageIndex === 0 })}>
-                <Close onClick={() => handleDeletePage(pageIndex)} size="28" />
+                <Tooltip
+                  title="Delete Page"
+                >
+                  <IconButton size="small" onClick={() => handleDeletePage(pageIndex)}>
+                    <Close fontSize="small" />
+                  </IconButton>
+                </Tooltip>
               </div>
             </div>
 
@@ -87,8 +86,7 @@ const Layout = () => {
                   <Droppable key={index} droppableId={index}>
                     {(provided) => (
                       <div ref={provided.innerRef} className={styles.column} {...provided.droppableProps}>
-                        <p className={styles.heading}>{columnIndex ? 'Sidebar' : 'Main'}</p>
-
+                        <p className={styles.heading}>{columnIndex ? 'Candiate Information' : 'Recruiter Information'}</p> 
                         <div className={styles.base} />
                         {/* Sections */}
                         {sections.map((sectionId, sectionIndex) => (
@@ -114,12 +112,14 @@ const Layout = () => {
             </div>
           </div>
         ))}
-
-        <div className="flex items-center justify-end">
-          <Button variant="secondary" onClick={handleAddPage}>
-            <Add className="mr-2 h-4 w-4" /> Add New Page
+        {
+          resume.type == TemplateType.RESUME &&
+          <div className="flex items-center justify-end">
+          <Button variant="outlined" startIcon={<Add />} onClick={handleAddPage}>
+            Add New Page
           </Button>
         </div>
+        }
       </DragDropContext>
     </>
   );

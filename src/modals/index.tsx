@@ -1,13 +1,12 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-
-import CreateResumeModal from '../modals/template-mgmt/CreateResumeModal';
+import CreateResumeTemplate from './template-mgmt/CreateResumeTemplate';
+import RenameResumeModal from './template-mgmt/RnameResumeTemplate';
 
 
 const ModalWarpper: React.FC = () => {
     return(
         <>
-            <CreateResumeModal/>
+            <CreateResumeTemplate/>
+            <RenameResumeModal/>
         </>
     )
 } 
