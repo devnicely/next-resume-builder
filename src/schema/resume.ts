@@ -27,7 +27,8 @@ export const CreateResumeParamsSchema = object(
   {
     name: string(),
     slug: string(),
-    isPublic: boolean()
+    isPublic: boolean(),
+    type: string(),
   }
 )
 
