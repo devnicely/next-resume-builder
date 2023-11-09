@@ -263,7 +263,7 @@ export const defaultResumeState: Resume = {
                 ['cover_recruiter_email', 'cover_recruiter_phone'],
             ],
         ],
-        template: 'kakuna',
+        template: 'simplecoversheet',
         typography: {
             family: {
                 heading: 'Open Sans',

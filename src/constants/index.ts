@@ -185,7 +185,7 @@ export const defaultResumeState: Partial<Resume> = {
           ['certifications', 'skills', 'awards'],
       ],
     ],
-    template: 'kakuna',
+    template: 'simple',
     typography: {
       family: {
         heading: 'Open Sans',
