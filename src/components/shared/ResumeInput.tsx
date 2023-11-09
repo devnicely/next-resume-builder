@@ -1,5 +1,7 @@
-import { TextField } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Label } from 'src/components/common/label';
+import { Input } from 'src/components/common/input';
+import { Textarea } from 'src/components/common/textarea';
+
 import dayjs from 'dayjs';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
@@ -7,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setResumeState } from '~/store/resume/resumeSlice';
 import MarkdownSupported from './MarkdownSupported';
+import { cn } from '../common/Classnames';
+import { DatePicker } from '@mui/x-date-pickers';
 
 
 interface Props {
@@ -35,8 +39,6 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
     dispatch(setResumeState({ path, value: event.target.value }));
   };
 
-
-
   const onChangeValue = (value: string) => {
     setValue(value);
     dispatch(setResumeState({ path, value }));
@@ -44,7 +46,7 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
 
   if (type === 'textarea') {
     return (
-      <TextField
+      <Textarea
         rows={5}
         multiline
         label={label}
@@ -72,7 +74,11 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
     );
   }
 
-  return <TextField type={type} label={label} value={value} onChange={onChange} className={className} />;
+  return <div className={cn("grid w-full items-center gap-1.5", className)}>
+    <Label>{label}</Label>
+    <Input value={value} onChange={onChange}></Input>
+  </div>
+    ;
 };
 
 export default ResumeInput;

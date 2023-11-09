@@ -22,6 +22,9 @@ const defaultCSS = `/* Enter custom CSS here */
 * {
     outline: 1px solid #000;
 }`;
+
+
+
 export const defaultResumeState: Partial<Resume> = {
     "recruiter": {
         "section_name": "Recruiter Information",
@@ -236,6 +239,8 @@ export const defaultResumeState: Partial<Resume> = {
   };
 
 
+
+
 export const getServerSideProps: GetServerSideProps<Props> = async ({query}) => {
     const {slug} = query as QueryParams;    
     return {
@@ -254,7 +259,7 @@ const Build: NextPage<Props> = ({slug}) => {
 
     if (!resume || isEmpty(resume)) return null;
     
-    dispatch(setResume(defaultResumeState));
+    dispatch(setResume(resume));
 
     return(
         <UserLayout>

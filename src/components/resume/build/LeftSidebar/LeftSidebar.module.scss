@@ -35,6 +35,12 @@
           @apply my-2;
         }
       }
+
+      > .inputSection{
+        @apply grid gap-4;
+        @apply pt-2 pb-3 first:pt-0;
+        @apply border-zinc-900/10 last:border-b-0 dark:border-zinc-100/10;
+      }
   
       -ms-overflow-style: none;
   

@@ -22,15 +22,6 @@ export type FetchResumeByShortIdParams = {
   shortId: string;
 };
 
-export type RenameResumeParams = {
-  id: number;
-  name: string;
-  slug: string;
-};
-
-export type DuplicateResumeParams = {
-  id: number;
-};
 
 export type LoadSampleDataParams = {
   id: number;
@@ -49,9 +40,6 @@ export type DeletePhotoParams = {
   id: number;
 };
 
-export type DeleteResumeParams = {
-  id: number;
-};
 
 export const fetchResumes = () => axios.get<Resume[]>('/resume').then((res) => res.data);
 export const fetchResumeByIdentifier = async ({
@@ -78,21 +66,10 @@ export const createResume = (createResumeParams: CreateResumeParams) =>
   axios.post<Resume, AxiosResponse<Resume>, CreateResumeParams>('/resume', createResumeParams).then((res) => res.data);
 
 
-  
-export const renameResume = (renameResumeParams: RenameResumeParams) =>
-  axios
-    .patch<Resume, AxiosResponse<Resume>, RenameResumeParams>(`/resume/${renameResumeParams.id}`, renameResumeParams)
-    .then((res) => res.data);
-
-
 
 export const updateResume = async (updateResumeParams: Partial<Resume>) => {
   
 }
-export const duplicateResume = (duplicateResumeParams: DuplicateResumeParams) =>
-  axios
-    .post<Resume, AxiosResponse<Resume>, DuplicateResumeParams>(`/resume/${duplicateResumeParams.id}/duplicate`)
-    .then((res) => res.data);
 
 export const loadSampleData = (loadSampleDataParams: LoadSampleDataParams) =>
   axios
@@ -117,7 +94,4 @@ export const uploadPhoto = async (uploadPhotoParams: UploadPhotoParams) => {
 export const deletePhoto = async (deletePhotoParams: DeletePhotoParams) =>
   axios.delete<Resume, AxiosResponse<Resume>>(`/resume/${deletePhotoParams.id}/photo`).then((res) => res.data);
 
-export const deleteResume = (deleteResumeParams: DeleteResumeParams) =>
-  axios
-    .delete<void, AxiosResponse<void>, DeleteResumeParams>(`/resume/${deleteResumeParams.id}`)
-    .then((res) => res.data);
+

@@ -1,0 +1,44 @@
+.page {
+    @apply relative border pl-4 pb-4 dark:border-zinc-100/10;
+    @apply rounded bg-zinc-100 dark:bg-zinc-900;
+  
+    .delete {
+      @apply opacity-50 hover:opacity-75;
+      @apply rotate-0 hover:rotate-90;
+      @apply transition-[opacity,transform];
+    }
+  
+    .container {
+      @apply grid grid-cols-2 gap-2;
+    }
+  
+    .heading {
+      @apply relative z-10 my-3;
+      @apply text-xs font-semibold;
+    }
+  }
+  
+  .column {
+    @apply relative w-full px-4 text-white;
+  
+    .heading {
+      @apply relative z-10 my-3;
+      @apply text-xs font-semibold;
+    }
+  
+    .base {
+      @apply absolute inset-0 w-4/5;
+      @apply rounded bg-[#555555] text-zinc-50;
+    }
+  }
+  
+  .section {
+    @apply relative my-3 w-full px-4 py-2;
+    @apply cursor-move break-all rounded text-xs capitalize;
+    @apply text-zinc-50 bg-[#E8E8E8] text-black;
+  
+    &.disabled {
+      @apply opacity-60;
+    }
+  }
+  

@@ -7,22 +7,13 @@ import styles from "~/styles/template-mgmt.module.scss";
 import localStyle from "./CoverSheets.module.scss";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import { defaultCoverState } from "~/constants";
+import { Cover } from "~/schema/cover";
+import CoverPreview from "~/components/resume/cover-preview/CoverPreview";
 
-const resumes: Resume[] = [
-    {
-        id: 1,
-        shortId: 'qwe',
-        name: 'David Zoppina',
-        slug: 'david-zoppina',
-        image: '/images/templates/covers/1.jpg',
-    },
-    {
-        id: 2,
-        shortId: 'andrde',
-        name: 'Daniel Deepo',
-        slug: 'daniel-deepo',
-        image: '/images/templates/covers/2.jpg',
-    }
+const cover: Cover = defaultCoverState;
+const covers: Cover[] = [
+    cover
 ];
 
 
@@ -51,8 +42,8 @@ const CoverSheets = () => {
                     </Button>
                 </header>
                 <main className={styles.resumes}>
-                    {resumes && resumes.map((resume) => (
-                        <ResumePreview key={resume.id} resume={resume} />
+                    {covers && covers.map((cover) => (
+                        <CoverPreview key={cover.id} cover={cover} />
                     ))}
                 </main>
             </div>

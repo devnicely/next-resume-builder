@@ -29,8 +29,9 @@ const sectionMap = (Section: React.FC<SectionProps>): Record<string, JSX.Element
   certifications: (
     <Section key="certifications" path="sections.certifications" titlePath="name" subtitlePath="issuer" />
   ),
-  references: <Section key="references" path="sections.references" titlePath="name" />,
-  awards: <Section key="awards" path="sections.awards" titlePath="name" />,
+  references: <Section key="references" path="sections.references" />,
+  awards: <Section key="awards" path="sections.awards"/>,
+  activities: <Section key="activities" path="sections.activities" />,
 });
 
 export const getSectionById = (id: string, Section: React.FC<SectionProps>): JSX.Element | null => {
