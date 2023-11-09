@@ -1,15 +1,23 @@
 import Heading from "~/components/shared/Heading";
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
-import { FormatLineSpacing, OpenInNew } from "@mui/icons-material";
+import { Check } from 'lucide-react';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '~/components/common/dropdown-menu';
+
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { SectionType } from "~/schema";
+import { Button } from "~/components/common/button";
 
 type Spacing = {
     name: string;
     value: number;
 };
-
 
 const spacings: Spacing[] = [
     { name: "Single", value: 1 },
@@ -49,7 +57,7 @@ const Spacing = () => {
     };
 
     const onClickedItemSpacing = (type: SpacingType, pos: number) => {
-        switch(type){
+        switch (type) {
             case SpacingType.SECTION:
                 alert(SpacingType.SECTION);
                 break;
@@ -70,63 +78,73 @@ const Spacing = () => {
                 <div className="flex">
                     <div className="grow text-[16px]">Section</div>
                     <div className="flex-none">
-                        <IconButton onClick={onClickedBtnSectionSpacing}>
-                            <FormatLineSpacing />
-                        </IconButton>
-                        <Menu anchorEl={anchorSpacingSec} onClose={handleClose} open={Boolean(anchorSpacingSec)}>
-                            {
-                                spacings.map((space, pos) => (
-                                    <MenuItem onClick={() => onClickedItemSpacing(SpacingType.SECTION, pos)}>
-                                        <ListItemIcon>
-                                            {/* <OpenInNew className="scale-90" /> */}
-                                        </ListItemIcon>
-                                        <ListItemText>{space.name}</ListItemText>
-                                    </MenuItem>
-                                ))
-                            }
-                        </Menu>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <Button onClick={onClickedBtnSectionSpacing} variant="ghost" size="icon">
+                                    <img src='/icon/spacing-list.svg' alt="line" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent anchorEl={anchorSpacingSec} onClose={handleClose} open={Boolean(anchorSpacingSec)}>
+                                {
+                                    spacings.map((space, pos) => {
+                                        return (
+                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(SpacingType.SECTION, pos)}>
+                                                <Check size="14" /> &nbsp; {space.name}
+                                            </DropdownMenuItem>
+                                        );
+                                    })
+                                }
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
 
                 <div className="flex">
                     <div className="grow text-[16px]">Subtitle</div>
                     <div className="flex-none">
-                        <IconButton onClick={onClickedBtnSubtitleSpacing}>
-                            <FormatLineSpacing />
-                        </IconButton>
-                        <Menu anchorEl={anchorSpacingSub} onClose={handleClose} open={Boolean(anchorSpacingSub)}>
-                            {
-                                spacings.map((space, pos) => (
-                                    <MenuItem onClick={() => onClickedItemSpacing(SpacingType.SUB_TITLE, pos)}>
-                                        <ListItemIcon>
-                                            {/* <OpenInNew className="scale-90" /> */}
-                                        </ListItemIcon>
-                                        <ListItemText>{space.name}</ListItemText>
-                                    </MenuItem>
-                                ))
-                            }
-                        </Menu>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <Button onClick={onClickedBtnSectionSpacing} variant="ghost" size="icon">
+                                    <img src='/icon/spacing-list.svg' alt="line" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent anchorEl={anchorSpacingSec} onClose={handleClose} open={Boolean(anchorSpacingSec)}>
+                                {
+                                    spacings.map((space, pos) => {
+                                        return (
+                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(SpacingType.SUB_TITLE, pos)}>
+                                                <Check size="14" /> &nbsp; {space.name}
+                                            </DropdownMenuItem>
+                                        );
+                                    })
+                                }
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
                     </div>
                 </div>
 
                 <div className="flex">
                     <div className="grow text-[16px]">Normal Text</div>
                     <div className="flex-none">
-                        <IconButton onClick={onClickedBtnNormalTextSpacing}>
-                            <FormatLineSpacing />
-                        </IconButton>
-                        <Menu anchorEl={anchorSpacingText} onClose={handleClose} open={Boolean(anchorSpacingText)}>
-                            {
-                                spacings.map((space, pos) => (
-                                    <MenuItem onClick={() => onClickedItemSpacing(SpacingType.NORMAL_TEXT, pos)}>
-                                        <ListItemIcon>
-                                            {/* <OpenInNew className="scale-90" /> */}
-                                        </ListItemIcon>
-                                        <ListItemText>{space.name}</ListItemText>
-                                    </MenuItem>
-                                ))
-                            }
-                        </Menu>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <Button onClick={onClickedBtnSectionSpacing} variant="ghost" size="icon">
+                                    <img src='/icon/spacing-list.svg' alt="line" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent anchorEl={anchorSpacingSec} onClose={handleClose} open={Boolean(anchorSpacingSec)}>
+                                {
+                                    spacings.map((space, pos) => {
+                                        return (
+                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(SpacingType.NORMAL_TEXT, pos)}>
+                                                <Check size="14" /> &nbsp; {space.name}
+                                            </DropdownMenuItem>
+                                        );
+                                    })
+                                }
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
 

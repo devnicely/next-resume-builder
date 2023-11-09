@@ -18,6 +18,7 @@ const LeftSidebar = () => {
 
   const dispatch = useAppDispatch();
 
+  const resume = useAppSelector((state) => state.resume.present);
   const sections = useAppSelector((state) => state.resume.present.sections);
   const { open } = useAppSelector((state) => state.build.sidebar.left);
 

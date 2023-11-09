@@ -495,7 +495,7 @@ const UserLayout: FC<UserLayoutProps> = ({ children, title, subtitle }) => {
       </Transition.Root>
       {/* Content area */}
       <div className="mx-2 flex flex-1 flex-col overflow-hidden sm:mr-5">
-        <header className="w-full">
+        <header className="w-full z-50">
           <div className="relative z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white shadow-sm">
             <button
               type="button"
