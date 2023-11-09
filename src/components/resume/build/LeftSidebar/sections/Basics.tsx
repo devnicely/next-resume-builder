@@ -3,13 +3,12 @@ import { Button, Divider, Popover } from '@mui/material';
 import { useState } from 'react';
 
 import ResumeInput from '~/components/shared/ResumeInput';
-import { useTranslation } from 'next-i18next';
 import PhotoFilters from './PhotoFilters';
 import PhotoUpload from './PhotoUpload';
 
+
 const Basics = () => {
-  
-  const { t } = useTranslation();
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,13 +27,11 @@ const Basics = () => {
             <PhotoUpload />
           </div>
 
-          <div className="grid w-full gap-2 sm:col-span-2">
-            <ResumeInput label="Full Name" path="basics.name" />
 
+          <div className="grid w-full gap-2 sm:col-span-2">
             <Button variant="outlined" startIcon={<PhotoFilter />} onClick={handleClick}>
               Logo style
             </Button>
-
             <Popover
               open={Boolean(anchorEl)}
               anchorEl={anchorEl}
@@ -52,31 +49,6 @@ const Basics = () => {
             </Popover>
           </div>
         </div>
-
-        <ResumeInput
-          type="date"
-          label="Date of Birth"
-          path="basics.birthdate"
-          className="sm:col-span-2"
-        />
-        <ResumeInput label="Email Address" path="basics.email" className="sm:col-span-2" />
-        <ResumeInput label="Phone Number" path="basics.phone" />
-        <ResumeInput label="Website" path="basics.website" />
-
-        <Divider className="sm:col-span-2" />
-
-        <ResumeInput
-          label="Headline"
-          path="basics.headline"
-          className="sm:col-span-2"
-        />
-        <ResumeInput
-          type="textarea"
-          label="Summary"
-          path="basics.summary"
-          className="sm:col-span-2"
-          markdownSupported
-        />
       </div>
     </>
   );

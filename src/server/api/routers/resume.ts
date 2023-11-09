@@ -212,12 +212,12 @@ export const resumeRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       try {
         const shortId = nanoid(SHORT_ID_LENGTH);
-        const { name, slug, isPublic } = input;
+        const { name, slug, isPublic, type } = input;
         const user = ctx.session?.user;
         const userId = user?.userId;
         const username = user?.name;
         // Create Resume and get its id
-        const generatedResume = await ctx.prisma.resume.create({
+        await ctx.prisma.resume.create({
           data: {
             shortId,
             name,
@@ -238,6 +238,7 @@ export const resumeRouter = createTRPCRouter({
             metadata: JSON.stringify({
               ...defaultResumeState.metadata
             }),
+            type
           },
         });
         return { success: true }
@@ -312,6 +313,7 @@ export const resumeRouter = createTRPCRouter({
         recruiter: JSON.parse(resumeSchemaObj?.recruiter ?? "{}"),
         public: resumeSchemaObj?.public || false,
         userid: resumeSchemaObj?.userId ?? "",
+        type: resumeSchemaObj?.type ?? "",
       }
       return resume;
     } catch (error) {

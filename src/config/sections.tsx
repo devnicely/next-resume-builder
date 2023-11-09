@@ -20,8 +20,14 @@ import { TemplateType } from '~/constants';
 import CoverInputSection from '~/components/resume/build/LeftSidebar/sections/cover/CoverInputSection';
 import CoverSectionTitle from '~/components/resume/build/LeftSidebar/sections/cover/CoverSectionTitle';
 import CoverLayout from '~/components/resume/build/RightSidebar/sections/cover/CoverLayout';
+import Basics from '~/components/resume/build/LeftSidebar/sections/Basics';
 
 export const left: SidebarSection[] = [
+  {
+    id: 'basics',
+    kind: TemplateType.BOTH,
+    component: <Basics />,
+  },
   {
     id: 'recruiter',
     kind: TemplateType.RESUME,

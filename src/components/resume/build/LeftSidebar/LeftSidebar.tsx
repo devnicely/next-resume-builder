@@ -1,7 +1,6 @@
-import { Button } from 'src/components/common/button';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { ReactComponentElement, useMemo } from 'react';
-import { Resume, Section as SectionRecord } from '~/schema';
+import { Section as SectionRecord } from '~/schema';
 import { validate } from 'uuid';
 
 import { getCustomSections, getSectionsByType, left } from '~/config/sections';
@@ -10,8 +9,6 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { addSection } from '~/store/resume/resumeSlice';
 
 import styles from './LeftSidebar.module.scss';
-import Section from './sections/Section';
-import { api } from '~/utils/api';
 import { TemplateType } from '~/constants';
 
 const LeftSidebar = () => {
@@ -27,7 +24,6 @@ const LeftSidebar = () => {
   const handleOpen = () => dispatch(setSidebarState({ sidebar: 'left', state: { open: true } }));
 
   const handleClose = () => dispatch(setSidebarState({ sidebar: 'left', state: { open: false } }));
-
 
   const handleClick = (id: string) => {
     const elementId = validate(id) ? `#section-${id}` : `#${id}`;
@@ -60,8 +56,8 @@ const LeftSidebar = () => {
       const kind = (item as any).kind;
       const addMore = !!component.props.addMore;
 
-      if (kind == resume.type)
-        if(kind == TemplateType.RESUME)
+      if (kind == resume.type || kind == TemplateType.BOTH)
+        if(resume.type == TemplateType.RESUME)
           sectionsComponents.push(
             <section key={id} id={id}>
               {component}
@@ -100,7 +96,6 @@ const LeftSidebar = () => {
     return sectionsComponents;
   };
 
-  
 
   return (
     <div className={`${open ? 'left-0' : '-left-full'} absolute top-0 bg-white h-full !shadow-lg transition-all duration-300 z-20`}>
