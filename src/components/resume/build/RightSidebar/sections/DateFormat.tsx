@@ -17,11 +17,11 @@ const DateFormat = () => {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectItem value="apple">yy-mm (22-12)</SelectItem>
-                            <SelectItem value="banana">mm-yy (12-22)</SelectItem>
-                            <SelectItem value="blueberry">MMM YYYY (Dec 2022)</SelectItem>
-                            <SelectItem value="grapes">Month YYYY (December 2022)</SelectItem>
-                            <SelectItem value="pineapple">MMM YY (Dec 22)</SelectItem>
+                            <SelectItem value="yy-mm (22-12)">yy-mm (22-12)</SelectItem>
+                            <SelectItem value="mm-yy (12-22)">mm-yy (12-22)</SelectItem>
+                            <SelectItem value="MMM YYYY (Dec 2022)">MMM YYYY (Dec 2022)</SelectItem>
+                            <SelectItem value="Month YYYY (December 2022)">Month YYYY (December 2022)</SelectItem>
+                            <SelectItem value="MMM YY (Dec 22)">MMM YY (Dec 22)</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
