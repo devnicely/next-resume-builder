@@ -34,31 +34,31 @@ export const defaultResumeState: Resume = {
         "recruiter_phone": "+852 4344 1333"
     },
     basics: {
-      email: '',
-      headline: '',
-      birthdate: '',
-      photo: {
-        url: '',
-        visible: true,
-        filters: {
-          size: 128,
-          shape: 'square',
-          border: false,
-          grayscale: false,
+        email: '',
+        headline: '',
+        birthdate: '',
+        photo: {
+            url: '',
+            visible: true,
+            filters: {
+                size: 128,
+                shape: 'square',
+                border: false,
+                grayscale: false,
+            },
         },
-      },
-      name: '',
-      phone: '',
-      summary: '',
-      website: '',
-      location: {
-        address: '',
-        city: '',
-        country: '',
-        region: '',
-        postalCode: '',
-      },
-      profiles: [],
+        name: '',
+        phone: '',
+        summary: '',
+        website: '',
+        location: {
+            address: '',
+            city: '',
+            country: '',
+            region: '',
+            postalCode: '',
+        },
+        profiles: [],
     },
 
     "sections": {
@@ -91,7 +91,7 @@ export const defaultResumeState: Resume = {
         },
         "cover_recruiter_title": {
             "id": "cover_recruiter_title",
-            "name": "Recruiter Title",
+            "name": "Job Title",
             "type": "cover_recruiter_title",
             "items": [],
             "item": "Senior Recruiting Consultant, focused on media and marketing",
@@ -100,7 +100,7 @@ export const defaultResumeState: Resume = {
         },
         "cover_recruiter_email": {
             "id": "cover_recruiter_email",
-            "name": "Recruiter Email",
+            "name": "Email",
             "type": "cover_recruiter_email",
             "items": [],
             "item": "daisy.sample@ABCRecruiting.com",
@@ -109,7 +109,7 @@ export const defaultResumeState: Resume = {
         },
         "cover_recruiter_phone": {
             "id": "cover_recruiter_phone",
-            "name": "Recruiter Phone",
+            "name": "Phone number",
             "type": "cover_recruiter_phone",
             "items": [],
             "item": "+852 5347 1333",
@@ -120,15 +120,15 @@ export const defaultResumeState: Resume = {
         "title_candidate_information": {
             "id": "title_candidate_information",
             "name": "Candidate Information",
-            "type": "cover_agency_name",
+            "type": "cover_recruiter_phone",
             "items": [],
-            "item": "",
+            "item": "candidate",
             "columns": 1,
             "visible": true
         },
 
         "cover_candidate_summary": {
-            "id": "candidate_summary",
+            "id": "cover_candidate_summary",
             "name": "Candiate Sumary",
             "type": "cover_agency_name",
             "items": [],
@@ -138,7 +138,7 @@ export const defaultResumeState: Resume = {
         },
 
         "cover_candidate_name": {
-            "id": "candidate_name",
+            "id": "cover_candidate_name",
             "name": "Candiate Name",
             "type": "cover_agency_name",
             "items": [],
@@ -147,7 +147,7 @@ export const defaultResumeState: Resume = {
             "visible": true
         },
         "cover_candidate_email": {
-            "id": "candidate_email",
+            "id": "cover_candidate_email",
             "name": "Candiate Email",
             "type": "cover_agency_name",
             "items": [],
@@ -156,7 +156,7 @@ export const defaultResumeState: Resume = {
             "visible": true
         },
         "cover_candidate_phone": {
-            "id": "candidate_phone",
+            "id": "cover_candidate_phone",
             "name": "Candiate Phone",
             "type": "cover_agency_name",
             "items": [],
@@ -165,7 +165,7 @@ export const defaultResumeState: Resume = {
             "visible": true
         },
         "cover_candidate_website": {
-            "id": "candidate_website",
+            "id": "cover_candidate_website",
             "name": "Candiate Website",
             "type": "cover_agency_name",
             "items": [],
@@ -174,7 +174,7 @@ export const defaultResumeState: Resume = {
             "visible": true
         },
         "cover_current_organization": {
-            "id": "current_organization",
+            "id": "cover_current_organization",
             "name": "Current Organization",
             "type": "cover_agency_name",
             "items": [],
@@ -183,7 +183,7 @@ export const defaultResumeState: Resume = {
             "visible": true
         },
         "cover_current_position": {
-            "id": "current_position",
+            "id": "cover_current_position",
             "name": "Current Postion",
             "type": "cover_agency_name",
             "items": [],
@@ -193,7 +193,7 @@ export const defaultResumeState: Resume = {
         },
 
         "cover_current_salary": {
-            "id": "current_salary",
+            "id": "cover_current_salary",
             "name": "Current Salary",
             "type": "cover_agency_name",
             "items": [],
@@ -203,7 +203,7 @@ export const defaultResumeState: Resume = {
         },
 
         "cover_date_of_availability": {
-            "id": "date_of_availability",
+            "id": "cover_date_of_availability",
             "name": "Date of Availability",
             "type": "cover_agency_name",
             "items": [],
@@ -213,7 +213,7 @@ export const defaultResumeState: Resume = {
         },
 
         "cover_target_income": {
-            "id": "target_income",
+            "id": "cover_target_income",
             "name": "Target Infome",
             "type": "cover_agency_name",
             "items": [],
@@ -223,7 +223,7 @@ export const defaultResumeState: Resume = {
         },
 
         "cover_work_visa_status": {
-            "id": "work_visa_status",
+            "id": "cover_work_visa_status",
             "name": "Work Visa Status",
             "type": "cover_agency_name",
             "items": [],
@@ -253,14 +253,23 @@ export const defaultResumeState: Resume = {
         layout: [
             [
                 [
-                    'cover_agency_name', "cover_recruiter_name", 'cover_recruiter_title',
-                    'cover_candidate_summary', 'cover_candidate_name',
-                    'cover_candidate_email', 'cover_candidate_phone',
-                    'cover_candidate_website', 'cover_current_organization',
-                    'cover_current_position', 'cover_current_salary', 'cover_date_of_availability',
-                    'cover_target_income', 'cover_work_visa_status'
-            ],
-                ['cover_recruiter_email', 'cover_recruiter_phone'],
+
+                    'cover_agency_name', 
+                    "cover_recruiter_name", 
+                    'cover_recruiter_title',
+                    'cover_recruiter_email', 
+                    'cover_recruiter_phone',
+                ],
+                [
+                    'title_candidate_information',
+                    'cover_candidate_summary',
+                    'cover_current_organization',
+                    'cover_current_position',
+                    'cover_current_salary',
+                    'cover_date_of_availability',
+                    'cover_target_income',
+                    'cover_work_visa_status',
+                ],
             ],
         ],
         template: 'simplecoversheet',
