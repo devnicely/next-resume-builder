@@ -1,5 +1,14 @@
-import { Close as CloseIcon } from '@mui/icons-material';
-import { Fade, IconButton, Modal } from '@mui/material';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogClose
+} from "~/components/common/dialog";
+
 import { useRouter } from 'next/router';
 
 import styles from './BaseModal.module.scss';
@@ -17,7 +26,7 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
   const router = useRouter();
   const { pathname, query } = router;
 
-  const onClose = (event: object, reason: string) => {
+  const onClose = (event: object | null, reason: string | null) => {
     router.push({ pathname, query }, '');
     if (reason === 'backdropClick') return;
     handleClose();
@@ -29,34 +38,28 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
   };
 
   return (
-    <Modal
+    <Dialog
       open={isOpen}
-      onClose={(event, reason) => onClose(event, reason)}
-      closeAfterTransition
-      aria-labelledby={heading}
-      classes={{ root: 'flex items-center justify-center' }}
-    >
-      <Fade in={isOpen}>
-        <div className={styles.content}>
-          <header className={styles.header}>
-            <div>
-              {icon}
-              {icon && <span className="mx-1 opacity-25">/</span>}
-              <h1>{heading}</h1>
-            </div>
+      onOpenChange={(event, reason) => onClose(event, reason)}
+      >
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="inline-block">
+            {icon}
+            {icon && <span className="mx-2 opacity-25">/</span>}
+            {heading}
+          </DialogTitle>
+        </DialogHeader>
+        {/* <DialogClose></DialogClose> */}
 
-            <IconButton size="small" onClick={onIconClose}>
-              <CloseIcon sx={{ fontSize: 18 }} />
-            </IconButton>
-          </header>
+        <div>{children}</div>
 
-          <div className={styles.body}>{children}</div>
-
+        <DialogFooter className="sm:justify-end">
           {footerChildren ? <footer className={styles.footer}>{footerChildren}</footer> : null}
-        </div>
-      </Fade>
-    </Modal>
-  );
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
 };
 
 export default BaseModal;

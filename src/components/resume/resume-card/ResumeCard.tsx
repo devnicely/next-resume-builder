@@ -1,5 +1,6 @@
-import { SvgIconComponent } from '@mui/icons-material';
-import { ButtonBase } from '@mui/material';
+import { Plus } from "lucide-react";
+import { Button } from "~/components/common/button";
+
 
 import { useAppDispatch } from '~/store/hooks';
 import { ModalName, setModalState } from '~/store/modal/modalSlice';
@@ -8,22 +9,21 @@ import styles from './ResumeCard.module.scss';
 
 type Props = {
   modal: ModalName;
-  icon: SvgIconComponent;
   title: string;
   subtitle: string;
 };
 
 
-const ResumeCard: React.FC<Props> = ({ modal, icon: Icon, title, subtitle }) => {
+const ResumeCard: React.FC<Props> = ({ modal, title, subtitle }) => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => dispatch(setModalState({ modal, state: { open: true } }));
 
   return (
     <section className={styles.resume}>
-      <ButtonBase className={styles.preview} onClick={handleClick}>
-        <Icon sx={{ fontSize: 64 }} />
-      </ButtonBase>
+      <Button className={styles.preview} onClick={handleClick}>
+        <Plus size="64" color="black"/>
+      </Button>
 
       <footer>
         <div className={styles.meta}>

@@ -102,7 +102,6 @@ const LeftSidebar = () => {
       <div className={styles.container}>
         <main>
           {sectionsList()}
-          
           {/* {customSections.map(({ id }) => (
             <section key={id} id={`section-${id}`}>
               <Section path={`sections.${id}`} type="custom" isEditable isHideable isDeletable />
