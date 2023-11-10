@@ -1,9 +1,7 @@
 import { Slider } from '~/components/common/slider';
 import { Checkbox } from '~/components/common/checkbox';
 import { Toggle } from '~/components/common/toggle-button';
-import { CircleDashed } from 'lucide-react';
 import get from 'lodash/get';
-import { useTranslation } from 'next-i18next';
 import { Photo, PhotoShape } from '~/schema';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -11,10 +9,8 @@ import { setResumeState } from '~/store/resume/resumeSlice';
 import { Label } from '~/components/common/label';
 
 const PhotoFilters = () => {
-  const { t } = useTranslation();
-
+  
   const dispatch = useAppDispatch();
-
   const photo: Photo = useAppSelector((state) => get(state.resume.present, 'basics.photo'));
   const size: number = get(photo, 'filters.size', 128);
   const shape: PhotoShape = get(photo, 'filters.shape', 'square');
@@ -30,10 +26,12 @@ const PhotoFilters = () => {
   }
 
 
-  const handleSetGrayscale = (value: boolean) => 
+  const handleSetGrayscale = (value: string | boolean) => {
+    alert(value);
     dispatch(setResumeState({ path: 'basics.photo.filters.grayscale', value }));
+  }
 
-  const handleSetBorder = (value: boolean) => dispatch(setResumeState({ path: 'basics.photo.filters.border', value }));
+  const handleSetBorder = (value: boolean | string) => dispatch(setResumeState({ path: 'basics.photo.filters.border', value }));
 
   return (
     <div className="flex flex-col gap-2 p-5 dark:bg-zinc-900">

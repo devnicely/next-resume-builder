@@ -1,10 +1,8 @@
 import isEmpty from 'lodash/isEmpty';
 import { Section as SectionRecord, SectionType } from '~/schema';
-
 import Recruiter from '~/components/resume/build/LeftSidebar/sections/Recruiter';
 import { SidebarSection } from '~/types/app';
 import WorkExperience from '~/components/resume/build/LeftSidebar/sections/WorkExperience';
-import Theme from '~/components/resume/build/LeftSidebar/sections/Theme';
 import CandidateInformation from '~/components/resume/build/LeftSidebar/sections/CandidateInformation';
 import CandidateSummary from '~/components/resume/build/LeftSidebar/sections/CandidateSummary';
 import Skills from '~/components/resume/build/LeftSidebar/sections/Skills';
@@ -21,7 +19,6 @@ import CoverInputSection from '~/components/resume/build/LeftSidebar/sections/co
 import CoverSectionTitle from '~/components/resume/build/LeftSidebar/sections/cover/CoverSectionTitle';
 import CoverLayout from '~/components/resume/build/RightSidebar/sections/cover/CoverLayout';
 import Basics from '~/components/resume/build/LeftSidebar/sections/Basics';
-import { Sidebar } from 'lucide-react';
 import SidebarMain from '~/components/resume/build/RightSidebar/sections/SidbarMain';
 
 export const left: SidebarSection[] = [
