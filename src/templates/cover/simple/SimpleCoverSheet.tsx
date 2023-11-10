@@ -9,13 +9,13 @@ const SimpleCoverSheet: React.FC<PageProps> = ({page}) => {
     return(
         <div className={styles.page}>
             <div className={styles.container}>
-                <div className={styles.sidebar}>
+                <div className={styles.recruiter}>
                 {layout[1]?.map((key) => {
                         return getSectionById(key, Section)
                     })}
                 </div>
 
-                <div className={styles.main}>
+                <div className={styles.candidate}>
                     {layout[0]?.map((key) => {
                         return getSectionById(key, Section)
                     })}
