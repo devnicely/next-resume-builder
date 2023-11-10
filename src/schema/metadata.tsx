@@ -13,7 +13,7 @@ export type CustomCSS = {
     background: string;
   };
   
-  export type TypeCategory = 'heading' | 'body';
+  export type TypeCategory = 'section' | 'subtitle' | 'text';
   export type TypeProperty = 'family' | 'size';
   
   export type Typography = {
@@ -24,6 +24,10 @@ export type CustomCSS = {
   export type DateConfig = {
     format: string;
   };
+
+  export type Spacing = {
+    
+  }
   
   export type Metadata = {
     css: CustomCSS;
@@ -34,5 +38,6 @@ export type CustomCSS = {
     theme: ThemeConfig;
     page?: PageConfig;
     typography: Typography;
+    spacing: Record<TypeCategory, number>;
   };
   

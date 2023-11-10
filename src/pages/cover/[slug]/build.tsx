@@ -275,14 +275,21 @@ export const defaultResumeState: Resume = {
         template: 'simplecoversheet',
         typography: {
             family: {
-                heading: 'Open Sans',
-                body: 'Open Sans',
+                section: 'Open Sans',
+                subtitle: 'Open Sans',
+                text: 'Open Sans',
             },
             size: {
-                heading: 28,
-                body: 14,
+                section: 28,
+                subtitle: 14,
+                text: 14,
             },
         },
+        spacing: {
+            section: 1,
+            subtitle: 1,
+            text: 1
+        }
     },
     public: true,
 };
