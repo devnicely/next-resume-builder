@@ -1,29 +1,15 @@
 import { Wand } from 'lucide-react';
 import { Button } from '~/components/common/button';
-import { useState } from 'react';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from 'src/components/common/popover';
 
-import ResumeInput from '~/components/shared/ResumeInput';
 import PhotoFilters from './PhotoFilters';
 import PhotoUpload from './PhotoUpload';
 
-
 const Basics = () => {
-
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -36,19 +22,7 @@ const Basics = () => {
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  onClick={handleClick}
-                  open={Boolean(anchorEl)}
-                  anchorEl={anchorEl}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                >
+                 >
                   <Wand size="18" />&nbsp; Logo style
                 </Button>
               </PopoverTrigger>
