@@ -40,6 +40,7 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
   return (
     <Dialog
       open={isOpen}
+      onOpenChange={() => {onClose(null, null)}}
       >
       <DialogContent>
         <DialogHeader>
@@ -49,7 +50,6 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
             {heading}
           </DialogTitle>
         </DialogHeader>
-        {/* <DialogClose></DialogClose> */}
 
         <div>{children}</div>
 
