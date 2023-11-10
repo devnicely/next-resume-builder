@@ -1,6 +1,11 @@
-import { PhotoFilter } from '@mui/icons-material';
-import { Button, Divider, Popover } from '@mui/material';
+import { Wand } from 'lucide-react';
+import { Button } from '~/components/common/button';
 import { useState } from 'react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from 'src/components/common/popover';
 
 import ResumeInput from '~/components/shared/ResumeInput';
 import PhotoFilters from './PhotoFilters';
@@ -26,26 +31,30 @@ const Basics = () => {
           <div className="mx-auto">
             <PhotoUpload />
           </div>
-
-
           <div className="grid w-full gap-2 sm:col-span-2">
-            <Button variant="outlined" startIcon={<PhotoFilter />} onClick={handleClick}>
-              Logo style
-            </Button>
-            <Popover
-              open={Boolean(anchorEl)}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-            >
-              <PhotoFilters />
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  onClick={handleClick}
+                  open={Boolean(anchorEl)}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                >
+                  <Wand size="18" />&nbsp; Logo style
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-70 p-2 bg-zinc-600 text-white">
+                <PhotoFilters />
+              </PopoverContent>
             </Popover>
           </div>
         </div>
