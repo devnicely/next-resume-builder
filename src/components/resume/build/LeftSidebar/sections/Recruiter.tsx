@@ -1,4 +1,3 @@
-import { Divider } from "@mui/material";
 import Heading from "~/components/shared/Heading";
 import ResumeInput from "~/components/shared/ResumeInput";
 
