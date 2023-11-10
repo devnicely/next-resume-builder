@@ -39,5 +39,6 @@ export type CustomCSS = {
     page?: PageConfig;
     typography: Typography;
     spacing: Record<TypeCategory, number>;
+    ratio: number,
   };
   

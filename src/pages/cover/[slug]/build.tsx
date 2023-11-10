@@ -289,7 +289,8 @@ export const defaultResumeState: Resume = {
             section: 1,
             subtitle: 1,
             text: 1
-        }
+        },
+        ratio: 50,
     },
     public: true,
 };
