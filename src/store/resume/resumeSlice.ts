@@ -25,6 +25,8 @@ type DeleteSectionPayload = { path: string };
 
 type DeletePagePayload = { page: number };
 
+type ChangeRatioPayload = {ratio: number};
+
 const initialState: Resume = {} as Resume;
 
 export const resumeSlice = createSlice({
@@ -119,6 +121,10 @@ export const resumeSlice = createSlice({
 
       state.metadata.layout.splice(page, 1);
     },
+    changeRatio: (state: Resume, action: PayloadAction<number>) => {
+      const ratio: number = action.payload;
+      set(state, 'metadata.ratio', ratio);
+    }
   },
 });
 
@@ -134,6 +140,7 @@ export const {
   deleteSection,
   addPage,
   deletePage,
+  changeRatio,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;

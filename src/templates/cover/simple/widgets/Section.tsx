@@ -19,9 +19,8 @@ const Section: React.FC<SectionProps> = ({
     const primaryColor: string = useAppSelector((state) => get(state.resume.present, 'metadata.theme.primary'))
 
     if (!section.visible) return null;
-
     if (isEmpty(section.item)) return null;
-
+    
     return (
         <section id={`Leafish_${sectionId}`}>
             <div
@@ -45,7 +44,7 @@ const Section: React.FC<SectionProps> = ({
                     }
                     {
                         section.id == 'title_candidate_information' &&
-                        <div className="text-center mt-[60px] text-[30px]" style={{color: primaryColor}}>
+                        <div className="text-center text-[30px]" style={{color: primaryColor}}>
                             {section.name}
                         </div>
                     }
