@@ -2,12 +2,6 @@ import { DragDropContext, Draggable, DraggableLocation, Droppable, DropResult } 
 import { Plus as Add, XIcon as Close, RotateCcw as Restore } from 'lucide-react';
 
 import { Button } from 'src/components/common/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from 'src/components/common/Tooltip';
 
 import clsx from 'clsx';
 import cloneDeep from 'lodash/cloneDeep';

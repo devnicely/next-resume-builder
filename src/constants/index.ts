@@ -33,6 +33,12 @@ export enum TemplateType{
   BOTH = 'both',
 }
 
+export enum FontType {
+  SECTION = 'section',
+  SUBTITLE = 'subtitle',
+  NORMALTEXT = 'text',
+}
+
 
 const defaultCSS = `/* Enter custom CSS here */
 
