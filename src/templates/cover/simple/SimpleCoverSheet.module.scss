@@ -1,12 +1,4 @@
 .container {
-    @apply grid  gap-4 mx-6 my-4;
-
-    .recruiter {
-        @apply mt-[450px] gap-4;
-      }
-      
-    .candidate {
-      @apply col-span-1 gap-4;
-    }
+    @apply grid  gap-4 mx-0 my-4;
   }
   
