@@ -1,16 +1,24 @@
-import { ButtonBase, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '~/components/common/dropdown-menu';
+
 import Image from 'next/image';
 import styles from './ResumeCard.module.scss';
 import Link from 'next/link';
 import { ResumeSchemaType } from '~/schema';
 import { useState } from 'react';
 import { Delete, DriveFileRenameOutline, MoreVert, OpenInNew } from '@mui/icons-material';
+import { MoreVertical, ExternalLink, Trash2, PencilLine } from 'lucide-react';
 import { api } from '~/utils/api';
 import { useRouter } from 'next/router';
 import useRefetch from '~/hooks/useRefetch';
 import { notify, notifyError } from '~/components/ReactHotToast';
 import { useAppDispatch } from '~/store/hooks';
 import { setModalState } from '~/store/modal/modalSlice';
+import { Button } from '~/components/common/button';
 
 
 type Props = {
@@ -20,16 +28,6 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
     const router = useRouter();
     const { refetchGetResumes } = useRefetch();
     const dispatch = useAppDispatch();
-
-    const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-    const handleOpenMenu = (event: React.MouseEvent<Element>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
 
     const {
         mutateAsync: deleteResume,
@@ -43,11 +41,9 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
         }).catch(() => {
             notifyError({ message: "Failed to delete the resume." });
         })
-        handleClose();
     };
 
     const handleRename = () => {
-        handleClose();
 
         dispatch(
             setModalState({
@@ -66,7 +62,6 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
     };
 
     const handleOpen = () => {
-        handleClose();
         router.push({
             pathname: '/resume/[slug]/build',
             query: { slug: resume.slug }
@@ -82,41 +77,33 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
                     query: { slug: resume.slug }
                 }}
             >
-                <ButtonBase className={styles.preview}>
+                {/* <Button className={styles.preview}> */}
                     <Image src={resume.image} alt={resume.name} priority width={400} height={0} />
-                </ButtonBase>
+                {/* </Button> */}
             </Link>
             <footer className={styles.meta}>
                 <div className={styles.meta}>
                     <p>{resume.name}</p>
                 </div>
-                <ButtonBase className={styles.menu} onClick={handleOpenMenu}>
-                    <MoreVert />
-                </ButtonBase>
 
-                <Menu anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
-
-                    <MenuItem onClick={handleOpen}>
-                        <ListItemIcon>
-                            <OpenInNew className="scale-90" />
-                        </ListItemIcon>
-                        <ListItemText>Open</ListItemText>
-                    </MenuItem>
-
-                    <MenuItem onClick={handleDelete}>
-                        <ListItemIcon>
-                            <Delete className="scale-90" />
-                        </ListItemIcon>
-                        <ListItemText>Delete</ListItemText>
-                    </MenuItem>
-
-                    <MenuItem onClick={handleRename}>
-                        <ListItemIcon>
-                            <DriveFileRenameOutline className="scale-90" />
-                        </ListItemIcon>
-                        <ListItemText>Rename</ListItemText>
-                    </MenuItem>
-                </Menu>
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <Button className={styles.menu} variant="ghost" size="icon">
+                            <MoreVertical size="28" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem onClick={handleOpen}>
+                        <ExternalLink size="16" /> &nbsp; Open
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleDelete}>
+                            <Trash2 size="16" /> &nbsp; Delete
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleRename}>
+                        <PencilLine size="16" /> &nbsp; Rename
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </footer>
         </section>
     )

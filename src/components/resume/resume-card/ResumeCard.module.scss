@@ -4,7 +4,7 @@
     .preview {
       aspect-ratio: 1 / 1.41;
   
-      @apply flex items-center justify-center shadow;
+      @apply flex items-center justify-center shadow h-52 w-40;
       @apply cursor-pointer rounded-sm bg-zinc-100 transition-opacity hover:opacity-80 dark:bg-zinc-900;
     }
   

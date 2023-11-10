@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import clsx from 'clsx';
 import { NextPage } from "next";
 import ResumeCard from "~/components/resume/resume-card/ResumeCard";
-import { Add } from "@mui/icons-material";
+import { Plus } from "lucide-react";
 import { api } from "~/utils/api";
 import { ActionCreators } from "redux-undo";
 import { useAppDispatch } from "~/store/hooks";
@@ -53,7 +53,6 @@ const Resumes: NextPage = () => {
 
                 <main className={styles.resumes}>
                     <ResumeCard
-                        icon={Add}
                         modal="create-resume"
                         title=""
                         subtitle=""

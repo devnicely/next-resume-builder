@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material"
+import { Plus as Add } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import BaseModal from "~/components/shared/BaseModal"
 import { useAppDispatch, useAppSelector } from "~/store/hooks"
