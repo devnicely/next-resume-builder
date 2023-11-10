@@ -26,12 +26,12 @@ const PhotoFilters = () => {
   }
 
 
-  const handleSetGrayscale = (value: string | boolean) => {
+  const handleSetGrayscale = (value: boolean) => {
     alert(value);
     dispatch(setResumeState({ path: 'basics.photo.filters.grayscale', value }));
   }
 
-  const handleSetBorder = (value: boolean | string) => dispatch(setResumeState({ path: 'basics.photo.filters.border', value }));
+  const handleSetBorder = (value: boolean) => dispatch(setResumeState({ path: 'basics.photo.filters.border', value }));
 
   return (
     <div className="flex flex-col gap-2 p-5 dark:bg-zinc-900">
@@ -61,7 +61,7 @@ const PhotoFilters = () => {
               id="grayscale"
               color="secondary"
               defaultChecked={grayscale}
-              onCheckedChange={(value) => handleSetGrayscale(value)}
+              onCheckedChange={(value: boolean) => handleSetGrayscale(value)}
             />
             <label
               htmlFor="grayscale"
@@ -76,7 +76,7 @@ const PhotoFilters = () => {
               id="border"
               color="white" 
               defaultChecked={border} 
-              onCheckedChange={(value) => handleSetBorder(value)}
+              onCheckedChange={(value: boolean) => handleSetBorder(value)}
             />
             <label
               htmlFor="border"

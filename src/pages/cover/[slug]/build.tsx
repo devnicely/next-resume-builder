@@ -284,12 +284,18 @@ export const defaultResumeState: Resume = {
                 subtitle: 14,
                 text: 14,
             },
+            spacing: {
+                section: 1,
+                subtitle: 1,
+                text: 1
+            },
+            color: {
+                section: '#f44336',
+                subtitle: '#f44336',
+                text: '#000000'
+            },
         },
-        spacing: {
-            section: 1,
-            subtitle: 1,
-            text: 1
-        }
+        ratio: 50,
     },
     public: true,
 };

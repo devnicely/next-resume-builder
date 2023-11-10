@@ -14,20 +14,19 @@ export type CustomCSS = {
   };
   
   export type TypeCategory = 'section' | 'subtitle' | 'text';
-  export type TypeProperty = 'family' | 'size';
+  export type TypeProperty = 'family' | 'size' | 'color' | 'spacing';
   
   export type Typography = {
     family: Record<TypeCategory, string>;
     size: Record<TypeCategory, number>;
+    color: Record<TypeCategory, string>;
+    spacing: Record<TypeCategory, number>;
   };
   
   export type DateConfig = {
     format: string;
   };
 
-  export type Spacing = {
-    
-  }
   
   export type Metadata = {
     css: CustomCSS;
@@ -38,6 +37,6 @@ export type CustomCSS = {
     theme: ThemeConfig;
     page?: PageConfig;
     typography: Typography;
-    spacing: Record<TypeCategory, number>;
+    ratio: number,
   };
   

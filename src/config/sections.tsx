@@ -20,6 +20,9 @@ import CoverSectionTitle from '~/components/resume/build/LeftSidebar/sections/co
 import CoverLayout from '~/components/resume/build/RightSidebar/sections/cover/CoverLayout';
 import Basics from '~/components/resume/build/LeftSidebar/sections/Basics';
 import SidebarMain from '~/components/resume/build/RightSidebar/sections/SidbarMain';
+import DateFormat from '~/components/resume/build/RightSidebar/sections/DateFormat';
+import Typography from '~/components/resume/build/RightSidebar/sections/Typography';
+import ColorTone from '~/components/resume/build/RightSidebar/sections/ColorTone';
 
 export const left: SidebarSection[] = [
   {
@@ -232,6 +235,24 @@ export const right: SidebarSection[] = [
     id: 'sidebar_main',
     kind: TemplateType.BOTH,
     component: <SidebarMain/>
+  },
+
+  {
+    id: 'date_format',
+    kind: TemplateType.BOTH,
+    component: <DateFormat/>
+  },
+
+  {
+    id: 'typography',
+    kind: TemplateType.BOTH,
+    component: <Typography/>
+  },
+
+  {
+    id: 'colortone',
+    kind: TemplateType.BOTH,
+    component: <ColorTone/>
   }
 
 
