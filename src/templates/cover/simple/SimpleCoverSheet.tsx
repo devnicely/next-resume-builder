@@ -17,7 +17,7 @@ type Frame = {
 const SimpleCoverSheet: React.FC<PageProps> = ({ page }) => {
     const layout: string[][] = useAppSelector((state) => state.resume.present.metadata.layout[page]);
     const metadata: Metadata = useAppSelector((state) => get(state.resume.present, 'metadata', {} as Metadata));
-    const {ratio} = metadata;
+    const { ratio } = metadata;
     const [frame, setFrame] = useState<Frame>({
         logoTop: 7
     });
@@ -26,23 +26,21 @@ const SimpleCoverSheet: React.FC<PageProps> = ({ page }) => {
             logoTop: ratio * 3,
         })
     }, [ratio])
-    const {logoTop} = frame;
+    const { logoTop } = frame;
     return (
         <div className={styles.page}>
-            <div className={cn(styles.container, 'h-full')}>
+            <div className={cn(styles.container)}>
                 <div>
-                    <div>
-                        <div className="flex justify-center" style={{marginTop: `${logoTop}px`}}>
-                            <img className="flex-basis w-[20%]" src="/images/logo/logo.png" alt="logo" />
-                        </div>
-                        <div className={styles.recruiter}>
-                            {layout[0]?.map((key) => {
-                                return getSectionById(key, Section)
-                            })}
-                        </div>
+                    <div className="flex justify-center" style={{ marginTop: `${logoTop}px` }}>
+                        <img className="flex-basis w-[20%]" src="/images/logo/logo.png" alt="logo" />
+                    </div>
+                    <div className={styles.recruiter}>
+                        {layout[0]?.map((key) => {
+                            return getSectionById(key, Section)
+                        })}
                     </div>
                 </div>
-                <div>
+                <div className="h-full">
                     {layout[1]?.map((key) => {
                         return getSectionById(key, Section)
                     })}

@@ -9,6 +9,8 @@ import {
 
 
 import { Button } from "~/components/common/button";
+import { TypeCategory } from "~/schema";
+import { FontType } from "~/constants";
 
 type Spacing = {
     name: string;
@@ -22,33 +24,23 @@ const spacings: Spacing[] = [
     { name: "Double", value: 2 },
 ];
 
-enum SpacingType {
-    SECTION = "section",
-    SUB_TITLE = "sub_title",
-    NORMAL_TEXT = "normal_text"
+
+type SpacingProps = {
+    category: TypeCategory;
+    label: string;
 }
 
-const Spacing = () => {
-    const onClickedItemSpacing = (type: SpacingType, pos: number) => {
-        switch (type) {
-            case SpacingType.SECTION:
-                alert(SpacingType.SECTION);
-                break;
-            case SpacingType.SUB_TITLE:
-                alert(SpacingType.SUB_TITLE);
-                break;
-            case SpacingType.NORMAL_TEXT:
-                alert(SpacingType.NORMAL_TEXT);
-                break;
-        }
+const SpacingWidgets: React.FC<SpacingProps> = ({label, category}) => {
+
+    const onClickedItemSpacing = (category: string, pos: number) => {
+        alert(category);
     }
 
     return (
         <>
-            <Heading path="metadata.layout" name="Spacing" />
             <div>
                 <div className="flex">
-                    <div className="grow text-[16px]">Section</div>
+                    <div className="flex-1 text-[16px]">{label}</div>
                     <div className="flex-none">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
@@ -60,56 +52,7 @@ const Spacing = () => {
                                 {
                                     spacings.map((space, pos) => {
                                         return (
-                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(SpacingType.SECTION, pos)}>
-                                                <Check size="14" /> &nbsp; {space.name}
-                                            </DropdownMenuItem>
-                                        );
-                                    })
-                                }
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
-                </div>
-
-                <div className="flex">
-                    <div className="grow text-[16px]">Subtitle</div>
-                    <div className="flex-none">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger>
-                                <Button variant="ghost" size="icon">
-                                    <img src='/icon/spacing-list.svg' alt="line" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                {
-                                    spacings.map((space, pos) => {
-                                        return (
-                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(SpacingType.SUB_TITLE, pos)}>
-                                                <Check size="14" /> &nbsp; {space.name}
-                                            </DropdownMenuItem>
-                                        );
-                                    })
-                                }
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-
-                    </div>
-                </div>
-
-                <div className="flex">
-                    <div className="grow text-[16px]">Normal Text</div>
-                    <div className="flex-none">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger>
-                                <Button  variant="ghost" size="icon">
-                                    <img src='/icon/spacing-list.svg' alt="line" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                {
-                                    spacings.map((space, pos) => {
-                                        return (
-                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(SpacingType.NORMAL_TEXT, pos)}>
+                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(category, pos)}>
                                                 <Check size="14" /> &nbsp; {space.name}
                                             </DropdownMenuItem>
                                         );
@@ -120,6 +63,17 @@ const Spacing = () => {
                     </div>
                 </div>
             </div>
+        </>
+    )
+}
+
+const Spacing = () => {
+    return(
+        <>
+            <Heading path="metadata.layout" name="Spacing" />
+            <SpacingWidgets category={FontType.SECTION} label="Section"/>
+            <SpacingWidgets category={FontType.SUBTITLE} label="Subtitle"/>
+            <SpacingWidgets category={FontType.NORMALTEXT} label="Normal text"/>
         </>
     )
 }

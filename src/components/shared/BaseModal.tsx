@@ -40,7 +40,6 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
   return (
     <Dialog
       open={isOpen}
-      onOpenChange={(event, reason) => onClose(event, reason)}
       >
       <DialogContent>
         <DialogHeader>
