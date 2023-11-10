@@ -21,6 +21,8 @@ import CoverInputSection from '~/components/resume/build/LeftSidebar/sections/co
 import CoverSectionTitle from '~/components/resume/build/LeftSidebar/sections/cover/CoverSectionTitle';
 import CoverLayout from '~/components/resume/build/RightSidebar/sections/cover/CoverLayout';
 import Basics from '~/components/resume/build/LeftSidebar/sections/Basics';
+import { Sidebar } from 'lucide-react';
+import SidebarMain from '~/components/resume/build/RightSidebar/sections/SidbarMain';
 
 export const left: SidebarSection[] = [
   {
@@ -230,10 +232,17 @@ export const right: SidebarSection[] = [
   },
 
   {
-    id: 'theme',
+    id: 'sidebar_main',
     kind: TemplateType.BOTH,
-    component: <Theme />,
-  },
+    component: <SidebarMain/>
+  }
+
+
+  // {
+  //   id: 'theme',
+  //   kind: TemplateType.BOTH,
+  //   component: <Theme />,
+  // },
 ];
 
 export const getSectionsByType = (sections: Record<string, SectionRecord>, type: SectionType): SectionRecord[] => {

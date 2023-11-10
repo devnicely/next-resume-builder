@@ -4,14 +4,10 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '~/components/common/dropdown-menu';
 
-import toast from "react-hot-toast";
-import { useState } from "react";
-import { SectionType } from "~/schema";
+
 import { Button } from "~/components/common/button";
 
 type Spacing = {
@@ -33,29 +29,6 @@ enum SpacingType {
 }
 
 const Spacing = () => {
-
-    const [anchorSpacingSec, setAnchorSpacingSec] = useState<Element | null>(null);
-    const [anchorSpacingSub, setAnchorSpacingSub] = useState<Element | null>(null);
-    const [anchorSpacingText, setAnchorSpacingText] = useState<Element | null>(null);
-
-    const handleClose = () => {
-        setAnchorSpacingSec(null);
-        setAnchorSpacingSub(null);
-        setAnchorSpacingText(null);
-    };
-
-    const onClickedBtnSectionSpacing = (event: React.MouseEvent<Element>) => {
-        setAnchorSpacingSec(event.currentTarget);
-    };
-
-    const onClickedBtnSubtitleSpacing = (event: React.MouseEvent<Element>) => {
-        setAnchorSpacingSub(event.currentTarget);
-    };
-
-    const onClickedBtnNormalTextSpacing = (event: React.MouseEvent<Element>) => {
-        setAnchorSpacingText(event.currentTarget);
-    };
-
     const onClickedItemSpacing = (type: SpacingType, pos: number) => {
         switch (type) {
             case SpacingType.SECTION:
@@ -68,7 +41,6 @@ const Spacing = () => {
                 alert(SpacingType.NORMAL_TEXT);
                 break;
         }
-        handleClose();
     }
 
     return (
@@ -80,11 +52,11 @@ const Spacing = () => {
                     <div className="flex-none">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <Button onClick={onClickedBtnSectionSpacing} variant="ghost" size="icon">
+                                <Button  variant="ghost" size="icon">
                                     <img src='/icon/spacing-list.svg' alt="line" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent anchorEl={anchorSpacingSec} onClose={handleClose} open={Boolean(anchorSpacingSec)}>
+                            <DropdownMenuContent>
                                 {
                                     spacings.map((space, pos) => {
                                         return (
@@ -104,11 +76,11 @@ const Spacing = () => {
                     <div className="flex-none">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <Button onClick={onClickedBtnSectionSpacing} variant="ghost" size="icon">
+                                <Button variant="ghost" size="icon">
                                     <img src='/icon/spacing-list.svg' alt="line" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent anchorEl={anchorSpacingSec} onClose={handleClose} open={Boolean(anchorSpacingSec)}>
+                            <DropdownMenuContent>
                                 {
                                     spacings.map((space, pos) => {
                                         return (
@@ -129,11 +101,11 @@ const Spacing = () => {
                     <div className="flex-none">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <Button onClick={onClickedBtnSectionSpacing} variant="ghost" size="icon">
+                                <Button  variant="ghost" size="icon">
                                     <img src='/icon/spacing-list.svg' alt="line" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent anchorEl={anchorSpacingSec} onClose={handleClose} open={Boolean(anchorSpacingSec)}>
+                            <DropdownMenuContent>
                                 {
                                     spacings.map((space, pos) => {
                                         return (
@@ -147,7 +119,6 @@ const Spacing = () => {
                         </DropdownMenu>
                     </div>
                 </div>
-
             </div>
         </>
     )
