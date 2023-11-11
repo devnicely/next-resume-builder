@@ -1,5 +1,4 @@
-import { Add } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { Plus as Add } from 'lucide-react';
 import clsx from 'clsx';
 import get from 'lodash/get';
 import { useTranslation } from 'next-i18next';
@@ -13,6 +12,7 @@ import { ModalName, setModalState } from '~/store/modal/modalSlice';
 import { duplicateItem, duplicateSection } from '~/store/resume/resumeSlice';
 
 import SectionSettings from './SectionSettings';
+import { Button } from '~/components/common/button';
 
 type Props = {
   path: `sections.${string}`;
@@ -97,7 +97,8 @@ const Section: React.FC<Props> = ({
       <footer className="flex items-center justify-between">
         <SectionSettings path={path} />
 
-        <Button variant="outlined" startIcon={<Add />} onClick={handleAdd}>
+        <Button variant="outline" onClick={handleAdd}>
+          <Add size="24" />
           {t('builder.common.actions.add', {
             token: t(`builder.leftSidebar.${path}.heading`, { defaultValue: heading }),
           })}
@@ -106,7 +107,8 @@ const Section: React.FC<Props> = ({
 
       {addMore ? (
         <div className="py-6 text-right">
-          <Button fullWidth variant="outlined" startIcon={<Add />} onClick={handleDuplicateSection}>
+          <Button variant="outline" onClick={handleDuplicateSection}>
+            <Add size="24" />
             {t('builder.common.actions.duplicate')}
           </Button>
         </div>

@@ -1,6 +1,5 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { DriveFileRenameOutline } from '@mui/icons-material';
-import { Button, TextField } from '@mui/material';
+import { PencilLine } from 'lucide-react';
 import { Resume } from '~/schema';
 import Joi from 'joi';
 import get from 'lodash/get';
@@ -12,6 +11,9 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { ModalState, setModalState } from '~/store/modal/modalSlice';
 import useRefetch from '~/hooks/useRefetch';
 import { api } from '~/utils/api';
+import { Input } from '~/components/common/input';
+import { Label } from '~/components/common/label';
+import { Button } from '~/components/common/button';
 
 type FormData = {
     name: string;
@@ -91,7 +93,7 @@ const RenameResumeModal: React.FC = () => {
 
     return (
         <BaseModal
-            icon={<DriveFileRenameOutline />}
+            icon={<PencilLine />}
             isOpen={isOpen}
             heading="Rename"
             handleClose={handleClose}
@@ -102,17 +104,19 @@ const RenameResumeModal: React.FC = () => {
             }
         >
             <form className="grid gap-4">
-                <Controller
+            <Controller
                     name="name"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <TextField
-                            autoFocus
-                            label="Name"
-                            error={!!fieldState.error}
-                            helperText={fieldState.error?.message}
-                            {...field}
-                        />
+                        <>
+                            <Label>Name</Label>
+                            <Input
+                                autoFocus
+                                error={!!fieldState.error}
+                                helperText={fieldState.error?.message}
+                                {...field}
+                            />
+                        </>
                     )}
                 />
 
@@ -120,12 +124,14 @@ const RenameResumeModal: React.FC = () => {
                     name="slug"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <TextField
-                            label="Slug"
+                        <>
+                            <Label>Slug</Label>
+                        <Input
                             error={!!fieldState.error}
                             helperText={fieldState.error?.message}
                             {...field}
                         />
+                        </>
                     )}
                 />
             </form>

@@ -5,7 +5,6 @@ import { useAppSelector } from "~/store/hooks";
 import { SectionProps } from "~/templates/sectionMap";
 import Heading from "./Heading";
 import Markdown from "~/components/shared/Markdown";
-import { lineHeight } from "@mui/system";
 
 const SectionOne: React.FC<SectionProps> = ({
     path,
