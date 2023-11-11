@@ -25,13 +25,8 @@ const getIndices = (location: DraggableLocation) => ({
   section: +location.index,
 });
 
-<<<<<<< HEAD
-const Layout = () => {
-
-=======
 const Layout = () => {  
   
->>>>>>> main
   const dispatch = useAppDispatch();
   const layout = useAppSelector((state) => state.resume.present.metadata.layout);
   const resumeSections = useAppSelector((state) => state.resume.present.sections);

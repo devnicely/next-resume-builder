@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-import { Label } from "~/components/common/label";
-=======
->>>>>>> main
 import ColorPicker from "~/components/shared/ColorPicker";
 import Heading from "~/components/shared/Heading"
 import { FontType } from "~/constants";
 import { TypeCategory } from "~/schema";
 import { useAppDispatch } from "~/store/hooks";
-<<<<<<< HEAD
-import { setResume, setResumeState } from "~/store/resume/resumeSlice";
-=======
 import { setResumeState } from "~/store/resume/resumeSlice";
->>>>>>> main
 
 type ColorWidgetsProps = {
     label: string;
@@ -52,11 +44,7 @@ const ColorTone = () => {
             <Heading path="" name="Color Tone" />
             <ColorWidgets label="Section" category={FontType.SECTION} />
             <ColorWidgets label="Subtitle" category={FontType.SUBTITLE} />
-<<<<<<< HEAD
-            <ColorWidgets label="Section" category={FontType.NORMALTEXT} />
-=======
             <ColorWidgets label="Normal text" category={FontType.NORMALTEXT} />
->>>>>>> main
         </>
     )
 }
