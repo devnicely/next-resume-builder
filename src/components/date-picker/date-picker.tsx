@@ -1,65 +1,62 @@
 "use client"
 
 import * as React from "react"
-import { CalendarIcon } from "@radix-ui/react-icons"
-import { addDays, format } from "date-fns"
+import { format } from "date-fns"
+import dayjs from 'dayjs';
+import { Calendar as CalendarIcon, Construction } from "lucide-react"
 
-import { cn } from "../common/Classnames"
-import { Button } from "../common/button"
+import { cn } from "~/components/common/Classnames"
+import { Button } from "~/components/common/button"
 import { Calendar } from "./calendar/index"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "./popover/index"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../common/select"
 
-export function DatePickerWithPresets() {
-  const [date, setDate] = React.useState<Date>()
+type DatePickerProps = {
+  fromYear: number,
+  toYear: number,
+  text: string,
+  value: dayjs.Dayjs | null;
+  onChange: (date: dayjs.Dayjs | null) => void;
+}
+
+export const DatePicker: React.FC<DatePickerProps> = ({fromYear, toYear, text, onChange, ...props}) => {
+
+  const [date, setDate] = React.useState<Date>() 
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-[240px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent
-        align="start"
-        className="flex w-auto flex-col space-y-2 p-2"
-      >
-        <Select
-          onValueChange={(value) =>
-            setDate(addDays(new Date(), parseInt(value)))
-          }
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select" />
-          </SelectTrigger>
-          <SelectContent position="popper">
-            <SelectItem value="0">Today</SelectItem>
-            <SelectItem value="1">Tomorrow</SelectItem>
-            <SelectItem value="3">In 3 days</SelectItem>
-            <SelectItem value="7">In a week</SelectItem>
-          </SelectContent>
-        </Select>
-        <div className="rounded-md border">
-          <Calendar mode="single" selected={date} onSelect={setDate} />
-        </div>
-      </PopoverContent>
-    </Popover>
+    <>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant={"outline"}
+            className={cn(
+              "justify-between text-left font-normal",
+              !date && "text-muted-foreground"
+            )}
+          >
+            {date ? format(date, "MM/dd/yyyy") : <span>{text}</span>}
+            <CalendarIcon className={"h-4 w-4"} />
+
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0">
+          <Calendar
+            mode="single"
+            captionLayout="dropdown-buttons"
+            selected={date}
+            onSelect={(date) => {
+              onChange(date ? dayjs(date) : null);
+              setDate(date);
+            }}
+            fromYear={fromYear}
+            toYear={toYear}
+          />
+        </PopoverContent>
+      </Popover>
+    </>
   )
 }
+

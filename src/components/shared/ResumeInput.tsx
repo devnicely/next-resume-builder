@@ -1,7 +1,7 @@
 import { Label } from 'src/components/common/label';
 import { Input } from 'src/components/common/input';
 import { Textarea } from 'src/components/common/textarea';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from '~/components/date-picker/date-picker';
 
 import { cn } from "src/components/common/Classnames";
 import dayjs from 'dayjs';
@@ -11,11 +11,12 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setResumeState } from '~/store/resume/resumeSlice';
 import MarkdownSupported from './MarkdownSupported';
+import { YearPicker } from '../date-picker/year-picker';
 
 
 
 interface Props {
-  type?: 'text' | 'textarea' | 'date';
+  type?: 'text' | 'textarea' | 'date' | 'year';
   label: string;
   path: string;
   className?: string;
@@ -41,6 +42,7 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
   };
 
   const onChangeValue = (value: string) => {
+    console.log("===== picked date====", value);
     setValue(value);
     dispatch(setResumeState({ path, value }));
   };
@@ -59,18 +61,36 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
 
   if (type === 'date') {
     return (
-      <DatePicker
-        openTo="year"
-        label={label}
-        className={className}
-        views={['year', 'month', 'day']}
-        value={isEmpty(value) ? null : dayjs(value)}
-        onChange={(date: dayjs.Dayjs | null) => {
-          if (!date) return onChangeValue('');
-          if (dayjs(date).isValid()) return onChangeValue(dayjs(date).format('YYYY-MM-DD'));
-        }}
-      />
+      <div className={cn("grid w-full items-center gap-1.5", className)}>
+        <Label>{label}</Label>
+        <DatePicker
+          fromYear={2000}
+          toYear={2030}
+          value={isEmpty(value) ? null : dayjs(value)}
+          text={"Select Date"}
+          onChange={(date: dayjs.Dayjs | null) => {
+            if (!date) return onChangeValue('');
+            if (dayjs(date).isValid()) return onChangeValue(dayjs(date).format('YYYY-MM-DD'));
+          }}
+        />
+      </div>
     );
+  }
+
+  if (type === 'year') {
+    return (
+      <div className={cn("grid w-full items-center gap-1.5", className)}>
+        <Label>{label}</Label>
+        <YearPicker
+          fromYear={2000}
+          toYear={2030}
+          text="Select Year"
+          onChange={(year) => {
+            return onChangeValue(year);
+          }}
+        />
+      </div>
+    )
   }
 
   // return <TextField type={type} label={label} value={value} onChange={onChange} className={className} />;

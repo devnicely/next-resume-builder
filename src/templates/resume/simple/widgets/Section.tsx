@@ -1,4 +1,3 @@
-import { Email, Link, Phone } from '@mui/icons-material';
 import get from 'lodash/get';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';

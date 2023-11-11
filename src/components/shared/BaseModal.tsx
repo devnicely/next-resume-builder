@@ -53,7 +53,6 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         </DialogHeader>
-        {/* <DialogClose></DialogClose> */}
 
         <div>{children}</div>
 

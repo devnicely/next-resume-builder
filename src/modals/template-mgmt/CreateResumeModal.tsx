@@ -5,12 +5,14 @@ import { useAppDispatch, useAppSelector } from "~/store/hooks"
 import { setModalState } from "~/store/modal/modalSlice";
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Button, TextField } from "@mui/material";
 import queryClient from "~/services/react-query";
 import { RESUMES_QUERY } from "~/constants";
 import { useEffect } from "react";
 import { api } from "~/utils/api";
 import {useRouter} from 'next/router';
+import { Button } from "~/components/common/button";
+import { Input } from "~/components/common/input";
+import { Label } from "~/components/common/label";
 
 type FormData = {
     name: string;
@@ -98,13 +100,15 @@ const CreateResumeModal: React.FC = () => {
                     name="name"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <TextField
-                            autoFocus
-                            label="Name"
-                            error={!!fieldState.error}
-                            helperText={fieldState.error?.message}
-                            {...field}
-                        />
+                        <>
+                            <Label>Name</Label>
+                            <Input
+                                autoFocus
+                                error={!!fieldState.error}
+                                helperText={fieldState.error?.message}
+                                {...field}
+                            />
+                        </>
                     )}
                 />
 
@@ -112,12 +116,14 @@ const CreateResumeModal: React.FC = () => {
                     name="slug"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <TextField
-                            label="Slug"
+                        <>
+                            <Label>Slug</Label>
+                        <Input
                             error={!!fieldState.error}
                             helperText={fieldState.error?.message}
                             {...field}
                         />
+                        </>
                     )}
                 />
             </form>

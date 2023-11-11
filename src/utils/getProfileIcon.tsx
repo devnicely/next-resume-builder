@@ -1,4 +1,4 @@
-import { Link } from '@mui/icons-material';
+import { Link2 } from 'lucide-react';
 import get from 'lodash/get';
 import {
   FaBehance,
@@ -58,6 +58,6 @@ const profileIconMap: Record<string, JSX.Element> = {
   youtube: <FaYoutube />,
 };
 
-const getProfileIcon = (network: string): JSX.Element => get(profileIconMap, network.toLowerCase(), <Link />);
+const getProfileIcon = (network: string): JSX.Element => get(profileIconMap, network.toLowerCase(), <Link2 />);
 
 export default getProfileIcon;

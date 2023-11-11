@@ -1,4 +1,3 @@
-import { Email, Phone } from "@mui/icons-material";
 import { alpha } from "@mui/system";
 import clsx from "clsx";
 import { get, isEmpty } from "lodash";

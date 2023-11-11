@@ -1,6 +1,9 @@
-import { Avatar, IconButton } from '@mui/material';
-// import {  } from 'lucide-react';
+import { Avatar } from '@mui/material';
+// import { Avatar, AvatarFallback, AvatarImage } from "~/components/common/avatar";
+
+import {  } from 'lucide-react';
 import isFunction from 'lodash/isFunction';
+import { Button } from '../common/button';
 
 type Props = {
   color: string;
@@ -12,9 +15,14 @@ const ColorAvatar: React.FC<Props> = ({ color, size = 20, onClick }) => {
   const handleClick = () => isFunction(onClick) && onClick(color);
 
   return (
-    <IconButton onClick={handleClick}>
+    <Button size="icon" onClick={handleClick}>
       <Avatar sx={{ bgcolor: color, width: size, height: size }}>&nbsp;</Avatar>
-    </IconButton>
+    </Button>
+
+  //   <Avatar>
+  //   <AvatarImage src="https://github.com/shadcn.png" />
+  //   <AvatarFallback>CN</AvatarFallback>
+  // </Avatar>
   );
 };
 

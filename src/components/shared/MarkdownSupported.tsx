@@ -1,4 +1,4 @@
-import { Link } from '@mui/material';
+import { Link2 } from 'lucide-react';
 import { Trans, useTranslation } from 'next-i18next';
 
 const MarkdownSupported: React.FC = () => {
@@ -8,9 +8,9 @@ const MarkdownSupported: React.FC = () => {
     <span className="inline-block pt-1 opacity-75">
       <Trans t={t} i18nKey="common.markdown.help-text">
         This section supports
-        <Link href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noreferrer">
+        <Link2 href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noreferrer">
           markdown
-        </Link>
+        </Link2>
         formatting.
       </Trans>
     </span>
