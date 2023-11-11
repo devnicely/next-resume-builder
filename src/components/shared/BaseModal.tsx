@@ -40,9 +40,8 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
   return (
     <Dialog
       open={isOpen}
-      onOpenChange={() => {onClose(null, null)}}
-      >
-      <DialogContent>
+    >
+      <DialogContent >
         <DialogHeader>
           <DialogTitle className="inline-block">
             {icon}

@@ -1,3 +1,4 @@
+import { Label } from "~/components/common/label";
 import ColorPicker from "~/components/shared/ColorPicker";
 import Heading from "~/components/shared/Heading"
 import { FontType } from "~/constants";

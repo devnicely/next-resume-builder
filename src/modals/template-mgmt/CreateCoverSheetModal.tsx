@@ -47,12 +47,10 @@ const CreateResumeModal: React.FC = () => {
         isLoading: isCreatingResume,
         isSuccess,
     } = api.resume.createResume.useMutation();
-
     const { reset, watch, control, setValue, handleSubmit } = useForm<FormData>({
         defaultValues: defaultState,
         resolver: joiResolver(schema),
     });
-
     const name = watch('name');
 
     useEffect(() => {
