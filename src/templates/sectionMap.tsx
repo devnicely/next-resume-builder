@@ -2,6 +2,7 @@ import find from 'lodash/find';
 import get from 'lodash/get';
 import React from 'react';
 import { validate } from 'uuid';
+import { Separator } from '~/utils/template';
 
 export type SectionProps = {
   path: string;
@@ -9,19 +10,21 @@ export type SectionProps = {
   subtitlePath?: string | string[];
   headlinePath?: string | string[];
   keywordsPath?: string;
+  separator?: Separator;
 };
 
 const sectionMap = (Section: React.FC<SectionProps>): Record<string, JSX.Element> => ({
   candidate_summary: <Section key="candidate_summary" path='sections.candidate_summary'/>,
   strengths: <Section key="strengths" path='sections.strengths'/>,
   skills: <Section key="skills" path="sections.skills" titlePath="name" keywordsPath="keywords" />,
-  work: <Section key="work" path="sections.work" titlePath="name" subtitlePath="position" />,
+  work_experience: <Section key="work" path="sections.work_experience" titlePath={['organization', 'title']} subtitlePath={['date.start', 'date.end', 'location']} separator=' | ' />,
   education: (
     <Section
       key="education"
       path="sections.education"
-      titlePath="institution"
-      subtitlePath={['degree', 'area']}
+      titlePath={['institution', 'major', 'degree', 'gpa']}
+      subtitlePath={['date.start', 'date.end', 'region', 'country']}
+      separator=' | '
       headlinePath="score"
       keywordsPath="courses"
     />
@@ -29,7 +32,8 @@ const sectionMap = (Section: React.FC<SectionProps>): Record<string, JSX.Element
   certifications: (
     <Section key="certifications" path="sections.certifications" titlePath="name" subtitlePath="issuer" />
   ),
-  references: <Section key="references" path="sections.references" />,
+  references: <Section key="references" path="sections.references" titlePath={['name', 'title']} 
+  subtitlePath={['organization', 'location']} />,
   awards: <Section key="awards" path="sections.awards"/>,
   activities: <Section key="activities" path="sections.activities" />,
 

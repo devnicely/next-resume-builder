@@ -75,7 +75,7 @@ const ResumeInput: React.FC<Props> = ({ type = 'text', label, path, className, m
 
   // return <TextField type={type} label={label} value={value} onChange={onChange} className={className} />;
   return <div className={cn("grid w-full items-center gap-1.5",className)}>
-    <Label>{label}</Label>
+    <Label className='text-[11px]'>{label}</Label>
     <Input value={value} onChange={onChange}></Input>
   </div>
 };

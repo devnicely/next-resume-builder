@@ -6,11 +6,11 @@ const Recruiter = () => {
         <>
             <Heading isEditable={true} isHideable={true}  path="sections.recruiter" name="Recruiter Information"/>
             <div className="grid grid-cols-1 gap-4">
-                <ResumeInput label="Agency Name" path="recruiter.agency_name"/>
-                <ResumeInput label="Recruiter Name" path="recruiter.recruiter_name"/>
-                <ResumeInput label="Recruiter Title" path="recruiter.recruiter_title"/>
-                <ResumeInput label="Recruiter Email" path="recruiter.recruiter_email"/>
-                <ResumeInput label="Recruiter Phone" path="recruiter.recruiter_phone"/>
+                <ResumeInput label="Agency Name" path="sections.recruiter_information.items[0].agency_name"/>
+                <ResumeInput label="Recruiter Name" path="sections.recruiter_information.items[0].recruiter_name"/>
+                <ResumeInput label="Recruiter Title" path="sections.recruiter_information.items[0].recruiter_title"/>
+                <ResumeInput label="Recruiter Email" path="sections.recruiter_information.items[0].recruiter_email"/>
+                <ResumeInput label="Recruiter Phone" path="sections.recruiter_information.items[0].recruiter_phone"/>
             </div>
         </>
     )
