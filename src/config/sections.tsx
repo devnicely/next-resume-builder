@@ -25,6 +25,7 @@ import Typography from '~/components/resume/build/RightSidebar/sections/Typograp
 import ColorTone from '~/components/resume/build/RightSidebar/sections/ColorTone';
 
 export const left: SidebarSection[] = [
+ 
   {
     id: 'basics',
     kind: TemplateType.BOTH,
@@ -35,7 +36,6 @@ export const left: SidebarSection[] = [
     kind: TemplateType.RESUME,
     component: <Recruiter />
   },
-
   {
     id: 'candiate_information',
     kind: TemplateType.RESUME,

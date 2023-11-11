@@ -281,7 +281,6 @@ model Resume {
   name      String
   slug      String
   image     String
-  recruiter String? @db.Text
   basics    String? @db.Text
   sections  String? @db.Text
   metadata  String? @db.Text

@@ -19,7 +19,6 @@ export type Resume = {
   public: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  recruiter: Recruiter;
   userid: string,
 }
 
@@ -39,7 +38,6 @@ export const ResumeSchema = object(
     name: string(),
     slug: string(),
     image: string(),
-    recruiter: string().nullable(),
     basics: string().nullable(),
     sections: string().nullable(),
     metadata: string().nullable(),

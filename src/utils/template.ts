@@ -39,7 +39,7 @@ export const isValidUrl = (string: string): boolean => {
   return url.protocol === 'http:' || url.protocol === 'https:';
 };
 
-type Separator = ', ' | ' / ' | ' | ';
+export type Separator = ', ' | ' / ' | ' | ';
 
 export const parseListItemPath = (item: ListItem, path: string | string[], separator: Separator = ', '): string => {
   if (isArray(path)) {

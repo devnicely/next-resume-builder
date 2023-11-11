@@ -12,6 +12,7 @@ import { Plus } from "lucide-react";
 import { api } from "~/utils/api";
 import { ActionCreators } from "redux-undo";
 import { useAppDispatch } from "~/store/hooks";
+import { TemplateType } from "~/constants";
 
 
 const Resumes: NextPage = () => {
@@ -22,7 +23,7 @@ const Resumes: NextPage = () => {
     const {
         data: resumes,
         refetch
-    } = api.resume.getResumes.useQuery();
+    } = api.resume.getResumes.useQuery({type: TemplateType.RESUME});
 
     useEffect(() => {
         dispatch(ActionCreators.clearHistory());
