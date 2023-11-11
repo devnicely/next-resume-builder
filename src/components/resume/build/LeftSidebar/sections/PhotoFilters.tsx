@@ -23,9 +23,7 @@ const PhotoFilters = () => {
     dispatch(setResumeState({ path: 'basics.photo.filters.shape', value: shape }));
   }
 
-
   const handleSetGrayscale = (value: boolean) => {
-    alert(value);
     dispatch(setResumeState({ path: 'basics.photo.filters.grayscale', value }));
   }
 
