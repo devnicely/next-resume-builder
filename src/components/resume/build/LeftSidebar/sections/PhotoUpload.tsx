@@ -1,5 +1,4 @@
 import {
-  Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
@@ -18,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setResumeState } from '~/store/resume/resumeSlice';
 import { Button } from '~/components/common/button';
 import { Skeleton } from "~/components/common/skeleton";
+import { Avatar, Tooltip } from "@mui/material";
 
 const FILE_UPLOAD_MAX_SIZE = 2000000; // 2 MB
 
@@ -30,7 +30,7 @@ const PhotoUpload: React.FC = () => {
 
   const id: number = useAppSelector((state) => get(state.resume.present, 'id'));
   const photo: Photo = useAppSelector((state) => get(state.resume.present, 'basics.photo'));
-  
+
 
   const { mutateAsync: uploadMutation, isLoading } = useMutation<Resume, ServerError, UploadPhotoParams>(uploadPhoto);
 
@@ -69,33 +69,21 @@ const PhotoUpload: React.FC = () => {
     }
   };
 
-  
+
   return (
-    <Button size="icon" onClick={handleClick}>
+    <Button className="mt-5" size="icon" onClick={handleClick}>
       {isLoading ? (
         <Skeleton className="h-12 w-12 rounded-full" />
       ) : (
-
-        <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline">Avatar</Button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-zinc-700 text-white">
-            <p>Upload Photo</p>
-          </TooltipContent>
+        <Tooltip
+          title={
+            isEmpty(photo.url)
+              ? 'Upload Photo'
+              : 'Remove Photo'
+          }
+        >
+          <Avatar sx={{ width: 96, height: 96 }} src={photo.url} />
         </Tooltip>
-      </TooltipProvider>
-
-        // <Tooltip
-        //   title={
-        //     isEmpty(photo.url)
-        //       ? 'Upload Photo'
-        //       : 'Remove Photo'
-        //   }
-        // >
-        //   <Avatar sx={{ width: 96, height: 96 }} src={photo.url} />
-        // </Tooltip>
       )}
 
       <input hidden type="file" ref={fileInputRef} onChange={handleChange} accept="image/*" />
