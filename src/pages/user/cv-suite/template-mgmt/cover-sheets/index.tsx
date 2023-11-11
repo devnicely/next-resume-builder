@@ -7,19 +7,21 @@ import styles from "~/styles/template-mgmt.module.scss";
 import localStyle from "./CoverSheets.module.scss";
 import { useRouter } from "next/router";
 import clsx from "clsx";
-import { defaultCoverState } from "~/constants";
-import { Cover } from "~/schema/cover";
+import { TemplateType } from "~/constants";
 import CoverPreview from "~/components/resume/cover-preview/CoverPreview";
-
-const cover: Cover = defaultCoverState;
-const covers: Cover[] = [
-    cover
-];
+import ResumeCard from "~/components/resume/resume-card/ResumeCard";
+import { api } from "~/utils/api";
 
 
 const CoverSheets = () => {
     const router = useRouter();
     const goPage = (url: string) => router.push(url);
+
+    const {
+        data: covers,
+        refetch
+    } = api.resume.getResumes.useQuery({type: TemplateType.COVER});
+
 
     return (
         <UserLayout title="Template Management">
@@ -41,6 +43,16 @@ const CoverSheets = () => {
                         Cover Sheet
                     </Button>
                 </header>
+
+                <main className={styles.resumes}>
+                    <ResumeCard
+                        modal="create-coversheet"
+                        title=""
+                        subtitle=""
+                    />
+                </main>
+                <div>Saved CoverSheet</div><hr/>
+
                 <main className={styles.resumes}>
                     {covers && covers.map((cover) => (
                         <CoverPreview key={cover.id} cover={cover} />

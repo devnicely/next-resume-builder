@@ -108,7 +108,6 @@ const Header = () => {
         userId: resume.userid,
         slug: resume.slug,
         image: resume.image,
-        recruiter: JSON.stringify(resume.recruiter),
         basics: JSON.stringify(resume.basics),
         sections: JSON.stringify(resume.sections),
         metadata: JSON.stringify(resume.metadata),

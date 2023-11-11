@@ -2,6 +2,7 @@ import { Email, Phone } from "@mui/icons-material";
 import { alpha } from "@mui/system";
 import clsx from "clsx";
 import { get, isEmpty } from "lodash";
+import { RecruiterInformation } from "~/schema";
 import { ThemeConfig } from "~/schema/metadata";
 import { useAppSelector } from "~/store/hooks";
 import DataDisplay from "~/templates/shared/DataDisplay";
@@ -12,9 +13,12 @@ const RecruitInfo: React.FC = () => {
         (state) => state.resume.present.basics,
     );
 
-    const { agency_name, recruiter_name, recruiter_title, recruiter_email, recruiter_phone } = useAppSelector(
-        (state) => state.resume.present.recruiter
+    const { items } = useAppSelector(
+        (state) => get(state.resume.present, 'sections.recruiter_information')
     );
+    
+    const recruiter_information: RecruiterInformation = items[0] as RecruiterInformation;
+    const {agency_name, recruiter_email, recruiter_name, recruiter_phone, recruiter_title} = recruiter_information;
 
     const theme: ThemeConfig = useAppSelector((state) => get(state.resume.present, 'metadata.theme', {} as ThemeConfig));
 

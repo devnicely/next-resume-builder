@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Delete, DriveFileRenameOutline, MoreVert, OpenInNew } from '@mui/icons-material';
 import { useRouter } from 'next/router';
-import { Cover } from '~/schema/cover';
+import { ResumeSchemaType } from '~/schema';
 
 
 type Props = {
-    cover: Cover;
+    cover: ResumeSchemaType;
 };
 const CoverPreview: React.FC<Props> = ({ cover }) => {
     const router = useRouter();
