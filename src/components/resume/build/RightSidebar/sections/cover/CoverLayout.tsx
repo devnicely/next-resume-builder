@@ -1,6 +1,13 @@
 import { DragDropContext, Draggable, DraggableLocation, Droppable, DropResult } from '@hello-pangea/dnd';
-import { Add, Close } from '@mui/icons-material';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Plus as Add, XIcon as Close, RotateCcw as Restore } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/common/Tooltip";
+
+import { Button } from 'src/components/common/button';
 import clsx from 'clsx';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
@@ -19,7 +26,7 @@ const getIndices = (location: DraggableLocation) => ({
 });
 
 const Layout = () => {
-  
+
   const dispatch = useAppDispatch();
 
   const layout = useAppSelector((state) => state.resume.present.metadata.layout);
@@ -67,13 +74,18 @@ const Layout = () => {
               </p>
 
               <div className={clsx(styles.delete, { hidden: pageIndex === 0 })}>
-                <Tooltip
-                  title="Delete Page"
-                >
-                  <IconButton size="small" onClick={() => handleDeletePage(pageIndex)}>
-                    <Close fontSize="small" />
-                  </IconButton>
-                </Tooltip>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={() => handleDeletePage(pageIndex)}>
+                        <Close size="28" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Delete Page</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
 
@@ -86,7 +98,7 @@ const Layout = () => {
                   <Droppable key={index} droppableId={index}>
                     {(provided) => (
                       <div ref={provided.innerRef} className={styles.column} {...provided.droppableProps}>
-                        <p className={styles.heading}>{columnIndex ? 'Candiate Information' : 'Recruiter Information'}</p> 
+                        <p className={styles.heading}>{columnIndex ? 'Candiate Information' : 'Recruiter Information'}</p>
                         <div className={styles.base} />
                         {/* Sections */}
                         {sections.map((sectionId, sectionIndex) => (
@@ -115,10 +127,10 @@ const Layout = () => {
         {
           resume.type == TemplateType.RESUME &&
           <div className="flex items-center justify-end">
-          <Button variant="outlined" startIcon={<Add />} onClick={handleAddPage}>
-            Add New Page
-          </Button>
-        </div>
+            <Button variant="outline" onClick={handleAddPage}>
+              <Add size="28" />&nbsp; Add New Page
+            </Button>
+          </div>
         }
       </DragDropContext>
     </>
