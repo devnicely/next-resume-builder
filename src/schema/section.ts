@@ -35,28 +35,6 @@ export type Skill = {
   skills: string;
 };
 
-export type Language = {
-  id?: string;
-  name: string;
-  level: string;
-  levelNum: number;
-};
-
-export type Interest = {
-  id?: string;
-  name: string;
-  keywords?: string[];
-};
-
-export type Project = {
-  id?: string;
-  name: string;
-  description: string;
-  date?: DateRange;
-  url?: string;
-  summary?: string;
-  keywords?: string[];
-};
 
 export type Reference = {
   id?: string;
@@ -80,26 +58,35 @@ export type Custom = {
   keywords?: string[];
 };
 
-export type ProfileSummary = {
-  summary?: string;
-}
-
 export type Strengths = {
+  id?: string;
   summary: string;
 };
 
 export type CandidateInformation = {
+  id?: string;
   candidate_name: string;
   candidate_email: string;
   candidate_phone: string;
   candidate_website: string;
 };
 
+export type RecruiterInformation = {
+  id?: string;
+  agency_name: string;
+  recruiter_name: string;
+  recruiter_title: string;
+  recruiter_email: string;
+  recruiter_phone: string;
+}
+
 export type CandidiateSummary = {
+  id?: string;
   summary?: string
 };
 
 export type Award = {
+  id?: string;
   organization: string;
   title: string;
   year: string;
@@ -109,34 +96,35 @@ export type Award = {
 export type ListItem =
   | CandidateInformation
   | CandidiateSummary
+  | RecruiterInformation
   | Skill
   | Strengths
   | WorkExperience
   | Education
   | Award
   | Certificate
-  | Language
   | Profile
   | Reference
   | Custom;
 
 
 export type SectionType =
+  | 'recruiter_information'
+  | 'candidate_information'
+  | 'candidate_summary'
+  | 'skills'
+  | 'strengths'
+  | 'work_experience'
+  | 'education'
+  | 'awards'
+  | 'certifications'
+  | 'activities'
+  | 'references'
+
   | 'basic'
   | 'location'
   | 'profiles'
-  | 'education'
-  | 'certifications'
-  | 'skills'
-  | 'languages'
-  | 'references'
   | 'custom'
-  | 'work'
-  | 'profile_summary'
-  | 'strengths'
-  | 'candidate_information'
-  | 'candidate_summary'
-  | 'activities'
   
   | 'cover_agency_name'
   | 'cover_recruiter_name'

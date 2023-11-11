@@ -4,6 +4,9 @@ import 'dayjs/plugin/utc';
 import 'dayjs/plugin/relativeTime';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
+import { i18n } from 'next-i18next';
+import 'dayjs/plugin/utc';
+import 'dayjs/plugin/relativeTime';
 
 export const dateFormatOptions: string[] = [
   'MMMM DD, YYYY',
@@ -27,7 +30,7 @@ export const dateFormatOptions: string[] = [
 export const getRelativeTime = (timestamp: dayjs.ConfigType): string => dayjs(timestamp).toNow(true);
 
 export const formatDateString = (date: string | DateRange, formatStr: string): string | null => {
-  const presentString = 'Present' ?? '';
+  const presentString = i18n?.t('common.date.present') ?? '';
 
   if (isEmpty(date)) return null;
 

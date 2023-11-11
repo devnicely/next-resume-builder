@@ -16,7 +16,7 @@ import FormData from "form-data";
 import { Storage } from "@google-cloud/storage";
 import { Readable } from "stream";
 import path from "path";
-import { SHORT_ID_LENGTH, defaultResumeState } from "~/constants";
+import { SHORT_ID_LENGTH, TemplateType, defaultCoverState, defaultResumeState } from "~/constants";
 import { nanoid } from "nanoid";
 import { CreateResumeParamsSchema, ResumeSchema, ResumeSchemaType, Resume, Basics, DeleteResumeParamsSchema, RenameResumeParamsSchema } from "~/schema";
 import { z } from "zod";
@@ -217,30 +217,52 @@ export const resumeRouter = createTRPCRouter({
         const userId = user?.userId;
         const username = user?.name;
         // Create Resume and get its id
-        await ctx.prisma.resume.create({
-          data: {
-            shortId,
-            name,
-            slug,
-            image: "/images/templates/resumes/leafish.jpg",
-            basics: JSON.stringify({
-              ...defaultResumeState.basics,
-              name: username,
-            }),
-            sections: JSON.stringify({
-              ...defaultResumeState.sections
-            }),
-            public: isPublic,
-            userId,
-            recruiter: JSON.stringify({
-              ...defaultResumeState.recruiter
-            }),
-            metadata: JSON.stringify({
-              ...defaultResumeState.metadata
-            }),
-            type
-          },
-        });
+
+        if (type == TemplateType.RESUME)
+         {
+           await ctx.prisma.resume.create({
+            data: {
+              shortId,
+              name,
+              slug,
+              image: defaultResumeState.image,
+              basics: JSON.stringify({
+                ...defaultResumeState.basics,
+                name: username,
+              }),
+              sections: JSON.stringify({
+                ...defaultResumeState.sections
+              }),
+              public: isPublic,
+              userId,
+              metadata: JSON.stringify({
+                ...defaultResumeState.metadata
+              }),
+              type
+            },
+          });}
+        else{
+          await ctx.prisma.resume.create({
+            data: {
+              shortId,
+              name,
+              slug,
+              image: defaultCoverState.image,
+              basics: JSON.stringify({
+                ...defaultCoverState.basics,
+                name: username,
+              }),
+              sections: JSON.stringify({
+                ...defaultCoverState.sections
+              }),
+              public: isPublic,
+              userId,
+              metadata: JSON.stringify({
+                ...defaultCoverState.metadata
+              }),
+              type
+            },
+          });}
         return { success: true }
       } catch (error) {
         throw new TRPCError({
@@ -251,11 +273,15 @@ export const resumeRouter = createTRPCRouter({
     }),
 
   getResumes: protectedProcedure
-  .query(async ({ctx}) => {
+  .input(z.object({
+    type: z.string(),
+  }))
+  .query(async ({input, ctx}) => {
     try {
+      const {type} = input;
       const userId = ctx.session?.user.userId;
       const resumes: ResumeSchemaType[] = await ctx.prisma.resume.findMany({
-        where: {userId: userId},
+        where: {userId: userId, type},
         orderBy: {createdAt: 'asc'}
       });
       return resumes.length > 0? resumes : [];
@@ -298,9 +324,8 @@ export const resumeRouter = createTRPCRouter({
     const {slug} = input;
     try {
       const resumeSchemaObj = await ctx.prisma.resume.findFirst({
-        where: { slug: slug },
+        where: { slug: slug},
       });
-
       const resume: Resume = {
         id: resumeSchemaObj?.id ?? 0,
         shortId: resumeSchemaObj?.shortId ?? '',
@@ -310,7 +335,6 @@ export const resumeRouter = createTRPCRouter({
         basics: JSON.parse(resumeSchemaObj?.basics ?? "{}"),
         sections: JSON.parse(resumeSchemaObj?.sections ?? "{}"),
         metadata: JSON.parse(resumeSchemaObj?.metadata ?? "{}"),
-        recruiter: JSON.parse(resumeSchemaObj?.recruiter ?? "{}"),
         public: resumeSchemaObj?.public || false,
         userid: resumeSchemaObj?.userId ?? "",
         type: resumeSchemaObj?.type ?? "",

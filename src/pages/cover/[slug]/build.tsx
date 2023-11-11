@@ -6,6 +6,7 @@ import Center from "~/components/resume/build/Center/Center";
 import { useAppDispatch } from "~/store/hooks";
 import { setResume } from "~/store/resume/resumeSlice";
 import isEmpty from 'lodash/isEmpty';
+<<<<<<< HEAD
 import { Resume } from "~/schema";
 import { TemplateType } from "~/constants";
 
@@ -304,6 +305,9 @@ export const defaultResumeState: Resume = {
 const cover: Resume = defaultResumeState;
 
 
+=======
+import { api } from "~/utils/api";
+>>>>>>> main
 
 type QueryParams = {
     slug: string
@@ -322,6 +326,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) =
 
 const Build: NextPage<Props> = ({ slug }) => {
     const dispatch = useAppDispatch();
+    const {
+        data: cover,
+        isLoading,
+        refetch
+    } = api.resume.getResumeBySlug.useQuery({ slug: slug });
 
     if (!cover || isEmpty(cover)) return null;
     dispatch(setResume(cover));

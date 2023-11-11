@@ -11,19 +11,33 @@ import { setResumeState } from "~/store/resume/resumeSlice";
 type WidgetsProps = {
     label: string;
     category: TypeCategory;
+<<<<<<< HEAD
 }
 
 const Widgets: React.FC<WidgetsProps> = ({ label, category }) => {
     const { family, size } = useAppSelector<TypographyType>((state) => get(state.resume.present, 'metadata.typography'));
+=======
+    defaultValue: number[],
+}
+
+const Widgets: React.FC<WidgetsProps> = ({ label, category, ...props }) => {
+>>>>>>> main
     const dispatch = useAppDispatch();
     const onChangedFontSize = (property: TypeProperty, size: number[]) => {
         const fontsize: number = size[0] ?? 0;
         dispatch(
             setResumeState({
+<<<<<<< HEAD
               path: `metadata.typography.${property}.${category}`,
               value: size,
             }),
           );
+=======
+                path: `metadata.typography.${property}.${category}`,
+                value: size,
+            }),
+        );
+>>>>>>> main
     }
 
     return (
@@ -35,7 +49,11 @@ const Widgets: React.FC<WidgetsProps> = ({ label, category }) => {
                         min={12}
                         max={36}
                         step={1}
+<<<<<<< HEAD
                         defaultValue={[16]}
+=======
+                        {...props}
+>>>>>>> main
                         onValueChange={(value: number[]) => { onChangedFontSize('size', value) }}
                         className={"mt-2"} />
                     <div className="flex flex-row justify-between">
@@ -62,12 +80,23 @@ const Widgets: React.FC<WidgetsProps> = ({ label, category }) => {
 }
 
 const Typography = () => {
+<<<<<<< HEAD
     return(
         <>
             <Heading path="" name="Typography" />
             <Widgets label="Section" category={FontType.SECTION}/>
             <Widgets label="Subtitle" category={FontType.SUBTITLE}/>
             <Widgets label="Section" category={FontType.NORMALTEXT}/>
+=======
+    const { family, size } = useAppSelector<TypographyType>((state) => get(state.resume.present, 'metadata.typography'));
+    const { text: fontSizeText, section: fontSizeSection, subtitle: fontSizeSubtitle } = size;
+    return (
+        <>
+            <Heading path="" name="Typography" />
+            <Widgets label="Section" category={FontType.SECTION} defaultValue={[fontSizeSection]} />
+            <Widgets label="Subtitle" category={FontType.SUBTITLE} defaultValue={[fontSizeSubtitle]} />
+            <Widgets label="Section" category={FontType.NORMALTEXT} defaultValue={[fontSizeText]} />
+>>>>>>> main
         </>
     )
 }

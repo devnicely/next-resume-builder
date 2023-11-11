@@ -25,10 +25,14 @@ const getIndices = (location: DraggableLocation) => ({
   section: +location.index,
 });
 
+<<<<<<< HEAD
 const Layout = () => {
 
+=======
+const Layout = () => {  
+  
+>>>>>>> main
   const dispatch = useAppDispatch();
-
   const layout = useAppSelector((state) => state.resume.present.metadata.layout);
   const resumeSections = useAppSelector((state) => state.resume.present.sections);
   const resume = useAppSelector((state) => state.resume.present);
@@ -70,7 +74,7 @@ const Layout = () => {
           <div key={pageIndex} className={styles.page}>
             <div className="flex items-center justify-between pr-3">
               <p className={styles.heading}>
-                Page {pageIndex + 1}
+                Cover
               </p>
 
               <div className={clsx(styles.delete, { hidden: pageIndex === 0 })}>
