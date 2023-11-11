@@ -68,18 +68,15 @@ const PhotoUpload: React.FC = () => {
       {isLoading ? (
         <Skeleton variant="circular" width={96} height={96} />
       ) : (
-        <Tooltip title="Upload Photo">
-          <div></div>
+        <Tooltip
+          title={
+            isEmpty(photo.url)
+              ? 'Upload Photo'
+              : "Remove"
+          }
+        >
+          <Avatar sx={{ width: 96, height: 96 }} src={photo.url} />
         </Tooltip>
-        // <Tooltip
-        //   title={
-        //     isEmpty(photo.url)
-        //       ? 'Upload Photo'
-        //       : 'Remove Photo'
-        //   }
-        // >
-        //   <Avatar sx={{ width: 96, height: 96 }} src={photo.url} />
-        // </Tooltip>
       )}
 
       <input hidden type="file" ref={fileInputRef} onChange={handleChange} accept="image/*" />

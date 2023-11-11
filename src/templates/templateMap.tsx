@@ -1,7 +1,6 @@
 import { PageProps } from '~/utils/template';
 
 import Simple from './resume/simple/Simple';
-import Gengar from './resume/simple/Simple';
 import SimpleCoverSheet from './cover/simple/SimpleCoverSheet';
 
 

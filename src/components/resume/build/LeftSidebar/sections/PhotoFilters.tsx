@@ -9,7 +9,6 @@ import { setResumeState } from '~/store/resume/resumeSlice';
 import { Label } from '~/components/common/label';
 
 const PhotoFilters = () => {
-  
   const dispatch = useAppDispatch();
   const photo: Photo = useAppSelector((state) => get(state.resume.present, 'basics.photo'));
   const size: number = get(photo, 'filters.size', 128);
@@ -21,13 +20,10 @@ const PhotoFilters = () => {
     dispatch(setResumeState({ path: 'basics.photo.filters.size', value: size }));
 
   const handleChangeShape = (shape: PhotoShape) => {
-
     dispatch(setResumeState({ path: 'basics.photo.filters.shape', value: shape }));
   }
 
-
   const handleSetGrayscale = (value: boolean) => {
-    alert(value);
     dispatch(setResumeState({ path: 'basics.photo.filters.grayscale', value }));
   }
 
@@ -91,7 +87,7 @@ const PhotoFilters = () => {
       </div>
 
       <div className="border-t border-gray-300"></div>
-
+      
       <div className="flex flex-col gap-2">
         <h4 className="font-medium">Shape</h4>
         <div className='flex justify-center'>
