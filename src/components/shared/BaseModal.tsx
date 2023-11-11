@@ -40,8 +40,14 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
   return (
     <Dialog
       open={isOpen}
+<<<<<<< HEAD
+      onOpenChange={() => {onClose(null, null)}}
+      >
+      <DialogContent>
+=======
     >
       <DialogContent >
+>>>>>>> main
         <DialogHeader>
           <DialogTitle className="inline-block">
             {icon}
@@ -53,7 +59,6 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         </DialogHeader>
-        {/* <DialogClose></DialogClose> */}
 
         <div>{children}</div>
 

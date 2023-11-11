@@ -111,7 +111,7 @@ const Layout = () => {
         ))}
 
         <div className="flex items-center justify-end">
-          <Button variant="secondary" onClick={handleAddPage}>
+          <Button className="bg-primary-500" onClick={handleAddPage}>
             <Add className="mr-2 h-4 w-4" /> Add New Page
           </Button>
         </div>

@@ -10,9 +10,12 @@ import {
 import { Button } from "~/components/common/button";
 import { TypeCategory } from "~/schema";
 import { FontType } from "~/constants";
+<<<<<<< HEAD
+=======
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import { setResumeState } from "~/store/resume/resumeSlice";
 import { get } from "lodash";
+>>>>>>> main
 
 type Spacing = {
     name: string;
@@ -33,6 +36,11 @@ type SpacingProps = {
 }
 
 const SpacingWidgets: React.FC<SpacingProps> = ({label, category}) => {
+<<<<<<< HEAD
+
+    const onClickedItemSpacing = (category: string, pos: number) => {
+        alert(category);
+=======
     const dispatch = useAppDispatch();
     const spacing: Record<TypeCategory, number> = useAppSelector((state) => get(state.resume.present, 'metadata.typography.spacing'));
     
@@ -41,6 +49,7 @@ const SpacingWidgets: React.FC<SpacingProps> = ({label, category}) => {
             path: `metadata.typography.spacing.${category}`,
             value: spacings[pos]?.value
         }));
+>>>>>>> main
     }
     return (
         <>
@@ -59,10 +68,14 @@ const SpacingWidgets: React.FC<SpacingProps> = ({label, category}) => {
                                     spacings.map((space, pos) => {
                                         return (
                                             <DropdownMenuItem onClick={() => onClickedItemSpacing(category, pos)}>
+<<<<<<< HEAD
+                                                <Check size="14" /> &nbsp; {space.name}
+=======
                                                 {category == FontType.SECTION && spacings[pos]?.value == spacing.section && <Check size="14" />}
                                                 {category == FontType.SUBTITLE && spacings[pos]?.value == spacing.subtitle && <Check size="14" />}
                                                 {category == FontType.NORMALTEXT && spacings[pos]?.value == spacing.text && <Check size="14" />}
                                                 &nbsp; {space.name}
+>>>>>>> main
                                             </DropdownMenuItem>
                                         );
                                     })

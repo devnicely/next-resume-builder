@@ -10,8 +10,8 @@ const Education = () => {
                 <ResumeInput label="Major" path="sections.education.items[0].major" className="sm:col-span-2"/>
                 <ResumeInput label="Degree" path="sections.education.items[0].degree" className="sm:col-span-2"/>
                 <ResumeInput label="GPA" path="sections.education.items[0].gpa" className="sm:col-span-2"/>
-                <ResumeInput type="date" label="Start Date" path="sections.education.items[0].date.start" className="sm:col-span-2"/>
-                <ResumeInput type="date" label="Start Date" path="sections.education.items[0].date.end" className="sm:col-span-2"/>
+                <ResumeInput type="date" label="Start Date" path="sections.education.items[0].date.start" className="sm:col-span-1"/>
+                <ResumeInput type="date" label="Start Date" path="sections.education.items[0].date.end" className="sm:col-span-1"/>
                 <ResumeInput label="Region" path="sections.education.items[0].region" className="sm:col-span-1"/>
                 <ResumeInput label="Country" path="sections.education.items[0].country" className="sm:col-span-1"/>
             </div>
