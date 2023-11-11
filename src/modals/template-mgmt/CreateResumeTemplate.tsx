@@ -1,16 +1,18 @@
-import { Add } from "@mui/icons-material"
+import { Plus as Add } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import BaseModal from "~/components/shared/BaseModal"
 import { useAppDispatch, useAppSelector } from "~/store/hooks"
 import { setModalState } from "~/store/modal/modalSlice";
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Button, TextField } from "@mui/material";
 import queryClient from "~/services/react-query";
 import { RESUMES_QUERY, TemplateType } from "~/constants";
 import { useEffect } from "react";
 import { api } from "~/utils/api";
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { Button } from "~/components/common/button";
+import { Input } from "~/components/common/input";
+import { Label } from "~/components/common/label";
 
 type FormData = {
     name: string;
@@ -45,12 +47,12 @@ const CreateResumeModal: React.FC = () => {
         isLoading: isCreatingResume,
         isSuccess,
     } = api.resume.createResume.useMutation();
-    
+
     const { reset, watch, control, setValue, handleSubmit } = useForm<FormData>({
         defaultValues: defaultState,
         resolver: joiResolver(schema),
     });
-    
+
     const name = watch('name');
 
     useEffect(() => {
@@ -99,13 +101,15 @@ const CreateResumeModal: React.FC = () => {
                     name="name"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <TextField
-                            autoFocus
-                            label="Name"
-                            error={!!fieldState.error}
-                            helperText={fieldState.error?.message}
-                            {...field}
-                        />
+                        <>
+                            <Label>Name</Label>
+                            <Input
+                                autoFocus
+                                error={!!fieldState.error}
+                                helperText={fieldState.error?.message}
+                                {...field}
+                            />
+                        </>
                     )}
                 />
 
@@ -113,12 +117,14 @@ const CreateResumeModal: React.FC = () => {
                     name="slug"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <TextField
-                            label="Slug"
+                        <>
+                            <Label>Slug</Label>
+                        <Input
                             error={!!fieldState.error}
                             helperText={fieldState.error?.message}
                             {...field}
                         />
+                        </>
                     )}
                 />
             </form>

@@ -1,11 +1,19 @@
-import { ButtonBase, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '~/components/common/dropdown-menu';
+
+import { MoreVertical, ExternalLink, Trash2, PencilLine } from 'lucide-react';
+
 import Image from 'next/image';
 import styles from './CoverPreview.module.scss';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Delete, DriveFileRenameOutline, MoreVert, OpenInNew } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { ResumeSchemaType } from '~/schema';
+import { Button } from '~/components/common/button';
 
 
 type Props = {
@@ -29,45 +37,37 @@ const CoverPreview: React.FC<Props> = ({ cover }) => {
             <Link
                 passHref
                 href={{
-                    pathname: '/cover/[slug]/build',
+                    pathname: '/resume/[slug]/build',
                     query: { slug: cover.slug }
                 }}
             >
-                <ButtonBase className={styles.preview}>
+                {/* <Button className={styles.preview}> */}
                     <Image src={cover.image} alt={cover.name} priority width={400} height={0} />
-                </ButtonBase>
+                {/* </Button> */}
             </Link>
+
             <footer className={styles.meta}>
                 <div className={styles.meta}>
                     <p>{cover.name}</p>
                 </div>
-                <ButtonBase className={styles.menu} onClick={() => {alert(3)}}>
-                    <MoreVert />
-                </ButtonBase>
-
-                <Menu anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
-
-                    <MenuItem onClick={() => {alert(3)}}>
-                        <ListItemIcon>
-                            <OpenInNew className="scale-90" />
-                        </ListItemIcon>
-                        <ListItemText>Open</ListItemText>
-                    </MenuItem>
-
-                    <MenuItem onClick={() =>{alert(1)}}>
-                        <ListItemIcon>
-                            <Delete className="scale-90" />
-                        </ListItemIcon>
-                        <ListItemText>Delete</ListItemText>
-                    </MenuItem>
-
-                    <MenuItem onClick={() => {alert(2)}}>
-                        <ListItemIcon>
-                            <DriveFileRenameOutline className="scale-90" />
-                        </ListItemIcon>
-                        <ListItemText>Rename</ListItemText>
-                    </MenuItem>
-                </Menu>
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <Button className={styles.menu} variant="ghost" size="icon">
+                            <MoreVertical size="28" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem onClick={() => {alert(3)}}>
+                        <ExternalLink size="16" /> &nbsp; Open
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => {alert(1)}}>
+                            <Trash2 size="16" /> &nbsp; Delete
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => {alert(2)}}>
+                        <PencilLine size="16" /> &nbsp; Rename
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </footer>
         </section>
     )

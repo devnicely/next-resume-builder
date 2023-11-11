@@ -15,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from '~/components/common/dropdown-menu';
 
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 
 import { Button } from '~/components/common/button';
 
@@ -128,9 +127,9 @@ const Header = () => {
           <div
             className={`${styles.header} ${left.open ? styles.pushLeft : ''} ${right.open ? styles.pushRight : ''}`}
           >
-            <button onClick={toggleLeftSidebar} className="p-2">
+            <Button size="icon" variant="ghost" onClick={toggleLeftSidebar} className="p-2">
               {left.open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </button>
+            </Button>
             <div className={styles.title}>
               <button className="p-2 opacity-50 hover:opacity-100" onClick={goBack}>
                 <HomeIcon />
@@ -152,7 +151,7 @@ const Header = () => {
               </DropdownMenu>
             </div>
 
-            <IconButton onClick={toggleRightSidebar}>{right.open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
+            <Button size="icon" variant="ghost" onClick={toggleRightSidebar}>{right.open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</Button>
           </div>
         </div>
       )}

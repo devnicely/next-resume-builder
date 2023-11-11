@@ -10,7 +10,6 @@ import styles from './ResumeCard.module.scss';
 import Link from 'next/link';
 import { ResumeSchemaType } from '~/schema';
 import { useState } from 'react';
-import { Delete, DriveFileRenameOutline, MoreVert, OpenInNew } from '@mui/icons-material';
 import { MoreVertical, ExternalLink, Trash2, PencilLine } from 'lucide-react';
 import { api } from '~/utils/api';
 import { useRouter } from 'next/router';

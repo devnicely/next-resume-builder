@@ -1,4 +1,9 @@
-import { Avatar, IconButton, Skeleton, Tooltip } from '@mui/material';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/common/Tooltip";
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'next-i18next';
@@ -11,6 +16,8 @@ import { ServerError } from '~/services/axios';
 import { deletePhoto, DeletePhotoParams, uploadPhoto, UploadPhotoParams } from '~/services/resume';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setResumeState } from '~/store/resume/resumeSlice';
+import { Button } from '~/components/common/button';
+import { Skeleton } from "~/components/common/skeleton";
 
 const FILE_UPLOAD_MAX_SIZE = 2000000; // 2 MB
 
@@ -64,13 +71,22 @@ const PhotoUpload: React.FC = () => {
 
   
   return (
-    <IconButton onClick={handleClick}>
+    <Button size="icon" onClick={handleClick}>
       {isLoading ? (
-        <Skeleton variant="circular" width={96} height={96} />
+        <Skeleton className="h-12 w-12 rounded-full" />
       ) : (
-        <Tooltip title="Upload Photo">
-          <div></div>
+
+        <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="outline">Avatar</Button>
+          </TooltipTrigger>
+          <TooltipContent className="bg-zinc-700 text-white">
+            <p>Upload Photo</p>
+          </TooltipContent>
         </Tooltip>
+      </TooltipProvider>
+
         // <Tooltip
         //   title={
         //     isEmpty(photo.url)
@@ -83,7 +99,7 @@ const PhotoUpload: React.FC = () => {
       )}
 
       <input hidden type="file" ref={fileInputRef} onChange={handleChange} accept="image/*" />
-    </IconButton>
+    </Button>
   );
 };
 
