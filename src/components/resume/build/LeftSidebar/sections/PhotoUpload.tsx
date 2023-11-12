@@ -3,16 +3,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/common/Tooltip";
-import get from 'lodash/get';
+
 import isEmpty from 'lodash/isEmpty';
-import { useTranslation } from 'next-i18next';
 import React, { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import { Photo, Resume } from '~/schema';
-
 import { ServerError } from '~/services/axios';
-import { deletePhoto, DeletePhotoParams, uploadPhoto, UploadPhotoParams } from '~/services/resume';
+import { FileUploadResponeParams, uploadPhoto, UploadPhotoParams } from '~/services/resume';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setResumeState } from '~/store/resume/resumeSlice';
 import { Button } from '~/components/common/button';
@@ -22,50 +20,45 @@ import { Avatar, Tooltip } from "@mui/material";
 const FILE_UPLOAD_MAX_SIZE = 2000000; // 2 MB
 
 const PhotoUpload: React.FC = () => {
-  const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
-
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const id: number = useAppSelector((state) => get(state.resume.present, 'id'));
-  const photo: Photo = useAppSelector((state) => get(state.resume.present, 'basics.photo'));
-
-
-  const { mutateAsync: uploadMutation, isLoading } = useMutation<Resume, ServerError, UploadPhotoParams>(uploadPhoto);
-
-  const { mutateAsync: deleteMutation } = useMutation<Resume, ServerError, DeletePhotoParams>(deletePhoto);
-
+  const resume: Resume = useAppSelector((state) => state.resume.present);
+  const id: number = resume.id;
+  const photo: Photo = resume.basics.photo;
+  const { mutateAsync: uploadMutation, isLoading, isError } = useMutation<FileUploadResponeParams, ServerError, UploadPhotoParams>(uploadPhoto);
   const handleClick = async () => {
     if (fileInputRef.current) {
       if (!isEmpty(photo.url)) {
         try {
-          const resume = await deleteMutation({ id });
-          dispatch(setResumeState({ path: 'updatedAt', value: get(resume, 'updatedAt', '') }));
+          //const resume = await deleteMutation({ id });
+          //dispatch(setResumeState({ path: 'updatedAt', value: get(resume, 'updatedAt', '') }));
         } finally {
           dispatch(setResumeState({ path: 'basics.photo.url', value: '' }));
         }
       } else {
         fileInputRef.current.click();
       }
-
       fileInputRef.current.value = '';
     }
   };
+
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
 
       if (file.size > FILE_UPLOAD_MAX_SIZE) {
-        toast.error(t('common.toast.error.upload-photo-size'));
+        toast.error('Please upload only photos under 2 megabytes, preferably square.');
         return;
       }
-
-      const resume = await uploadMutation({ id, file });
-
-      dispatch(setResumeState({ path: 'basics.photo.url', value: get(resume, 'basics.photo.url', '') }));
-      dispatch(setResumeState({ path: 'updatedAt', value: get(resume, 'updatedAt', '') }));
+      
+      const result: FileUploadResponeParams = await uploadMutation({ id, file });
+      if (!isError){
+        const {filename} = result;
+        const filepath = `/uploads/${filename}`;
+        dispatch(setResumeState({ path: 'basics.photo.url', value: filepath }));
+      }
+      // dispatch(setResumeState({ path: 'updatedAt', value: get(resume, 'updatedAt', '') }));
     }
   };
 

@@ -298,11 +298,11 @@ export const resumeRouter = createTRPCRouter({
   .input(ResumeSchema)
   .mutation(async ({ input, ctx }) => {
     try {
-      const {id, recruiter, sections, metadata} = input;
+      const {id, sections, metadata, basics} = input;
       await ctx.prisma.resume.update({
         where: { id: id },
         data: {
-          recruiter: recruiter,
+          basics: basics,
           sections: sections,
           metadata: metadata
         },
