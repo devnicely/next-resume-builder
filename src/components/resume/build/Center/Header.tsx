@@ -20,23 +20,11 @@ import { Button } from '~/components/common/button';
 
 import get from 'lodash/get';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useMutation } from 'react-query';
-import { Resume } from '~/schema';
-
-import { RESUMES_QUERY } from '~/constants/index';
-import { ServerError } from '~/services/axios';
-import queryClient from '~/services/react-query';
 import { setSidebarState, toggleSidebar } from '~/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { setModalState } from '~/store/modal/modalSlice';
-import getResumeUrl from '~/utils/getResumeUrl';
-import { cn } from '~/utils/styles';
-
 import styles from './Header.module.scss';
-
 import { api } from '~/utils/api';
 
 

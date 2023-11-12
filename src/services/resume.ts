@@ -4,6 +4,10 @@ import { Resume } from '~/schema';
 import isBrowser from '~/utils/isBrowser';
 import axios from './axios';
 
+export type FileUploadResponeParams = {
+  filename: string;
+}
+
 export type CreateResumeParams = {
   name: string;
   slug: string;
@@ -34,10 +38,6 @@ export type ResetResumeParams = {
 export type UploadPhotoParams = {
   id: number;
   file: File;
-};
-
-export type DeletePhotoParams = {
-  id: number;
 };
 
 
@@ -81,17 +81,13 @@ export const resetResume = (resetResumeParams: ResetResumeParams) =>
     .post<Resume, AxiosResponse<Resume>, ResetResumeParams>(`/resume/${resetResumeParams.id}/reset`)
     .then((res) => res.data);
 
+
 export const uploadPhoto = async (uploadPhotoParams: UploadPhotoParams) => {
   const formData = new FormData();
-
   formData.append('file', uploadPhotoParams.file);
-
   return axios
-    .put<Resume, AxiosResponse<Resume>, FormData>(`/resume/${uploadPhotoParams.id}/photo`, formData)
+    // .put<Resume, AxiosResponse<Resume>, FormData>(`/api/${uploadPhotoParams.id}/photo`, formData)
+    .put<FileUploadResponeParams, AxiosResponse<FileUploadResponeParams>, FormData>(`/photo`, formData)
     .then((res) => res.data);
 };
-
-export const deletePhoto = async (deletePhotoParams: DeletePhotoParams) =>
-  axios.delete<Resume, AxiosResponse<Resume>>(`/resume/${deletePhotoParams.id}/photo`).then((res) => res.data);
-
 

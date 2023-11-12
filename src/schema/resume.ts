@@ -56,4 +56,5 @@ export const RenameResumeParamsSchema = object({
   slug: string(),
 });
 
+
 export type ResumeSchemaType = TypeOf<typeof ResumeSchema>
