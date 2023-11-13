@@ -267,7 +267,7 @@ export const resumeRouter = createTRPCRouter({
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to upload avatar",
+          message: "Failed to create resume",
         });
       }
     }),
@@ -286,7 +286,6 @@ export const resumeRouter = createTRPCRouter({
       });
       return resumes.length > 0? resumes : [];
     } catch (error) {
-      console.log("error", error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal server error, please contact support",

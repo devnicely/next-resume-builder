@@ -103,8 +103,6 @@ const CreateResumeModal: React.FC = () => {
                             <Label>Name</Label>
                             <Input
                                 autoFocus
-                                error={!!fieldState.error}
-                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         </>
@@ -118,8 +116,6 @@ const CreateResumeModal: React.FC = () => {
                         <>
                             <Label>Slug</Label>
                             <Input
-                                error={!!fieldState.error}
-                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         </>

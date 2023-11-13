@@ -53,12 +53,12 @@ export function DataTableRowActions<TData>({
   const { mutateAsync: updateResumeTitleStatus } =
     api.resume.updateResumeTitleStatus.useMutation();
 
-  const { refetchResumes } = useRefetch();
+  // const { refetchResumes } = useRefetch();
 
   const deleteCV = async (id) => {
     await deleteResumes({ resumeIds: [id] }).then(() => {
       notify({ message: "Delete success" });
-      void refetchResumes();
+      // void refetchResumes();
     });
   };
 

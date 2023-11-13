@@ -1,12 +1,9 @@
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogClose
 } from "~/components/common/dialog";
 
 import { useRouter } from 'next/router';
