@@ -43,7 +43,7 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
     >
       <DialogContent >
         <DialogHeader>
-          <DialogTitle className="inline-block">
+          <DialogTitle className="flex items-start">
             {icon}
             {icon && <span className="mx-2 opacity-25">/</span>}
             {heading}
