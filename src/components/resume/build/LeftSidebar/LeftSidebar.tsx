@@ -20,11 +20,8 @@ const LeftSidebar = () => {
   const { open } = useAppSelector((state) => state.build.sidebar.left);
 
   const customSections = useMemo(() => getCustomSections(sections), [sections]);
-
   const handleOpen = () => dispatch(setSidebarState({ sidebar: 'left', state: { open: true } }));
-
   const handleClose = () => dispatch(setSidebarState({ sidebar: 'left', state: { open: false } }));
-
   const handleClick = (id: string) => {
     const elementId = validate(id) ? `#section-${id}` : `#${id}`;
     const section = document.querySelector(elementId);

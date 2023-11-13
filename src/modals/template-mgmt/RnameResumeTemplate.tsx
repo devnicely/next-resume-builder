@@ -14,6 +14,7 @@ import { api } from '~/utils/api';
 import { Input } from '~/components/common/input';
 import { Label } from '~/components/common/label';
 import { Button } from '~/components/common/button';
+import { TemplateType } from '~/constants';
 
 type FormData = {
     name: string;
@@ -32,7 +33,7 @@ const schema = Joi.object({
 const RenameResumeModal: React.FC = () => {
 
     const dispatch = useAppDispatch();
-    const { refetchGetResumes } = useRefetch();
+    const { refetchGetResumes } = useRefetch(TemplateType.RESUME);
 
     const {
         mutateAsync: renameResumeTemplate,
@@ -112,8 +113,6 @@ const RenameResumeModal: React.FC = () => {
                             <Label>Name</Label>
                             <Input
                                 autoFocus
-                                error={!!fieldState.error}
-                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         </>
@@ -127,8 +126,6 @@ const RenameResumeModal: React.FC = () => {
                         <>
                             <Label>Slug</Label>
                         <Input
-                            error={!!fieldState.error}
-                            helperText={fieldState.error?.message}
                             {...field}
                         />
                         </>

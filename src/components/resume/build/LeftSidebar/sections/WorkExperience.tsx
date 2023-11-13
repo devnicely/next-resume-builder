@@ -4,7 +4,7 @@ import ResumeInput from "~/components/shared/ResumeInput";
 const WorkExperience = () => {
     return(
         <>
-            <Heading isEditable={true} isHideable={true}  path="sections.work" name="Work Experience"/>
+            <Heading isEditable={true} isHideable={true}  path="sections.work_experience" name="Work Experience"/>
             <div className="grid grid-cols-1 gap-4">
                 <ResumeInput label="Organiztion" path="sections.work_experience.items[0].organization"/>
                 <ResumeInput label="Title" path="sections.work_experience.items[0].title"/>

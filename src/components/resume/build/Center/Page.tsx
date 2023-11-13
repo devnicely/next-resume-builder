@@ -21,7 +21,6 @@ const Page: React.FC<Props> = ({ page, showPageNumbers = false }) => {
   
   const resume = useAppSelector((state) => state.resume.present);
 
-  console.log("==============", resume);
 
   const breakLine: boolean = useAppSelector((state) => state.build.page.breakLine);
 

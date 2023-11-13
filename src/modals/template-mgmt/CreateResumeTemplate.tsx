@@ -5,8 +5,7 @@ import { useAppDispatch, useAppSelector } from "~/store/hooks"
 import { setModalState } from "~/store/modal/modalSlice";
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
-import queryClient from "~/services/react-query";
-import { RESUMES_QUERY, TemplateType } from "~/constants";
+import {TemplateType } from "~/constants";
 import { useEffect } from "react";
 import { api } from "~/utils/api";
 import { useRouter } from 'next/router';
@@ -105,8 +104,6 @@ const CreateResumeModal: React.FC = () => {
                             <Label>Name</Label>
                             <Input
                                 autoFocus
-                                error={!!fieldState.error}
-                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         </>
@@ -120,8 +117,6 @@ const CreateResumeModal: React.FC = () => {
                         <>
                             <Label>Slug</Label>
                         <Input
-                            error={!!fieldState.error}
-                            helperText={fieldState.error?.message}
                             {...field}
                         />
                         </>

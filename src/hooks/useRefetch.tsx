@@ -10,11 +10,11 @@ interface SessionData {
   success: boolean;
 }
 
-const useRefetch = () => {
+const useRefetch = (type: string) => {
   const { data: sessionData } = useSession() as { data: SessionData | null };
   const userId: string | undefined = sessionData?.user.userId;
 
-  const {refetch: refetchGetResumes} = api.resume.getResumes.useQuery();
+  const {refetch: refetchGetResumes} = api.resume.getResumes.useQuery({type});
 
   return { refetchGetResumes };
 };

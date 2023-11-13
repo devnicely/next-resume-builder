@@ -18,6 +18,7 @@ import { notify, notifyError } from '~/components/ReactHotToast';
 import { useAppDispatch } from '~/store/hooks';
 import { setModalState } from '~/store/modal/modalSlice';
 import { Button } from '~/components/common/button';
+import { TemplateType } from '~/constants';
 
 
 type Props = {
@@ -25,7 +26,7 @@ type Props = {
 };
 const ResumePreview: React.FC<Props> = ({ resume }) => {
     const router = useRouter();
-    const { refetchGetResumes } = useRefetch();
+    const { refetchGetResumes } = useRefetch(TemplateType.RESUME);
     const dispatch = useAppDispatch();
 
     const {

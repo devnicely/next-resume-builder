@@ -255,7 +255,6 @@ export const right: SidebarSection[] = [
     component: <ColorTone/>
   }
 
-
   // {
   //   id: 'theme',
   //   kind: TemplateType.BOTH,
