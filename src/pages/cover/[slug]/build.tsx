@@ -29,9 +29,10 @@ const Build: NextPage<Props> = ({ slug }) => {
         data: cover,
         isLoading,
         refetch
-    } = api.resume.getResumeBySlug.useQuery({ slug: slug });
+    } = api.template.getResumeBySlug.useQuery({ slug: slug });
 
     if (!cover || isEmpty(cover)) return null;
+    
     dispatch(setResume(cover));
 
     return (

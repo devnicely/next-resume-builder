@@ -54,8 +54,7 @@ const Section: React.FC<SectionProps> = ({
             phone: string = get(item, 'phone', ''),
             email: string = get(item, 'email', ''),
             summary: string = get(item, 'summary', ''),
-            
-            date = 'May 2013'; //formatDateString(get(item, 'date', ''), dateFormat);
+            date = formatDateString(get(item, 'date', ''), dateFormat);
 
           return (
             <div key={id} className="mb-2 grid gap-1">
@@ -64,8 +63,8 @@ const Section: React.FC<SectionProps> = ({
                   style={{ color: colorSubtitle, lineHeight: spacingSubtitle, fontSize: `${fontSizeSubtitle}pt` }}>{title}</div>}
                 {subtitle && <div style={{lineHeight: spacingSubtitle, fontSize: `${fontSizeSubtitle}pt`, color: colorSubtitle}}>{subtitle}</div>}
                 
-                <div className="flex flex-col gap-1 text-right text-xs">
-                  {/* {date && <div className="opacity-50">({date})</div>} */}
+                <div className="flex flex-col gap-1 text-xs">
+                  {date && <div style={{fontSize: `${fontSizeSubtitle}pt`}} className="opacity-50">{date}</div>}
                   {headline && <span className="opacity-75">{headline}</span>}
                 </div>
               </div>

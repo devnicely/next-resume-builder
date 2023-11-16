@@ -20,8 +20,7 @@ const LeftSidebar = () => {
   const { open } = useAppSelector((state) => state.build.sidebar.left);
 
   const customSections = useMemo(() => getCustomSections(sections), [sections]);
-  const handleOpen = () => dispatch(setSidebarState({ sidebar: 'left', state: { open: true } }));
-  const handleClose = () => dispatch(setSidebarState({ sidebar: 'left', state: { open: false } }));
+
   const handleClick = (id: string) => {
     const elementId = validate(id) ? `#section-${id}` : `#${id}`;
     const section = document.querySelector(elementId);
@@ -53,19 +52,28 @@ const LeftSidebar = () => {
       const kind = (item as any).kind;
       const addMore = !!component.props.addMore;
 
-      if (kind == resume.type || kind == TemplateType.BOTH)
-        if(resume.type == TemplateType.RESUME)
-          sectionsComponents.push(
-            <section key={id} id={id}>
-              {component}
-            </section>
-          );
-        else
-          sectionsComponents.push(
-            <div className={styles.inputSection} key={id} id={id}>
-              {component}
-            </div>
-          );
+      if (resume.type != TemplateType.RESUME) {
+        if (kind == resume.type || kind == TemplateType.BOTH) {
+          if (resume.type == TemplateType.RESUME_TEMPLATE)
+            sectionsComponents.push(
+              <section key={id} id={id}>
+                {component}
+              </section>
+            );
+          else
+            sectionsComponents.push(
+              <div className={styles.inputSection} key={id} id={id}>
+                {component}
+              </div>
+            );
+        }
+      } else {
+        sectionsComponents.push(
+          <section key={id} id={id}>
+            {component}
+          </section>
+        );
+      }
 
       if (addMore) {
         const additionalSections = getSectionsByType(sections, type);

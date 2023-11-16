@@ -15,6 +15,7 @@ import { Input } from '~/components/common/input';
 import { Label } from '~/components/common/label';
 import { Button } from '~/components/common/button';
 import { TemplateType } from '~/constants';
+import useRefetchResumes from '~/hooks/useRefetchResumes';
 
 type FormData = {
     name: string;
@@ -33,12 +34,12 @@ const schema = Joi.object({
 const RenameResumeModal: React.FC = () => {
 
     const dispatch = useAppDispatch();
-    const { refetchGetResumes } = useRefetch(TemplateType.RESUME);
+    const { refetchGetResumes } = useRefetchResumes(TemplateType.RESUME_TEMPLATE);
 
     const {
         mutateAsync: renameResumeTemplate,
         isLoading,
-    } = api.resume.renameResumeTemplate.useMutation();
+    } = api.template.renameResumeTemplate.useMutation();
 
     const { open: isOpen, payload } = useAppSelector((state) => state.modal['rename-resume']) as ModalState;
     const resume: Resume = get(payload, 'item') as Resume;

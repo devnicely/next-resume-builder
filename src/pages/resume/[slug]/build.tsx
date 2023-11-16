@@ -7,8 +7,6 @@ import { useAppDispatch } from "~/store/hooks";
 import { setResume } from "~/store/resume/resumeSlice";
 import isEmpty from 'lodash/isEmpty';
 import { api } from "~/utils/api";
-import { Resume } from "~/schema";
-import { TemplateType } from "~/constants";
 
 type QueryParams = {
     slug: string
@@ -18,7 +16,6 @@ type Props = {
     slug: string,
 };
 
-
 export const getServerSideProps: GetServerSideProps<Props> = async ({query}) => {
     const {slug} = query as QueryParams;    
     return {
@@ -27,13 +24,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({query}) => 
 };
 
 const Build: NextPage<Props> = ({slug}) => {
+
     const dispatch = useAppDispatch();
 
     const {
         data: resume,
         isLoading,
         refetch
-    } = api.resume.getResumeBySlug.useQuery({slug: slug});
+    } = api.template.getResumeBySlug.useQuery({slug: slug});
 
     if (!resume || isEmpty(resume)) return null;
     

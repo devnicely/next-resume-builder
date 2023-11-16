@@ -9,7 +9,6 @@ import SectionOne from "./widgets/SectionOne";
 import clsx from "clsx";
 import { get } from "lodash";
 
-
 const getServerSideProps = () => { };
 
 const Simple: React.FC<PageProps> = ({ page }) => {

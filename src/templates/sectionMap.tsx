@@ -17,13 +17,13 @@ const sectionMap = (Section: React.FC<SectionProps>): Record<string, JSX.Element
   candidate_summary: <Section key="candidate_summary" path='sections.candidate_summary'/>,
   strengths: <Section key="strengths" path='sections.strengths'/>,
   skills: <Section key="skills" path="sections.skills" titlePath="name" keywordsPath="keywords" />,
-  work_experience: <Section key="work" path="sections.work_experience" titlePath={['organization', 'title']} subtitlePath={['date.start', 'date.end', 'location']} separator=' | ' />,
+  work_experience: <Section key="work" path="sections.work_experience" titlePath={['organization', 'title', 'location']} separator=' | ' />,
   education: (
     <Section
       key="education"
       path="sections.education"
       titlePath={['institution', 'major', 'degree', 'gpa']}
-      subtitlePath={['date.start', 'date.end', 'region', 'country']}
+      subtitlePath={['region', 'country']}
       separator=' | '
       headlinePath="score"
       keywordsPath="courses"
@@ -48,11 +48,10 @@ const sectionMap = (Section: React.FC<SectionProps>): Record<string, JSX.Element
   cover_current_organization: <Section key="cover_current_organization" path='sections.cover_current_organization'/>,
   cover_current_position: <Section key="cover_current_position" path='sections.cover_current_position'/>,
   cover_current_salary: <Section key="cover_current_salary" path='sections.cover_current_salary'/>,
-  
   cover_date_of_availability: <Section key="cover_date_of_availability" path='sections.cover_date_of_availability'/>,
   cover_target_income: <Section key="cover_target_income" path='sections.cover_target_income'/>,
   cover_work_visa_status: <Section key="cover_work_visa_status" path='sections.cover_work_visa_status'/>,
-  
+    
 });
 
 export const getSectionById = (id: string, Section: React.FC<SectionProps>): JSX.Element | null => {
@@ -63,7 +62,6 @@ export const getSectionById = (id: string, Section: React.FC<SectionProps>): JSX
 
   // Check if section id is a predefined seciton in config
   const predefinedSection = get(sectionMap(Section), id);
-
 
   if (predefinedSection) {
     return predefinedSection;

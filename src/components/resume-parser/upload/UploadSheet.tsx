@@ -22,7 +22,7 @@ const UploadSheet = () => {
   const [editedFileNames, setEditedFileNames] = useState<string[]>([]);
   const [selectedUsersByFile, setSelectedUsersByFile] = useState([]);
   const [isSheetOpen, setSheetOpen] = useState(false);
-  // const { refetchResumes } = useRefetch();
+  const { refetchResumes } = useRefetch();
 
   const handleFileSelect = (newFiles: File[]) => {
     setSelectedFiles([...selectedFiles, ...newFiles]);

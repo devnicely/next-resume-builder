@@ -9,32 +9,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/common/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-} from "~/components/common/dropdown-menu";
+import { DropdownMenuItem } from "~/components/common/dropdown-menu";
 import { Input } from "~/components/common/input";
 import { Label } from "~/components/common/label";
 
-const DataTableEditModal = ({
-  title,
-  status,
-  dataToUpdate,
-  updateDocument,
-  onChange,
-}) => {
-  const [position, setPosition] = useState("bottom");
+const DataTableEditModal = ({ dataToUpdate, updateDocument, onChange }) => {
+  // const [position, setPosition] = useState("bottom");
 
-  const handlePositionChange = (newPosition) => {
-    setPosition(newPosition);
-    onChange("status", newPosition);
-  };
+  // const handlePositionChange = (newPosition) => {
+  //   setPosition(newPosition);
+  //   onChange("status", newPosition);
+  // };
+
   return (
     <div>
       <Dialog>

@@ -4,7 +4,6 @@ import {
   Focus,
   Download,
   Minimize2,
-  Maximize2
 } from 'lucide-react';
 
 import {
@@ -16,7 +15,6 @@ import {
 
 import dayjs from 'dayjs';
 import get from 'lodash/get';
-import { useTranslation } from 'next-i18next';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import { ReactZoomPanPinchHandlers } from 'react-zoom-pan-pinch';
@@ -34,7 +32,7 @@ import { Button } from '~/components/common/button';
 import { useEffect, useState } from 'react';
 
 const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomOut, centerView }) => {
-  const { t } = useTranslation();
+  
 
   const dispatch = useAppDispatch();
   
@@ -62,9 +60,7 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
 
   const handleUndo = () => dispatch(ActionCreators.undo());
   const handleRedo = () => dispatch(ActionCreators.redo());
-
   const handleTogglePageBreakLine = () => dispatch(togglePageBreakLine());
-
   const handleTogglePageOrientation = () => dispatch(togglePageOrientation());
 
   const handleToggleSidebar = () => {
@@ -76,18 +72,15 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
     const url = getResumeUrl(resume, { withHost: true });
     await navigator.clipboard.writeText(url);
 
-    toast.success(t('common.toast.success.resume-link-copied'));
+    toast.success('A link to your resume has been copied to your clipboard.');
   };
 
   const handleExportPDF = async () => {
     const download = (await import('downloadjs')).default;
-
     const slug = get(resume, 'slug');
-    const username = get(resume, 'user.username');
+    const username = get(resume, 'user.username', '');
     const updatedAt = get(resume, 'updatedAt');
-
     const url = await mutateAsync({ username, slug, lastUpdated: dayjs(updatedAt).unix().toString() });
-
     download(url);
   };
 
@@ -100,21 +93,6 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
       })}
     >
       <div className={styles.controller}>
-        {/* <Tooltip arrow placement="top" title={t('builder.controller.tooltip.undo')}>
-            <Button variant="ghost" onClick={handleUndo} className={cn({ 'pointer-events-none opacity-50': past.length < 2 })}>
-              <UndoOutlined size="24" />
-            </Button>
-          </Tooltip>
-  
-          <Tooltip arrow placement="top" title={t('builder.controller.tooltip.redo')}>
-            <Button variant="ghost" onClick={handleRedo} className={cn({ 'pointer-events-none opacity-50': future.length === 0 })}>
-              <RedoOutlined size="24" />
-            </Button>
-          </Tooltip>
-  
-          <Divider />
-   */}
-
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -153,31 +131,8 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-
-        {/* <Divider /> */}
-
         {isDesktop && (
           <>
-            {/* <Tooltip arrow placement="top" title={t('builder.controller.tooltip.toggle-orientation')}>
-                <Button
-                  onClick={handleTogglePageOrientation}
-                  className={cn({ 'pointer-events-none opacity-50': pages.length === 1 })}
-                >
-                  {orientation === 'vertical' ? (
-                    <AlignHorizontalCenter size="24" />
-                  ) : (
-                    <AlignVerticalCenter size="24" />
-                  )}
-                </Button>
-              </Tooltip> */}
-
-            {/* <Tooltip arrow placement="top" title={t('builder.controller.tooltip.toggle-page-break-line')}>
-                <Button variant="ghost" onClick={handleTogglePageBreakLine}>
-                  <InsertPageBreak size="24" />
-                </Button>
-              </Tooltip>
-   */}
-
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -189,18 +144,9 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
                   <p>Extend View</p>
                 </TooltipContent>
               </Tooltip>
-            </TooltipProvider>
-
-            {/* <Divider /> */}
+            </TooltipProvider> 
           </>
         )}
-
-        {/* <Tooltip arrow placement="top" title={t('builder.controller.tooltip.copy-link')}>
-            <Button variant="ghost" onClick={handleCopyLink}>
-              <Link size="24" />
-            </Button>
-          </Tooltip> */}
-
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -213,7 +159,6 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-
       </div>
     </div>
   );

@@ -10,8 +10,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '~/components/common/dropdown-menu';
 
@@ -48,7 +46,7 @@ const Header = () => {
     };
   }, []);
 
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
 
   const resume = useAppSelector((state) => state.resume.present);
   const { left, right } = useAppSelector((state) => state.build.sidebar);
@@ -71,20 +69,11 @@ const Header = () => {
 
   const goBack = () => router.push('/user/cv-suite/template-mgmt/resumes');
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-
   const {
     mutateAsync: updateResum,
     isLoading,
     isSuccess,
-  } = api.resume.updateResum.useMutation();
+  } = api.template.updateResum.useMutation();
 
   const onClickedBtnResumeSave = () => {
     try {
@@ -104,7 +93,6 @@ const Header = () => {
     } catch (error) {
       toast.error("Failed to save the resume.");
     }
-    handleClose();
   }
 
 
@@ -131,7 +119,7 @@ const Header = () => {
                 <DropdownMenuTrigger>
                   <KeyboardArrowDownIcon />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
+                <DropdownMenuContent>
                   <DropdownMenuItem onClick={onClickedBtnResumeSave} >
                     <Save className="scale-90" />&nbsp;Save Resume
                   </DropdownMenuItem>

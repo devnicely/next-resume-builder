@@ -7,29 +7,23 @@ import { cn } from "~/utils/styles";
 import { get, isEmpty } from "lodash";
 import { Metadata, Resume } from "~/schema";
 import { useEffect, useState } from "react";
+import { TemplateType } from "~/constants";
 
 type Frame = {
     logoTop: number,
 };
 
 const SimpleCoverSheet: React.FC<PageProps> = ({ page }) => {
-    const layout: string[][] = useAppSelector((state) => state.resume.present.metadata.layout[page]);
-    const metadata: Metadata = useAppSelector((state) => get(state.resume.present, 'metadata', {} as Metadata));
     const resume: Resume = useAppSelector((state) => state.resume.present);
+    const layout: string[][] = useAppSelector((state) => state.resume.present.metadata.layout[page]);
+    const metadata: Metadata = useAppSelector((state) => get(state.resume.present,  'covermetadata', {} as Metadata));
     const id: number = resume.id;
     const { name, photo} = useAppSelector(
         (state) => state.resume.present.basics,
     );
     const { ratio } = metadata;
-    const [frame, setFrame] = useState<Frame>({
-        logoTop: 7
-    });
-    useEffect(() => {
-        setFrame({
-            logoTop: ratio * 3,
-        })
-    }, [ratio])
-    const { logoTop } = frame;
+    const logoTop = ratio * 3;
+
     return (
         <div className={styles.page}>
             <div className={cn(styles.container)}>

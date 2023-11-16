@@ -1,6 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export type ModalName = 'create-resume' | 'rename-resume' | 'create-coversheet';
+export type ModalName = 'create-resume' 
+| 'rename-resume' 
+| 'create-coversheet'
+| 'show-template-modal'
+| 'create-integrated-resume-modal';
 
 export type ModalState = {
     open: boolean;
@@ -17,6 +21,8 @@ const initialState: Record<ModalName, ModalState> = {
     "create-resume": {open: false},
     'rename-resume': {open: false},
     'create-coversheet': {open: false},
+    'show-template-modal': {open: false},
+    'create-integrated-resume-modal': {open: false}
 };
 
 export const modalSlice = createSlice({

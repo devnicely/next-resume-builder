@@ -15,8 +15,8 @@ const SidebarMain = () => {
     }
     return (
         <div className="mx-2">
-            {type == TemplateType.RESUME && <Label>Sidebar : Main</Label>}
-            {type == TemplateType.COVER && <Label>Recruiter Info : Candidate Info</Label>}
+            {type == TemplateType.RESUME_TEMPLATE && <Label>Sidebar : Main</Label>}
+            {type == TemplateType.COVER_TEMPLATE && <Label>Recruiter Info : Candidate Info</Label>}
             <Slider
                 min={0}
                 max={100}

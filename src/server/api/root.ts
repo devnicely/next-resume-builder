@@ -6,6 +6,7 @@ import { teamRouter } from "./routers/team";
 import { uploadRouter } from "./routers/upload";
 import { stripeRouter } from "./routers/stripe";
 import { resumeRouter } from "./routers/resume";
+import { templateRouter } from "./routers/template";
 
 /**
  * This is the primary router for your server.
@@ -20,6 +21,7 @@ export const appRouter = createTRPCRouter({
   upload: uploadRouter,
   stripe: stripeRouter,
   resume: resumeRouter,
+  template: templateRouter,
 });
 
 // export type definition of API

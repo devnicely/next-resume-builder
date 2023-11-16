@@ -9,13 +9,17 @@ import ArtboardController from './ArtboardController';
 import styles from './Center.module.scss';
 import Header from './Header';
 import Page from './Page';
+import { TemplateType } from '~/constants';
+import { useMemo } from 'react';
 
 const Center = () => {
   
   const orientation = useAppSelector((state) => state.build.page.orientation);
   const resume = useAppSelector((state) => state.resume.present);
+  const hasCover = resume.metadata.hasCover;
   const layout: string[][][] = get(resume, 'metadata.layout');
   
+
   if (isEmpty(resume)) return null;
 
   return (
@@ -43,6 +47,7 @@ const Center = () => {
                 {layout.map((_, pageIndex) => (
                   <Page key={pageIndex} page={pageIndex} showPageNumbers />
                 ))}
+
               </div>
             </TransformComponent>
             <ArtboardController {...controllerProps} />

@@ -9,7 +9,6 @@ datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
-  
 }
 
 // Necessary for Next auth
@@ -137,9 +136,9 @@ model User {
   status                UserStatus? @default(PENDING)
   tempOrgName           String?
   payments SubscriptionPayment[]
-  // createdDocuments Resume[]
-  // documentPermissions ResumePermission[]
-  resumes  Resume[]
+  createdDocuments Resume[]
+  documentPermissions ResumePermission[]
+  resumes  Template[]
 
 
 }
@@ -274,8 +273,32 @@ model StripeEvent {
     pending_webhooks Int
 }
 
-
 model Resume {
+  id          String             @id @default(cuid())
+  resumeId    String             @unique
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  title       String
+  content     String            
+  status      ResumeStatus    @default(INPROGRESS)         
+  lastUpdatedBy String?            
+  uploadedById String
+  uploadedBy  User               @relation(fields: [uploadedById], references: [id])
+  permissions ResumePermission[]
+}
+
+model ResumePermission {
+  id          String       @id @default(cuid())
+  resumeId    String
+  userId      String
+  permission  PermissionType
+  user        User         @relation(fields: [userId], references: [id])
+  document    Resume       @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@unique([resumeId, userId])
+}
+
+model Template {
   id        Int @unique @default(autoincrement())
   shortId   String
   name      String
@@ -284,6 +307,7 @@ model Resume {
   basics    String? @db.Text
   sections  String? @db.Text
   metadata  String? @db.Text
+  covermetadata String? @db.Text
   public    Boolean
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

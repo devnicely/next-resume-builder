@@ -16,10 +16,12 @@ export type Resume = {
   basics: Basics;
   sections: Record<string, Section>;
   metadata: Metadata;
+  covermetadata: Metadata;
   public: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  userid: string,
+  userid: string;
+  checked: boolean;
 }
 
 export const CreateResumeParamsSchema = object(

@@ -1,7 +1,8 @@
 import { PageProps } from '~/utils/template';
 
-import Simple from './resume/simple/Simple';
+import Simple from './template/simple/Simple';
 import SimpleCoverSheet from './cover/simple/SimpleCoverSheet';
+import SimpleResume from './resume/SimpleResume';
 
 
 export type TemplateMeta = {
@@ -18,19 +19,20 @@ const templateMap: Record<string, TemplateMeta> = {
     preview: '/images/templates/kakuna.jpg',
     component: Simple,
   },
-  onyx: {
-    id: 'onyx',
-    name: 'Onyx',
-    preview: '/images/templates/onyx.jpg',
-    component: Simple,
-  },
-
+ 
   simplecoversheet: {
     id: 'simplecoversheet',
     name: 'Simple CoverSheet',
     preview: '/images/templates/covers/1.jpg',
     component: SimpleCoverSheet,
-  }
+  },
+
+  simpleresume: {
+    id: 'simpleresume',
+    name: 'SimpleResume',
+    preview: '/images/templates/1fbcad262951ef93da881801a.jpeg',
+    component: SimpleResume,
+  },
 };
 
 

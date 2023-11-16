@@ -20,7 +20,7 @@ const CoverSheets = () => {
     const {
         data: covers,
         refetch
-    } = api.resume.getResumes.useQuery({type: TemplateType.COVER});
+    } = api.template.getResumes.useQuery({type: TemplateType.COVER_TEMPLATE});
 
 
     return (

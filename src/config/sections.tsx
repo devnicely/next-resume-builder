@@ -23,6 +23,7 @@ import SidebarMain from '~/components/resume/build/RightSidebar/sections/SidbarM
 import DateFormat from '~/components/resume/build/RightSidebar/sections/DateFormat';
 import Typography from '~/components/resume/build/RightSidebar/sections/Typography';
 import ColorTone from '~/components/resume/build/RightSidebar/sections/ColorTone';
+import Cover from '~/components/resume/build/LeftSidebar/sections/Cover';
 
 export const left: SidebarSection[] = [
  
@@ -31,181 +32,188 @@ export const left: SidebarSection[] = [
     kind: TemplateType.BOTH,
     component: <Basics />,
   },
+  
   {
     id: 'recruiter',
     kind: TemplateType.RESUME,
+    component: <Cover />
+  },
+
+  {
+    id: 'recruiter',
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Recruiter />
   },
   {
     id: 'candiate_information',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <CandidateInformation/>
   },
 
   {
     id: 'candiate_summary',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <CandidateSummary/>
   },
 
   {
     id: 'strenths',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Strengths/>
   },
 
   {
     id: 'skills',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Skills/>
   },
 
   {
     id: 'work_experience',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <WorkExperience/>,
   },
 
   {
     id: 'education',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Education/>,
   },
 
   {
     id: 'awards',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Awards/>,
   },
 
   {
     id: 'certifications',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Certifications/>,
   },
 
   {
     id: 'activities',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Activities/>,
   },
   {
     id: 'references',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <References />,
   },
 
   {
     id: 'cover_section_title_recruiter_information',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverSectionTitle path='sections.title_recruiter_information'/>,
   },
 
   {
     id: 'agency_name',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Agency Name' path='sections.cover_agency_name'/>,
   },
 
   {
     id: 'recruiter_name',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Recruiter Name' path='sections.cover_recruiter_name'/>,
   },
 
   {
     id: 'recruiter_title',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Recruiter Title' path='sections.cover_recruiter_title'/>,
   },
 
   {
     id: 'recruiter_email',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Recruiter Email' path='sections.cover_recruiter_email'/>,
   },
 
   {
     id: 'recruiter_email',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Recruiter Email' path='sections.cover_recruiter_email'/>,
   },
 
   {
     id: 'recruiter_phone',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Recruiter Phone' path='sections.cover_recruiter_phone'/>,
   },
 
   {
     id: 'cover_section_title_candidate_information',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverSectionTitle path='sections.title_candidate_information'/>,
   },
 
   {
     id: 'cover_candidate_summary',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection type='textarea' name='Candidate Summary' path='sections.cover_candidate_summary'/>,
   },
 
   {
     id: 'cover_candidate_name',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Candidate Name' path='sections.cover_candidate_name'/>,
   },
 
   {
     id: 'cover_candidate_email',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Candidate Email' path='sections.cover_candidate_email'/>,
   },
 
   {
     id: 'cover_candidate_phone',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Candidate Phone' path='sections.cover_candidate_phone'/>,
   },
 
   {
     id: 'cover_candidate_website',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Candidate Website' path='sections.cover_candidate_website'/>,
   },
 
   {
     id: 'cover_candidate_organizaion',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Candidate Organization' path='sections.cover_current_organization'/>,
   },
 
   {
     id: 'cover_current_position',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Current Posistion' path='sections.cover_current_position'/>,
   },
 
   {
     id: 'cover_current_salary',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Current Salary' path='sections.cover_current_salary'/>,
   },
 
   {
     id: 'cover_date_of_available',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Date Of Available' path='sections.cover_date_of_availability'/>,
   },
 
   {
     id: 'cover_target_income',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Target Income' path='sections.cover_target_income'/>,
   },
 
   {
     id: 'cover_work_visa_status',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Work Visa Status' path='sections.cover_work_visa_status'/>,
   },
 
@@ -215,13 +223,13 @@ export const left: SidebarSection[] = [
 export const right: SidebarSection[] = [
   {
     id: 'layout',
-    kind: TemplateType.RESUME,
+    kind: TemplateType.RESUME_TEMPLATE,
     component: <Layout />,
   },
 
   {
     id: 'cover_layout',
-    kind: TemplateType.COVER,
+    kind: TemplateType.COVER_TEMPLATE,
     component: <CoverLayout />,
   },
 

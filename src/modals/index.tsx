@@ -1,6 +1,8 @@
 import CreateCoverSheetModal from './template-mgmt/CreateCoverSheetModal';
+import CreateResumeModal from './template-mgmt/CreateResumeModal';
 import CreateResumeTemplate from './template-mgmt/CreateResumeTemplate';
 import RenameResumeModal from './template-mgmt/RnameResumeTemplate';
+import ShowTemplatesModal from './template-mgmt/ShowTemplatesModal';
 
 
 const ModalWarpper: React.FC = () => {
@@ -9,6 +11,8 @@ const ModalWarpper: React.FC = () => {
             <CreateResumeTemplate/>
             <CreateCoverSheetModal/>
             <RenameResumeModal/>
+            <ShowTemplatesModal/>
+            <CreateResumeModal/>
         </>
     )
 } 

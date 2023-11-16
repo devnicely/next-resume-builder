@@ -2,11 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import merge from 'lodash/merge';
 
 export type Theme = 'light' | 'dark';
-
 export type Sidebar = 'left' | 'right';
-
 export type SidebarState = { open: boolean };
-
 export type Orientation = 'horizontal' | 'vertical';
 
 export type BuildState = {

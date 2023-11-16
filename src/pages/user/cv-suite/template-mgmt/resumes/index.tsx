@@ -23,7 +23,7 @@ const Resumes: NextPage = () => {
     const {
         data: resumes,
         refetch
-    } = api.resume.getResumes.useQuery({type: TemplateType.RESUME});
+    } = api.template.getResumes.useQuery({type: TemplateType.RESUME_TEMPLATE});
 
     useEffect(() => {
         dispatch(ActionCreators.clearHistory());

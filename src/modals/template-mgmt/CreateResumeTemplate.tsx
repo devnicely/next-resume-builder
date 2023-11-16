@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { Button } from "~/components/common/button";
 import { Input } from "~/components/common/input";
 import { Label } from "~/components/common/label";
+import useFetchTemplates from "~/hooks/useFetchTemplates";
 
 type FormData = {
     name: string;
@@ -35,17 +36,19 @@ const schema = Joi.object({
     isPublic: Joi.boolean().default(true).required(),
 });
 
-const CreateResumeModal: React.FC = () => {
+const CreateResumeTemplate: React.FC = () => {
 
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { open: isOpen } = useAppSelector((state) => state.modal['create-resume']);
 
+    const { refetchGetTemplates } = useFetchTemplates();
+
     const {
         mutateAsync: createResume,
         isLoading: isCreatingResume,
         isSuccess,
-    } = api.resume.createResume.useMutation();
+    } = api.template.createResume.useMutation();
 
     const { reset, watch, control, setValue, handleSubmit } = useForm<FormData>({
         defaultValues: defaultState,
@@ -65,10 +68,11 @@ const CreateResumeModal: React.FC = () => {
     }, [name, setValue]);
 
     const onSubmit = async ({ name, slug, isPublic }: FormData) => {
-        await createResume({ name, slug, isPublic, type: TemplateType.RESUME })
+        await createResume({ name, slug, isPublic, type: TemplateType.RESUME_TEMPLATE })
             .then(() => {
                 handleClose();
 
+                void refetchGetTemplates();
                 router.push({
                     pathname: '/resume/[slug]/build',
                     query: { slug: slug }
@@ -127,4 +131,4 @@ const CreateResumeModal: React.FC = () => {
     )
 }
 
-export default CreateResumeModal;
+export default CreateResumeTemplate;
