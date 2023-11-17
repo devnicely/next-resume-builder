@@ -1,4 +1,4 @@
-import CreateCoverSheetModal from './template-mgmt/CreateCoverSheetModal';
+import CreateCoverSheetModal from './template-mgmt/CreateCoverSheetTemplate';
 import CreateResumeModal from './template-mgmt/CreateResumeModal';
 import CreateResumeTemplate from './template-mgmt/CreateResumeTemplate';
 import RenameResumeModal from './template-mgmt/RnameResumeTemplate';

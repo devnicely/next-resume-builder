@@ -41,12 +41,13 @@ const CreateCoverSheetModal: React.FC = () => {
 
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const { open: isOpen } = useAppSelector((state) => state.modal['create-coversheet']);
+    const { open: isOpen } = useAppSelector((state) => state.modal['create-coversheet-template']);
+    const { template_id } = useAppSelector((state) => state.modal["create-coversheet-template"]);
 
     const { refetchGetTemplates } = useFetchTemplates();
 
     const {
-        mutateAsync: createResume,
+        mutateAsync: createCoverSheetTemplate,
         isLoading: isCreatingResume,
         isSuccess,
     } = api.template.createResume.useMutation();
@@ -65,23 +66,25 @@ const CreateCoverSheetModal: React.FC = () => {
             : '';
         setValue('slug', slug);
     }, [name, setValue]);
-
+    
     const onSubmit = async ({ name, slug, isPublic }: FormData) => {
-        await createResume({ name, slug, isPublic, type: TemplateType.COVER_TEMPLATE })
-            .then(() => {
-                handleClose();
-                void refetchGetTemplates();
-                router.push({
-                    pathname: '/cover/[slug]/build',
-                    query: { slug: slug }
-                });
-            }).catch(() => {
+        if (template_id) {
+            await createCoverSheetTemplate({ name, slug, isPublic, type: TemplateType.COVER_TEMPLATE, template_id })
+                .then(() => {
+                    handleClose();
+                    refetchGetTemplates();
+                    router.push({
+                        pathname: '/cover/[slug]/build',
+                        query: { slug: slug }
+                    });
+                }).catch(() => {
 
-            })
+                })
+        }
     };
 
     const handleClose = () => {
-        dispatch(setModalState({ modal: 'create-coversheet', state: { open: false } }));
+        dispatch(setModalState({ modal: 'create-coversheet-template', state: { open: false } }));
         reset();
     }
 

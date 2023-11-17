@@ -41,7 +41,7 @@ const RenameResumeModal: React.FC = () => {
         isLoading,
     } = api.template.renameResumeTemplate.useMutation();
 
-    const { open: isOpen, payload } = useAppSelector((state) => state.modal['rename-resume']) as ModalState;
+    const { open: isOpen, payload } = useAppSelector((state) => state.modal['rename-resume-template']) as ModalState;
     const resume: Resume = get(payload, 'item') as Resume;
     const onComplete = get(payload, 'onComplete', noop);
 
@@ -89,7 +89,7 @@ const RenameResumeModal: React.FC = () => {
     };
 
     const handleClose = () => {
-        dispatch(setModalState({ modal: 'rename-resume', state: { open: false } }));
+        dispatch(setModalState({ modal: 'rename-resume-template', state: { open: false } }));
         reset();
     };
 

@@ -13,4 +13,4 @@ const ScreenLoading: React.FC<Props> = ({title}) => {
     )
 }
 
-export default LoadingSpinner;
+export default ScreenLoading;

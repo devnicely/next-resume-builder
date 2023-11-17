@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 import { GetServerSideProps, NextPage } from "next";
-import { useEffect } from "react";
+import ScreenLoading from "~/components/common/ScreenLoading";
 import UserLayout from "~/components/layout/UserLayout";
 import Center from "~/components/resume/build/Center/Center";
 import LeftSidebar from "~/components/resume/build/LeftSidebar/LeftSidebar";
@@ -515,8 +515,6 @@ export const _resume: Resume = {
         },
         ratio: 50,
     },
-
-
     public: true,
 };
 
@@ -546,9 +544,10 @@ const Build: NextPage<Props> = ({ slug }) => {
     } = api.template.getResumeById.useQuery({id});
 
     if (!resume || isEmpty(resume)) return null;
-    dispatch(setResume(resume));
+        dispatch(setResume(resume));
     
     return (
+        isLoading? <ScreenLoading/> :
         <UserLayout>
             <div style={{ position: 'relative' }}>
                 <LeftSidebar />

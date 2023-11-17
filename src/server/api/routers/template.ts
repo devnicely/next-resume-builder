@@ -1,9 +1,10 @@
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { CreateResumeParamsSchema, ResumeSchema, ResumeSchemaType, Resume, DeleteResumeParamsSchema, RenameResumeParamsSchema } from "~/schema";
 import { nanoid } from "nanoid";
 import { SHORT_ID_LENGTH, TemplateType, defaultCoverState, defaultResumeState } from "~/constants";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import templateMap from "~/templates/templateMap";
 
 export const templateRouter = createTRPCRouter({
   createResume: protectedProcedure
@@ -11,7 +12,7 @@ export const templateRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       try {
         const shortId = nanoid(SHORT_ID_LENGTH);
-        const { name, slug, isPublic, type } = input;
+        const { name, slug, isPublic, type, template_id } = input;
         const user = ctx.session?.user;
         const userId = user?.userId ?? '';
         const username = user?.name;
@@ -35,7 +36,8 @@ export const templateRouter = createTRPCRouter({
               public: isPublic,
               userId,
               metadata: JSON.stringify({
-                ...defaultResumeState.metadata
+                ...defaultResumeState.metadata,
+                template_id,
               }),
               covermetadata: JSON.stringify({
                 ...defaultResumeState.covermetadata
@@ -61,7 +63,8 @@ export const templateRouter = createTRPCRouter({
               public: isPublic,
               userId: userId,
               metadata: JSON.stringify({
-                ...defaultCoverState.metadata
+                ...defaultCoverState.metadata,
+                template_id
               }),
               covermetadata: JSON.stringify({
                 ...defaultCoverState.covermetadata
@@ -196,17 +199,28 @@ export const templateRouter = createTRPCRouter({
       }
     }),
 
-  getTemplatesByUserId: protectedProcedure
-    .input(z.object({
-      userId: z.string(),
-    }))
-    .query(async ({ input, ctx }) => {
-      const { userId } = input;
-      try {
+  getTemplates: protectedProcedure
+    .query(async ({ ctx }) => {
+      const user = ctx.session?.user;
+      const userId = user?.userId ?? '';
+      
+      try { 
         const records = await ctx.prisma.template.findMany({
           where: { userId: userId },
         });
-        const templates: Resume[] = records.map((record) => {
+
+        let templates: Resume[] = [];
+        Object.values(templateMap).map((item) => {
+          let temp: Resume = JSON.parse(JSON.stringify(defaultResumeState));
+          temp.metadata.template = item.id;
+          if(item.type === TemplateType.COVER_TEMPLATE) temp.metadata.layout = { ...defaultCoverState.metadata.layout }
+          temp.type = item.type;
+          temp.name = item.name;
+          temp.image = item.preview;
+          templates?.push(temp);
+        });
+
+        const tpls: Resume[] = records.map((record) => {
           const resume: Resume = {
             id: record?.id ?? 0,
             shortId: record?.shortId ?? '',
@@ -224,7 +238,8 @@ export const templateRouter = createTRPCRouter({
           }
           return resume;
         });
-        return templates;
+
+        return templates.concat(tpls);
       } catch (error) {
         throw error instanceof TRPCError
           ? error
@@ -267,14 +282,12 @@ export const templateRouter = createTRPCRouter({
           type: TemplateType.RESUME
         },
       });
-
       const resume_id = result.id;
-      return {resume_id}
+      return { resume_id }
     }),
 
 
-
-    getResumeById: protectedProcedure
+  getResumeById: publicProcedure
     .input(z.object({
       id: z.number(),
     }))

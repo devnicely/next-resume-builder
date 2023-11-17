@@ -1,13 +1,15 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export type ModalName = 'create-resume' 
-| 'rename-resume' 
-| 'create-coversheet'
+export type ModalName = 
+'create-resume-template' 
+| 'rename-resume-template' 
+| 'create-coversheet-template'
 | 'show-template-modal'
 | 'create-integrated-resume-modal';
 
 export type ModalState = {
     open: boolean;
+    template_id?: string;
     payload?: { path?: string; item?: any; onComplete?: (newItem: any) => void };
   };
   
@@ -18,10 +20,10 @@ export type PayloadType = {
 };
 
 const initialState: Record<ModalName, ModalState> = {
-    "create-resume": {open: false},
-    'rename-resume': {open: false},
-    'create-coversheet': {open: false},
-    'show-template-modal': {open: false},
+    "create-resume-template": {open: false, template_id: ""}, // resume template
+    'rename-resume-template': {open: false}, // resume template
+    'create-coversheet-template': {open: false}, // cover template
+    'show-template-modal': {open: false}, //
     'create-integrated-resume-modal': {open: false}
 };
 

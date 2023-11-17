@@ -1,14 +1,14 @@
 import clsx from "clsx";
 import { PageProps, getPhotoClassNames } from "~/utils/template";
-import ReumeStyles from './../template/simple/Simple.module.scss';
-import coverStyles from '../cover/simple/SimpleCoverSheet.module.scss';
+import ReumeStyles from './../../resumetemplate/simple/Simple.module.scss';
+import coverStyles from '../../covertemplate/simple/SimpleCoverSheet.module.scss';
 import { useMemo } from "react";
-import RecruitInfo from "./../template/simple/widgets/RecruitInfo";
+import RecruitInfo from "../../resumetemplate/simple/widgets/RecruitInfo";
 import { useAppSelector } from "~/store/hooks";
 import { get, isEmpty } from "lodash";
-import { getSectionById } from "../sectionMap";
-import ResumeSectionOne from "./../template/simple/widgets/SectionOne";
-import ResumeSection from "./../template/simple/widgets/Section";
+import { getSectionById } from "../../sectionMap";
+import ResumeSectionOne from "../../resumetemplate/simple/widgets/SectionOne";
+import ResumeSection from "../../resumetemplate/simple/widgets/Section";
 import CoverSection from "./cover-widgets/Section";
 
 const SimpleResume: React.FC<PageProps> = ({ page }) => {
@@ -16,6 +16,7 @@ const SimpleResume: React.FC<PageProps> = ({ page }) => {
     const {layout: metaLayout, hasCover} = useAppSelector((state) => get(state.resume.present, 'metadata'));
     const layout: string[][] = metaLayout[page];
     const { ratio } = useAppSelector((state) => get(state.resume.present, 'metadata'));
+    
     const { name, photo} = useAppSelector(
         (state) => state.resume.present.basics,
     );

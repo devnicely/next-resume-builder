@@ -48,6 +48,428 @@ const defaultCSS = `/* Enter custom CSS here */
 }`;
 
 
+export let emptyDefaultResume: Resume = {
+    id: 1,
+    type: TemplateType.RESUME_TEMPLATE,
+    checked: false,
+    shortId: '2323',
+    name: 'first cover',
+    slug: 'first-cover',
+    image: '/images/templates/resumes/1.jpg',
+    userid: 'clod19f1p0000vj0o5yxuk7fd',
+    basics: {
+        email: '',
+        headline: '',
+        birthdate: '',
+        photo: {
+            url: '/images/logo/logo.png',
+            visible: true,
+            filters: {
+                size: 128,
+                shape: 'square',
+                border: false,
+                grayscale: false,
+            },
+        },
+        name: '',
+        phone: '',
+        summary: '',
+        website: '',
+        location: {
+            address: '',
+            city: '',
+            country: '',
+            region: '',
+            postalCode: '',
+        },
+        profiles: [],
+    },
+    "sections": {
+        "recruiter_information": {
+            "id": 'recruiter_information',
+            "name": "Recruiter Information",
+            "type": "recruiter_information",
+            "columns": 1,
+            "visible": true,
+            "items": [],
+            "item": ""
+        },
+        "candidate_summary": {
+            "id": 'candiate_summary',
+            "name": "Candidate Summary",
+            "type": "candidate_summary",
+            "columns": 1,
+            "visible": true,
+            "items": [],
+            "item": ""
+        },
+        "work_experience": {
+            "id": "work_experience",
+            "name": "Work Experience",
+            "type": "work_experience",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "skills": {
+            "id": "skills",
+            "name": "Skills",
+            "type": "basic",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "activities": {
+            "id": "activities",
+            "name": "Activities",
+            "type": "basic",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "education": {
+            "id": "education",
+            "name": "Education",
+            "type": "basic",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "references": {
+            "id": "references",
+            "name": "References",
+            "type": "basic",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "certifications": {
+            "id": "certifications",
+            "name": "Certifications",
+            "type": "basic",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "strengths": {
+            "id": "strengths",
+            "name": "Strengths",
+            "type": "strengths",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "awards": {
+            "id": "awards",
+            "name": "Awards",
+            "type": "awards",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "title_recruiter_information": {
+            "id": "title_recruiter_information",
+            "name": "Recruiter Information",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_agency_name": {
+            "id": "cover_agency_name",
+            "name": "Agency Name",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_recruiter_name": {
+            "id": "cover_recruiter_name",
+            "name": "Recruiter Name",
+            "type": "cover_recruiter_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_recruiter_title": {
+            "id": "cover_recruiter_title",
+            "name": "Job Title",
+            "type": "cover_recruiter_title",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_recruiter_email": {
+            "id": "cover_recruiter_email",
+            "name": "Email",
+            "type": "cover_recruiter_email",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_recruiter_phone": {
+            "id": "cover_recruiter_phone",
+            "name": "Phone number",
+            "type": "cover_recruiter_phone",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "title_candidate_information": {
+            "id": "title_candidate_information",
+            "name": "Candidate Information",
+            "type": "cover_recruiter_phone",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "cover_candidate_summary": {
+            "id": "cover_candidate_summary",
+            "name": "Candiate Sumary",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "cover_candidate_name": {
+            "id": "cover_candidate_name",
+            "name": "Candiate Name",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_candidate_email": {
+            "id": "cover_candidate_email",
+            "name": "Candiate Email",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_candidate_phone": {
+            "id": "cover_candidate_phone",
+            "name": "Candiate Phone",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_candidate_website": {
+            "id": "cover_candidate_website",
+            "name": "Candiate Website",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_current_organization": {
+            "id": "cover_current_organization",
+            "name": "Current Organization",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+        "cover_current_position": {
+            "id": "cover_current_position",
+            "name": "Current Postion",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "cover_current_salary": {
+            "id": "cover_current_salary",
+            "name": "Current Salary",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "cover_date_of_availability": {
+            "id": "cover_date_of_availability",
+            "name": "Date of Availability",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "cover_target_income": {
+            "id": "cover_target_income",
+            "name": "Target Infome",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+
+        "cover_work_visa_status": {
+            "id": "cover_work_visa_status",
+            "name": "Work Visa Status",
+            "type": "cover_agency_name",
+            "items": [],
+            "item": "",
+            "columns": 1,
+            "visible": true
+        },
+    },
+    metadata: {
+        css: {
+            value: defaultCSS,
+            visible: false,
+        },
+        theme: {
+            text: '#000000',
+            background: '#ffffff',
+            primary: '#0065B8',
+        },
+        locale: 'en',
+        date: {
+            format: 'M.D.YYYY',
+        },
+        page: {
+            format: 'A4',
+        },
+        hasCover: 1,
+        layout: [
+            [
+                ['candidate_summary', "strengths", 'work_experience', 'education', 'references', 'activities'],
+                ['certifications', 'skills', 'awards'],
+            ],
+        ],
+        template: 'simple',
+        typography: {
+            family: {
+                section: 'Open Sans',
+                subtitle: 'Open Sans',
+                text: 'Open Sans',
+            },
+            size: {
+                section: 17,
+                subtitle: 14,
+                text: 14,
+            },
+            spacing: {
+                section: 1.15,
+                subtitle: 1.5,
+                text: 2
+            },
+            color: {
+                section: '#f44336',
+                subtitle: '#f44336',
+                text: '#000000'
+            },
+        },
+        ratio: 30,
+    },
+    covermetadata: {
+        css: {
+            value: defaultCSS,
+            visible: false,
+        },
+        theme: {
+            text: '#000000',
+            background: '#ffffff',
+            primary: '#0065B8',
+        },
+        locale: 'en',
+        date: {
+            format: 'M.D.YYYY',
+        },
+        page: {
+            format: 'A4',
+        },
+        hasCover: 1,
+        layout: [
+            [
+                [
+                    'cover_agency_name',
+                    "cover_recruiter_name",
+                    'cover_recruiter_title',
+                    'cover_recruiter_email',
+                    'cover_recruiter_phone',
+                ],
+                [
+                    'title_candidate_information',
+                    'cover_candidate_summary',
+                    'cover_current_organization',
+                    'cover_current_position',
+                    'cover_current_salary',
+                    'cover_date_of_availability',
+                    'cover_target_income',
+                    'cover_work_visa_status',
+                ],
+            ],
+        ],
+        template: 'simplecoversheet',
+        typography: {
+            family: {
+                section: 'Open Sans',
+                subtitle: 'Open Sans',
+                text: 'Open Sans',
+            },
+            size: {
+                section: 28,
+                subtitle: 14,
+                text: 14,
+            },
+            spacing: {
+                section: 1.15,
+                subtitle: 1.5,
+                text: 2
+            },
+            color: {
+                section: '#f44336',
+                subtitle: '#f44336',
+                text: '#000000'
+            },
+        },
+        ratio: 50,
+    },
+    public: true,
+};
+
+
+
+
+
+
 export let defaultResumeState: Resume = {
     id: 1,
     type: TemplateType.RESUME_TEMPLATE,
@@ -105,7 +527,7 @@ export let defaultResumeState: Resume = {
         },
         "candidate_summary": {
             "id": 'candiate_summary',
-            "name": "Candidate Summaryddd",
+            "name": "Candidate Summary",
             "type": "candidate_summary",
             "columns": 1,
             "visible": true,
@@ -191,15 +613,6 @@ export let defaultResumeState: Resume = {
                     "phone": "301.945.5481",
                     "email": "hemander@yahoo.com"
                 },
-                {
-                    "id": "879c704c-561f-4a0c-8e5f-2b7f39ef2239",
-                    "name": "Dr. George Keeler",
-                    "organization": "University of Laverne",
-                    "location": "La Verne, Calif.91750",
-                    "title": "Director",
-                    "phone": "301.945.5481",
-                    "email": "hemander@yahoo.com"
-                }
             ],
             "item": "",
             "columns": 1,
@@ -526,8 +939,6 @@ export let defaultResumeState: Resume = {
     },
     public: true,
 };
-
-
 
 export const defaultCoverState: Resume = {
     id: 1,
@@ -867,10 +1278,6 @@ export const defaultCoverState: Resume = {
     },
     public: true,
 };
-
-
-
-
 
 export const parsingResume = { 
     basic_info: { 

@@ -22,15 +22,6 @@ type Props = {
 const CoverPreview: React.FC<Props> = ({ cover }) => {
     const router = useRouter();
 
-    const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-    const handleOpenMenu = (event: React.MouseEvent<Element>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
 
     return (
         <section className={styles.resume}>

@@ -18,7 +18,7 @@ const Simple: React.FC<PageProps> = ({ page }) => {
     const {ratio} = useAppSelector((state) => get(state.resume.present, 'metadata'));
 
     return (
-        <div className={clsx([styles.page])}>
+        <div style={!isFirstPage ? {paddingTop: '50px'} : {paddingTop: '0'}} className={clsx([styles.page])}>
             {isFirstPage && <RecruitInfo />}
             <div className={styles.container}>
                 <div className={clsx([styles.sidebar])} style={{flexBasis: `${ratio}%`}}>

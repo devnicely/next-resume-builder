@@ -13,24 +13,25 @@ import { api } from "~/utils/api";
 import { ActionCreators } from "redux-undo";
 import { useAppDispatch } from "~/store/hooks";
 import { TemplateType } from "~/constants";
+import templateMap from "~/templates/templateMap";
 
 
 const Resumes: NextPage = () => {
     const router = useRouter();
     const goPage = (url: string) => router.push(url);
     const dispatch = useAppDispatch();
-    
+
     const {
         data: resumes,
         refetch
-    } = api.template.getResumes.useQuery({type: TemplateType.RESUME_TEMPLATE});
+    } = api.template.getResumes.useQuery({ type: TemplateType.RESUME_TEMPLATE });
 
     useEffect(() => {
         dispatch(ActionCreators.clearHistory());
-      }, []);
-    
-      if (!resumes) return null;
-    
+    }, []);
+
+    if (!resumes) return null;
+
     return (
         <UserLayout title="Template Management">
             <div className={styles.container}>
@@ -53,13 +54,19 @@ const Resumes: NextPage = () => {
                 </header>
 
                 <main className={styles.resumes}>
-                    <ResumeCard
-                        modal="create-resume"
-                        title=""
-                        subtitle=""
-                    />
+                    {Object.values(templateMap).map((template) => (
+                        template.type === TemplateType.RESUME_TEMPLATE && 
+                        <ResumeCard
+                            modal="create-resume-template"
+                            template_name={template.name}
+                            template_preview={template.preview}
+                            template_id={template.id}
+                        />
+                    ))}
                 </main>
-                <div>Saved Resumes</div><hr/>
+
+
+                <div>Saved Resume Templates</div><hr />
                 <main className={styles.resumes}>
                     {resumes && resumes.map((resume) => (
                         <ResumePreview key={resume.id} resume={resume} />

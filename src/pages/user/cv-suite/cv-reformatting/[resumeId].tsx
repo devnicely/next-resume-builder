@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Button } from "~/components/common/button";
 import UserLayout from "~/components/layout/UserLayout";
-import { defaultResumeState, parsingResume } from "~/constants";
+import { emptyDefaultResume } from "~/constants";
 import { Resume } from "~/schema";
 import { ParsedResume } from "~/schema/parsedresume";
 import { useAppDispatch } from "~/store/hooks";
@@ -12,6 +12,7 @@ import { setResume } from "~/store/resume/resumeSlice";
 import { api } from "~/utils/api";
 import { v4 as uuidv4 } from 'uuid';
 import JSON5 from 'json5'
+import ScreenLoading from "~/components/common/ScreenLoading";
 
 const ResumeDetails = () => {
   const router = useRouter();
@@ -23,13 +24,11 @@ const ResumeDetails = () => {
     { enabled: !!resumeId }
   );
 
-
   const handleClick = () => {
     const parsedResume: ParsedResume = JSON5.parse(data.json as string);
-    let defaultResume: Resume = JSON.parse(JSON.stringify(defaultResumeState));
-    
-    dispatch(setResume(defaultResume));
+    let defaultResume: Resume = JSON.parse(JSON.stringify(emptyDefaultResume));
 
+    // set resume content
     set(defaultResume.basics, 'email', parsedResume.basic_info?.email);
     set(defaultResume.basics, 'name', parsedResume.basic_info?.full_name);
     set(defaultResume.basics, 'phone', parsedResume.basic_info?.phone_number);
@@ -65,7 +64,6 @@ const ResumeDetails = () => {
     }]);
 
     set(defaultResume.sections, 'candidate_summary.item', parsedResume.basic_info?.summary_description);
-
     set(defaultResume.sections, 'work_experience.items', parsedResume.work_history?.map((item) => {
       return {
         id: uuidv4(),
@@ -83,7 +81,7 @@ const ResumeDetails = () => {
 
     set(defaultResume.sections, 'skills.item', parsedResume.skills?.join(", "));
     set(defaultResume.sections, 'activities.item', parsedResume.activities?.join(", "));
-    
+
     //set(defaultResume.sections, 'references.items', parsedResume.activities?.join(", "));
     //set(defaultResume.sections, 'certifications.item', parsedResume.activities?.join(", "));
     //set(defaultResume.sections, 'strengths.item', parsedResume.activities?.join(", "));
@@ -106,19 +104,25 @@ const ResumeDetails = () => {
     //set(defaultResume.sections, 'cover_date_of_availability.item', parsedResume.activities?.join(", "));
     //set(defaultResume.sections, 'cover_target_income.item', parsedResume.activities?.join(", "));
     //set(defaultResume.sections, 'cover_work_visa_status.item', parsedResume.activities?.join(", "));
-  
-    
+
+    dispatch(setResume(defaultResume));
     dispatch(setModalState({ modal: 'show-template-modal', state: { open: true } }));
   }
 
   return (
     <>
       <UserLayout>
-        {JSON.stringify(data)}
-        <div className="flex flex-row">
-          <Button onClick={() => handleClick()} className="mt-5 block">Show Templates</Button>
-        </div>
-      </UserLayout>
+        {
+          isLoading ? <ScreenLoading />
+            :
+            <>
+              {JSON.stringify(data)}
+              < div className="flex flex-row">
+                <Button onClick={() => handleClick()} className="mt-5 block">Show Templates</Button>
+              </div>
+            </>
+        }
+      </UserLayout >
     </>
   );
 };

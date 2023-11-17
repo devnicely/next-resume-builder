@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { Button } from "~/components/common/button";
 import { Input } from "~/components/common/input";
 import { Label } from "~/components/common/label";
+import { get } from "lodash";
 
 type FormData = {
     name: string;
@@ -41,7 +42,7 @@ const CreateResumeModal: React.FC = () => {
     const dispatch = useAppDispatch();
     const { open: isOpen } = useAppSelector((state) => state.modal['create-integrated-resume-modal']);
     const resume = useAppSelector((state) => state.resume.present);
-
+    
     const {
         mutateAsync: createIntegratedResume,
         isLoading: isCreatingResume,

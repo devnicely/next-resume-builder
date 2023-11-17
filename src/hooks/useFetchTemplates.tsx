@@ -11,10 +11,7 @@ interface SessionData {
 }
 
 const useFetchTemplates = () => {
-  const { data: sessionData } = useSession() as { data: SessionData | null };
-  const userId: string = sessionData?.user.userId ?? "";
-  const {refetch: refetchGetTemplates} = api.template.getTemplatesByUserId.useQuery({userId});
-
+  const {refetch: refetchGetTemplates} = api.template.getTemplates.useQuery();
   return { refetchGetTemplates };
 };
 
