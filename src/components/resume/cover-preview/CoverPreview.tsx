@@ -14,6 +14,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { ResumeSchemaType } from '~/schema';
 import { Button } from '~/components/common/button';
+import { useAppDispatch } from '~/store/hooks';
+import { setModalState } from '~/store/modal/modalSlice';
+import useRefetchResumes from '~/hooks/useRefetchResumes';
+import { TemplateType } from '~/constants';
+import { api } from '~/utils/api';
+import { notify, notifyError } from '~/components/ReactHotToast';
 
 
 type Props = {
@@ -21,19 +27,81 @@ type Props = {
 };
 const CoverPreview: React.FC<Props> = ({ cover }) => {
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
+    const { refetchGetResumes } = useRefetchResumes(TemplateType.COVER_TEMPLATE);
+
+    const handleRename = () => {
+        dispatch(
+            setModalState({
+                modal: 'rename-resume-template',
+                state: {
+                    open: true,
+                    payload: {
+                        item: cover,
+                        onComplete: () => {
+                            void refetchGetResumes();
+                        },
+                    },
+                },
+            }),
+        );
+    };
+
+
+    const handleOpen = () => {
+        router.push({
+            pathname: '/cover/[id]/build',
+            query: { id: cover.id }
+        });
+    };
+
+    const {
+        mutateAsync: deleteCover,
+    } = api.template.deleteResume.useMutation();
+
+
+
+    const handleClose = () => {
+        dispatch(setModalState({
+            modal: 'delete-confirm-modal',
+            state: {open: false}
+        }));
+    }
+
+    const handleDelete = async () => {
+        dispatch(
+            setModalState({
+                modal: 'delete-confirm-modal',
+                state: {
+                    open: true,
+                    payload: {
+                        onComplete: async () => {
+                            await deleteCover({ id: cover.id }).then(() => {
+                                void refetchGetResumes();
+                                notify({ message: "Deleted Cover Template Successfully." });
+                            }).catch(() => {
+                                notifyError({ message: "Failed to delete the resume." });
+                            })
+                            handleClose();
+                        },
+                    },
+                },
+            }),
+        );
+    };
 
     return (
         <section className={styles.resume}>
             <Link
                 passHref
                 href={{
-                    pathname: '/resume/[slug]/build',
-                    query: { slug: cover.slug }
+                    pathname: '/cover/[id]/build',
+                    query: { id: cover.id }
                 }}
             >
                 {/* <Button className={styles.preview}> */}
-                    <Image src={cover.image} alt={cover.name} priority width={400} height={0} />
+                <Image src={cover.image} alt={cover.name} priority width={400} height={0} />
                 {/* </Button> */}
             </Link>
 
@@ -43,19 +111,19 @@ const CoverPreview: React.FC<Props> = ({ cover }) => {
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
-                        <Button className={styles.menu} variant="ghost" size="icon">
+                        <div className={styles.menu}>
                             <MoreVertical size="28" />
-                        </Button>
+                        </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => {alert(3)}}>
-                        <ExternalLink size="16" /> &nbsp; Open
+                        <DropdownMenuItem onClick={() => handleOpen()}>
+                            <ExternalLink size="16" /> &nbsp; Open
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => {alert(1)}}>
+                        <DropdownMenuItem onClick={() => handleDelete()}>
                             <Trash2 size="16" /> &nbsp; Delete
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => {alert(2)}}>
-                        <PencilLine size="16" /> &nbsp; Rename
+                        <DropdownMenuItem onClick={() => handleRename()}>
+                            <PencilLine size="16" /> &nbsp; Rename
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

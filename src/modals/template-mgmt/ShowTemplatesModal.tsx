@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { Resume, SessionData } from "~/schema";
 import TemplatePreview from "~/components/resume/template-preview/TemplatePreview";
 import { TemplateType } from "~/constants";
-import { isEmpty, set } from "lodash";
+import { cloneDeep, isEmpty, set } from "lodash";
 import { useEffect, useState } from "react";
 import { setResume, setResumeState } from "~/store/resume/resumeSlice";
 import { notifyError } from "~/components/ReactHotToast";
@@ -43,18 +43,20 @@ const ShowTemplatesModal: React.FC = () => {
 
 
     const handleClickEditResume = () => {
-        if (isCheckedCover < 1) {
-            notifyError({ message: "Please check a cover template" });
-            return;
-        }
-
         if (isCheckedResume < 1) {
             notifyError({ message: "Please check a resume template" });
             return;
         }
 
-        dispatch(setResumeState({ path: 'metadata.layout', value: [covermetadata.layout[0], metadata.layout[0]] }));
-        dispatch(setResumeState({ path: 'metadata.template', value: `${covermetadata.template}_${metadata.template}` }));
+        if (isCheckedCover < 1) {
+            dispatch(setResumeState({ path: 'metadata.hasCover', value: 0 }));
+            dispatch(setResumeState({ path: 'metadata.layout', value: [metadata.layout[0]] }));
+            dispatch(setResumeState({ path: 'metadata.template', value: `${covermetadata.template}_${metadata.template}` }));
+        }else{
+            dispatch(setResumeState({ path: 'metadata.layout', value: [covermetadata.layout[0], metadata.layout[0]] }));
+            dispatch(setResumeState({ path: 'metadata.template', value: `${covermetadata.template}_${metadata.template}` }));
+        }
+        
         dispatch(setModalState({ modal: 'create-integrated-resume-modal', state: { open: true } }));
         handleClose();
     }
@@ -96,7 +98,7 @@ const ShowTemplatesModal: React.FC = () => {
         if (resumetpls && resumetpls.length > pos) {
             const resumeTemplate = resumetpls[pos];
 
-            const currentTemplate: Resume = JSON.parse(JSON.stringify(resume));
+            const currentTemplate: Resume = cloneDeep(resume);
             set(currentTemplate, 'metadata', resumeTemplate?.metadata);
             set(currentTemplate.sections, 'recruiter_information.name', resumeTemplate?.sections.recruiter_information?.name);
             set(currentTemplate.sections, 'recruiter_information.visible', resumeTemplate?.sections.recruiter_information?.visible);
@@ -136,7 +138,7 @@ const ShowTemplatesModal: React.FC = () => {
             heading="Templates"
             handleClose={handleClose}
             footerChildren={
-                <Button type="submit" disabled={isLoading} onClick={handleClickEditResume}>
+                <Button type="submit" disabled={isLoading} onClick={() => handleClickEditResume()}>
                     Create Resume
                 </Button>
             }

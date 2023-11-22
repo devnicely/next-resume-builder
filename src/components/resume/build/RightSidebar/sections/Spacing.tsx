@@ -7,7 +7,6 @@ import {
     DropdownMenuTrigger,
 } from '~/components/common/dropdown-menu';
 
-import { Button } from "~/components/common/button";
 import { TypeCategory } from "~/schema";
 import { FontType } from "~/constants";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
@@ -49,16 +48,14 @@ const SpacingWidgets: React.FC<SpacingProps> = ({label, category}) => {
                     <div className="flex-1 text-[16px]">{label}</div>
                     <div className="flex-none">
                         <DropdownMenu>
-                            <DropdownMenuTrigger>
-                                <Button  variant="ghost" size="icon">
-                                    <img src='/icon/spacing-list.svg' alt="line" />
-                                </Button>
+                            <DropdownMenuTrigger className="border-hidden outline-none">
+                                <img src='/icon/spacing-list.svg' alt="line" />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 {
                                     spacings.map((space, pos) => {
                                         return (
-                                            <DropdownMenuItem onClick={() => onClickedItemSpacing(category, pos)}>
+                                            <DropdownMenuItem key={pos} onClick={() => onClickedItemSpacing(category, pos)}>
                                                 {category == FontType.SECTION && spacings[pos]?.value == spacing.section && <Check size="14" />}
                                                 {category == FontType.SUBTITLE && spacings[pos]?.value == spacing.subtitle && <Check size="14" />}
                                                 {category == FontType.NORMALTEXT && spacings[pos]?.value == spacing.text && <Check size="14" />}

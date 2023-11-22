@@ -1,3 +1,9 @@
+import '@fontsource/ibm-plex-sans/300.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-sans/700.css';
+
 import { type AppType } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
@@ -14,6 +20,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import ModalWarpper from "~/modals";
 import { QueryClientProvider } from "react-query";
 import queryClient from '~/services/react-query';
+import WrapperRegistry from '~/wrappers/index';
+
 
 interface CustomAppProps extends AppProps {
   pageProps: {
@@ -30,11 +38,13 @@ const MyApp: AppType = ({ Component, pageProps }: CustomAppProps) => {
         <PersistGate loading={null} persistor={persistor}>
           <QueryClientProvider client={queryClient}>
             <SessionProvider session={session}>
-              <UserProfileProvider>
-                <Toaster />
-                <Component {...pageProps} />
-                <ModalWarpper/>
-              </UserProfileProvider>
+              <WrapperRegistry>
+                <UserProfileProvider>
+                  <Toaster />
+                  <Component {...pageProps} />
+                  <ModalWarpper />
+                </UserProfileProvider>
+              </WrapperRegistry>
             </SessionProvider>
           </QueryClientProvider>
         </PersistGate>

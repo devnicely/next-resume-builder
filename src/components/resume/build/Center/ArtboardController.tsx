@@ -4,7 +4,6 @@ import {
   Focus,
   Download,
   Minimize2,
-  SaveAll,
   Save,
 } from 'lucide-react';
 
@@ -15,7 +14,6 @@ import {
   TooltipTrigger,
 } from "~/components/common/Tooltip";
 
-import dayjs from 'dayjs';
 import get from 'lodash/get';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
@@ -28,24 +26,23 @@ import { togglePageBreakLine, togglePageOrientation, toggleSidebar } from '~/sto
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import getResumeUrl from '~/utils/getResumeUrl';
 import { cn } from '~/utils/styles';
-
 import styles from './ArtboardController.module.scss';
 import { Button } from '~/components/common/button';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import LoadingScreen from '~/components/LoadingScreen';
 import ScreenLoading from '~/components/common/ScreenLoading';
 import { api } from '~/utils/api';
 import useFetchTemplates from '~/hooks/useFetchTemplates';
+import { TemplateType } from '~/constants';
 
 const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomOut, centerView }) => {
-  
+
   const router = useRouter();
   const dispatch = useAppDispatch();
-  
+
   const [isDesktop, setIsDesktop] = useState(false);
   const { refetchGetTemplates } = useFetchTemplates();
-  
+
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 1280); // Set breakpoint value according to your needs
@@ -78,8 +75,7 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
 
   const handleCopyLink = async () => {
     const url = getResumeUrl(resume, { withHost: true });
-    await navigator.clipboard.writeText(url);
-
+    await navigator.clipboard.writeText(url);                                        
     toast.success('A link to your resume has been copied to your clipboard.');
   };
 
@@ -91,7 +87,6 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
     const url = await mutateAsync({ id });
     download(url);
   };
-
 
   const {
     mutateAsync: updateResum,
@@ -111,7 +106,8 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
         basics: JSON.stringify(resume.basics),
         sections: JSON.stringify(resume.sections),
         metadata: JSON.stringify(resume.metadata),
-        public: resume.public
+        public: resume.public,
+        resumeId: resume.resumeId
       });
 
       refetchGetTemplates();
@@ -123,99 +119,101 @@ const ArtboardController: React.FC<ReactZoomPanPinchHandlers> = ({ zoomIn, zoomO
 
 
   return (
-    isLoading || isSaving ? <ScreenLoading title='dowanloading...' /> 
-    :
-    <div
-    className={cn({
-      [styles.container]: true,
-      [styles.pushLeft]: left.open,
-      [styles.pushRight]: right.open,
-    })}
-  >
-    <div className={styles.controller}>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={() => zoomIn(0.25)}>
-              <ZoomIn size="24" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-zinc-700 text-white">
-            <p>Zoom In</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={() => zoomOut(0.25)}>
-              <ZoomOut size="24" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-zinc-700 text-white">
-            <p>Zoom Out</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={() => centerView(0.95)}>
-              <Focus size="24" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-zinc-700 text-white">
-            <p>Focus To Center</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      {isDesktop && (
-        <>
+    isLoading || isSaving ? <ScreenLoading />
+      :
+      <div
+        className={cn({
+          [styles.container]: true,
+          [styles.pushLeft]: left.open,
+          [styles.pushRight]: right.open,
+        })}
+      >
+        <div className={styles.controller}>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" onClick={handleToggleSidebar}>
-                  <Minimize2 size="24" />
+                <Button variant="ghost" onClick={() => zoomIn(0.25)}>
+                  <ZoomIn size="24" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent className="bg-zinc-700 text-white">
-                <p>Extend View</p>
+                <p>Zoom In</p>
               </TooltipContent>
             </Tooltip>
-          </TooltipProvider> 
-        </>
-      )}
+          </TooltipProvider>
 
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={handleSave} disabled={isSaving}>
-              <Save size="24" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-zinc-700 text-white">
-            <p>Save</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" onClick={() => zoomOut(0.25)}>
+                  <ZoomOut size="24" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className="bg-zinc-700 text-white">
+                <p>Zoom Out</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" onClick={handleExportPDF} disabled={isLoading}>
-              <Download size="24" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-zinc-700 text-white">
-            <p>Download to PDF</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    </div>
-  </div>
-    
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" onClick={() => centerView(0.95)}>
+                  <Focus size="24" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className="bg-zinc-700 text-white">
+                <p>Focus To Center</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          {isDesktop && (
+            <>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" onClick={handleToggleSidebar}>
+                      <Minimize2 size="24" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-zinc-700 text-white">
+                    <p>Extend View</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </>
+          )}
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" onClick={handleSave} disabled={isSaving}>
+                  <Save size="24" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className="bg-zinc-700 text-white">
+                <p>Save</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          {resume.type === TemplateType.RESUME &&
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" onClick={handleExportPDF} disabled={isLoading}>
+                    <Download size="24" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-zinc-700 text-white">
+                  <p>Download to PDF</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          }
+        </div>
+      </div>
+
   );
 };
 

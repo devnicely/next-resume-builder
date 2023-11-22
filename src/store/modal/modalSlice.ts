@@ -5,7 +5,8 @@ export type ModalName =
 | 'rename-resume-template' 
 | 'create-coversheet-template'
 | 'show-template-modal'
-| 'create-integrated-resume-modal';
+| 'create-integrated-resume-modal'
+| 'delete-confirm-modal';
 
 export type ModalState = {
     open: boolean;
@@ -24,7 +25,8 @@ const initialState: Record<ModalName, ModalState> = {
     'rename-resume-template': {open: false}, // resume template
     'create-coversheet-template': {open: false}, // cover template
     'show-template-modal': {open: false}, //
-    'create-integrated-resume-modal': {open: false}
+    'create-integrated-resume-modal': {open: false},
+    'delete-confirm-modal': {open: false}
 };
 
 export const modalSlice = createSlice({

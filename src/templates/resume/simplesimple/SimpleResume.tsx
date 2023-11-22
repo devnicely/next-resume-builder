@@ -7,22 +7,22 @@ import RecruitInfo from "../../resumetemplate/simple/widgets/RecruitInfo";
 import { useAppSelector } from "~/store/hooks";
 import { get, isEmpty } from "lodash";
 import { getSectionById } from "../../sectionMap";
-import ResumeSectionOne from "../../resumetemplate/simple/widgets/SectionOne";
 import ResumeSection from "../../resumetemplate/simple/widgets/Section";
 import CoverSection from "./cover-widgets/Section";
 
 const SimpleResume: React.FC<PageProps> = ({ page }) => {
+
     const isFirstPage = useMemo(() => page === 0, [page]);
-    const {layout: metaLayout, hasCover} = useAppSelector((state) => get(state.resume.present, 'metadata'));
+    const { layout: metaLayout, hasCover } = useAppSelector((state) => get(state.resume.present, 'metadata'));
     const layout: string[][] = metaLayout[page];
     const { ratio } = useAppSelector((state) => get(state.resume.present, 'metadata'));
-    
-    const { name, photo} = useAppSelector(
+
+    const { name, photo } = useAppSelector(
         (state) => state.resume.present.basics,
     );
 
     const logoTop = ratio * 3;
-    const isHeaderPage = useMemo(() => page === (hasCover ? 1: 0), [hasCover, page]);
+    const isHeaderPage = useMemo(() => page === (hasCover ? 1 : 0), [hasCover, page]);
     const isCover = useMemo(() => hasCover === 1, [hasCover]);
     return (
         <>
@@ -56,35 +56,23 @@ const SimpleResume: React.FC<PageProps> = ({ page }) => {
                 </div>
             }
 
-            <div className={clsx([ReumeStyles.page])}>
+            {((!isFirstPage && isCover) || !isCover) && <div style={!isHeaderPage ? { paddingTop: '55px' } : {}} className={clsx([ReumeStyles.page])}>
                 {isHeaderPage && <RecruitInfo />}
                 <div className={ReumeStyles.container}>
                     <div className={clsx([ReumeStyles.sidebar])} style={{ flexBasis: `${ratio}%` }}>
                         {layout[1]?.map((key) => {
-                            if (
-                                key == "candidate_summary"
-                                || key == "skills"
-                                || key == "strengths"
-                                || key == "activities"
-                                || key == "certifications")
-                                return getSectionById(key, ResumeSectionOne);
                             return getSectionById(key, ResumeSection)
                         })}
                     </div>
 
                     <div className={clsx(['styles.main'])} style={{ flexBasis: `${100 - ratio}%` }}>
                         {layout[0]?.map((key) => {
-                            if (key == "candidate_summary"
-                                || key == "skills"
-                                || key == "strengths"
-                                || key == "activities"
-                                || key == "certifications")
-                                return getSectionById(key, ResumeSectionOne);
                             return getSectionById(key, ResumeSection)
                         })}
                     </div>
                 </div>
             </div>
+            }
         </>
     )
 }

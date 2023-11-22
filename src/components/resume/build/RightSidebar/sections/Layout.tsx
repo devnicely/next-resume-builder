@@ -28,12 +28,13 @@ const Layout = () => {
   const resumeSections = useAppSelector((state) => state.resume.present.sections);
   const resume = useAppSelector((state) => state.resume.present);
 
+  
   const onDragEnd = (dropResult: DropResult) => {
     const { source: srcLoc, destination: destLoc } = dropResult;
 
     if (!destLoc) return;
 
-    const newLayout = cloneDeep(layout);
+    const newLayout: string[][][] = cloneDeep(layout);
 
     const srcIndex = getIndices(srcLoc);
     const destIndex = getIndices(destLoc);
@@ -62,55 +63,55 @@ const Layout = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         {/* Pages */}
         {layout.map((columns, pageIndex) => (
-          <div key={pageIndex} className={styles.page}>
-            <div className="flex items-center justify-between pr-3">
-              <p className={styles.heading}>
-                Page {pageIndex + 1}
-              </p>
-
-              <div className={clsx(styles.delete, { hidden: pageIndex === 0 })}>
-                <Close onClick={() => handleDeletePage(pageIndex)} size="28" />
+            <div key={pageIndex} className={styles.page}>
+              <div className="flex items-center justify-between pr-3">
+                <p className={styles.heading}>
+                  Page {pageIndex + 1}
+                </p>
+  
+                <div className={clsx(styles.delete, { hidden: pageIndex === 0 || (pageIndex === 1 && resume.metadata.hasCover === 1)})}>
+                  <Close onClick={() => handleDeletePage(pageIndex)} size="28" />
+                </div>
+              </div>
+  
+              <div className={styles.container}>
+                {/* Sections */}
+                {columns.map((sections, columnIndex) => {
+                  const index = `${pageIndex}.${columnIndex}`;
+  
+                  return (
+                    <Droppable key={index} droppableId={index}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} className={styles.column} {...provided.droppableProps}>
+                          <p className={styles.heading}>{columnIndex ? 'Sidebar' : 'Main'}</p>
+  
+                          <div className={styles.base} />
+                          {/* Sections */}
+                          {sections.map((sectionId, sectionIndex) => (
+                            <Draggable isDragDisabled={(resume.type === TemplateType.RESUME && pageIndex === 0 && resume.metadata.hasCover === 1)} key={sectionId} draggableId={sectionId} index={sectionIndex}>
+                              {(provided) => (
+                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                  <div
+                                    className={clsx(styles.section)}
+                                  >
+                                    {get(resumeSections, `${sectionId}.name`, '') as string}
+                                  </div>
+                                </div>
+                              )}
+                            </Draggable>
+                          ))}
+  
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  );
+                })}
               </div>
             </div>
+          ))}
 
-            <div className={styles.container}>
-              {/* Sections */}
-              {columns.map((sections, columnIndex) => {
-                const index = `${pageIndex}.${columnIndex}`;
-
-                return (
-                  <Droppable key={index} droppableId={index}>
-                    {(provided) => (
-                      <div ref={provided.innerRef} className={styles.column} {...provided.droppableProps}>
-                        <p className={styles.heading}>{columnIndex ? 'Sidebar' : 'Main'}</p>
-
-                        <div className={styles.base} />
-                        {/* Sections */}
-                        {sections.map((sectionId, sectionIndex) => (
-                          <Draggable key={sectionId} draggableId={sectionId} index={sectionIndex}>
-                            {(provided) => (
-                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <div
-                                  className={clsx(styles.section)}
-                                >
-                                  {get(resumeSections, `${sectionId}.name`, '') as string}
-                                </div>
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-
-        <div className="flex items-center justify-end">
+        <div className={clsx('flex items-center justify-end', {hidden: resume.type !== TemplateType.RESUME})}>
           <Button className="bg-primary-500" onClick={handleAddPage}>
             <Add className="mr-2 h-4 w-4" /> Add New Page
           </Button>

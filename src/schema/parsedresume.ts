@@ -43,6 +43,27 @@ type WorkHistory = {
     positions: Position[],
 }
 
+type AwardsHonors = {
+    title: string;
+    year: string;
+    organization: string;
+}
+
+type Reference = {
+    name: string;
+    title: string;
+    organization: string;
+    location: string;
+    phone: string;
+    email: string;
+}
+
+type Certification = {
+    title: string;
+    year: string;
+    organization: string;
+}
+
 
 export type ParsedResume = {
     basic_info?: BasicInfo;
@@ -50,4 +71,8 @@ export type ParsedResume = {
     work_history?: WorkHistory[];
     skills? : string[];
     activities? : string[];
+    awards_honors? : AwardsHonors[];
+    references? : Reference[];
+    certifications? : Certification[];
+    strength_areas? : string[];
 }

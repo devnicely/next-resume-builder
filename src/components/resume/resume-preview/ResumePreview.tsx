@@ -31,41 +31,60 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
     const dispatch = useAppDispatch();
 
     const {
-        mutateAsync: deleteResume,
+        mutateAsync: deleteResume,   
     } = api.template.deleteResume.useMutation();
 
 
+    const handleClose = () => {
+        dispatch(setModalState({
+            modal: 'delete-confirm-modal',
+            state: {open: false}
+        }));
+    }
+
     const handleDelete = async () => {
-        await deleteResume({ id: resume.id }).then(() => {
-            void refetchGetResumes();
-            notify({ message: "Deleted Resume Successfully." });
-        }).catch(() => {
-            notifyError({ message: "Failed to delete the resume." });
-        })
+        dispatch(
+            setModalState({
+                modal: 'delete-confirm-modal',
+                state: {
+                    open: true,
+                    payload: {
+                        onComplete: async () => {
+                            await deleteResume({ id: resume.id }).then(() => {
+                                void refetchGetResumes();
+                                notify({ message: "Deleted Resume Template Successfully." });
+                            }).catch(() => {
+                                notifyError({ message: "Failed to delete the resume." });
+                            });
+                            handleClose();
+                        },
+                    },
+                },
+            }),
+        );
     };
 
     const handleRename = () => {
-
         dispatch(
             setModalState({
-              modal: 'rename-resume',
-              state: {
-                open: true,
-                payload: {
-                  item: resume,
-                  onComplete: () => {
-                    void refetchGetResumes();
-                  },
+                modal: 'rename-resume-template',
+                state: {
+                    open: true,
+                    payload: {
+                        item: resume,
+                        onComplete: () => {
+                            void refetchGetResumes();
+                        },
+                    },
                 },
-              },
             }),
-          );
+        );
     };
 
     const handleOpen = () => {
         router.push({
-            pathname: '/resume/[slug]/build',
-            query: { slug: resume.slug }
+            pathname: '/resume/[id]/build',
+            query: { id: resume.id }
         });
     };
 
@@ -74,12 +93,12 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
             <Link
                 passHref
                 href={{
-                    pathname: '/resume/[slug]/build',
-                    query: { slug: resume.slug }
+                    pathname: '/resume/[id]/build',
+                    query: { id: resume.id }
                 }}
             >
                 {/* <Button className={styles.preview}> */}
-                    <Image src={resume.image} alt={resume.name} priority width={400} height={0} />
+                <Image src={resume.image} alt={resume.name} priority width={400} height={0} />
                 {/* </Button> */}
             </Link>
             <footer className={styles.meta}>
@@ -89,19 +108,19 @@ const ResumePreview: React.FC<Props> = ({ resume }) => {
 
                 <DropdownMenu>
                     <DropdownMenuTrigger>
-                        <Button className={styles.menu} variant="ghost" size="icon">
+                        <div className={styles.menu}>
                             <MoreVertical size="28" />
-                        </Button>
+                        </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuItem onClick={handleOpen}>
-                        <ExternalLink size="16" /> &nbsp; Open
+                        <DropdownMenuItem onClick={() => handleOpen()}>
+                            <ExternalLink size="16" /> &nbsp; Open
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleDelete}>
+                        <DropdownMenuItem onClick={() => handleDelete()}>
                             <Trash2 size="16" /> &nbsp; Delete
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleRename}>
-                        <PencilLine size="16" /> &nbsp; Rename
+                        <DropdownMenuItem onClick={() => handleRename()}>
+                            <PencilLine size="16" /> &nbsp; Rename
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

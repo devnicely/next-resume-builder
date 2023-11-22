@@ -29,7 +29,7 @@ export const dateFormatOptions: string[] = [
 export const getRelativeTime = (timestamp: dayjs.ConfigType): string => dayjs(timestamp).toNow(true);
 
 export const formatDateString = (date: string | DateRange, formatStr: string): string | null => {
-  const presentString = '';
+  const presentString = 'Present';
 
   if (isEmpty(date)) return null;
 

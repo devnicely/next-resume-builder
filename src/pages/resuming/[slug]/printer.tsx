@@ -3,14 +3,14 @@ import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { Resume } from '~/schema';
 
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { useAppDispatch } from '~/store/hooks';
 import { setResume } from '~/store/resume/resumeSlice';
 import styles from '~/styles/pages/Printer.module.scss';
 import Page from '~/components/resume/build/Center/Page';
 import { api } from '~/utils/api';
+import { Resume } from '~/schema';
+import { TemplateType } from '~/constants';
 
 type QueryParams = {
   slug: string;

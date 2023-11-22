@@ -5,14 +5,12 @@ import { useAppDispatch, useAppSelector } from "~/store/hooks"
 import { setModalState } from "~/store/modal/modalSlice";
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
-import {TemplateType } from "~/constants";
 import { useEffect } from "react";
 import { api } from "~/utils/api";
 import { useRouter } from 'next/router';
 import { Button } from "~/components/common/button";
 import { Input } from "~/components/common/input";
 import { Label } from "~/components/common/label";
-import { get } from "lodash";
 
 type FormData = {
     name: string;
@@ -73,8 +71,8 @@ const CreateResumeModal: React.FC = () => {
                 const {resume_id} = data;
                 handleClose();
                 router.push({
-                    pathname: '/resuming/[slug]/build',
-                    query: { slug: resume_id }
+                    pathname: '/resuming/[id]/build',
+                    query: { id: resume_id }
                 });
             }).catch(() => {
 
@@ -109,19 +107,6 @@ const CreateResumeModal: React.FC = () => {
                                 autoFocus
                                 {...field}
                             />
-                        </>
-                    )}
-                />
-
-                <Controller
-                    name="slug"
-                    control={control}
-                    render={({ field, fieldState }) => (
-                        <>
-                            <Label>Slug</Label>
-                        <Input
-                            {...field}
-                        />
                         </>
                     )}
                 />

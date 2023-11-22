@@ -4,7 +4,7 @@ import ResumeInput from "~/components/shared/ResumeInput";
 const CandidateSummary = () => {
     return (
         <>
-            <Heading isEditable={true} isHideable={true} path="sections.candidate_summary" name="Candidate Summary"/>
+            <Heading isEditable={true} isUppercase={true} isHideable={true} path="sections.candidate_summary" name="Candidate Summary"/>
             <div className="grid grid-cols-1 gap-4">
                 <ResumeInput type="textarea" label="Summary" path="sections.candidate_summary.item"/>
             </div>

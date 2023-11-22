@@ -58,9 +58,9 @@ const Header = () => {
 
   const goBack = () => router.push('/user/cv-suite/template-mgmt/resumes');
 
-  
   return (
     <>
+      {/* <div className="bg-white shadow-sm fixed top-[63px] left-[100px] right-[38px] z-10"> */}
       <div className="bg-white shadow-sm absolute top-0 left-0 right-0 z-10">
           <div
             className={`${styles.header} ${left.open ? styles.pushLeft : ''} ${right.open ? styles.pushRight : ''}`}

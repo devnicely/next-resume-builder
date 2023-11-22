@@ -42,6 +42,7 @@ const RenameResumeModal: React.FC = () => {
     } = api.template.renameResumeTemplate.useMutation();
 
     const { open: isOpen, payload } = useAppSelector((state) => state.modal['rename-resume-template']) as ModalState;
+    
     const resume: Resume = get(payload, 'item') as Resume;
     const onComplete = get(payload, 'onComplete', noop);
 
@@ -118,20 +119,7 @@ const RenameResumeModal: React.FC = () => {
                             />
                         </>
                     )}
-                />
-
-                <Controller
-                    name="slug"
-                    control={control}
-                    render={({ field, fieldState }) => (
-                        <>
-                            <Label>Slug</Label>
-                        <Input
-                            {...field}
-                        />
-                        </>
-                    )}
-                />
+                /> 
             </form>
         </BaseModal>
     );

@@ -25,7 +25,7 @@ type DeleteSectionPayload = { path: string };
 
 type DeletePagePayload = { page: number };
 
-type ChangeRatioPayload = {ratio: number};
+type ChangeRatioPayload = { ratio: number };
 
 const initialState: Resume = {} as Resume;
 
@@ -36,7 +36,6 @@ export const resumeSlice = createSlice({
     setResume: (_state: Resume, action: PayloadAction<Resume>) => action.payload,
     setResumeState: (state: Resume, action: PayloadAction<SetResumeStatePayload>) => {
       const { path, value } = action.payload;
-
       set(state, path, value);
     },
     addItem: (state: Resume, action: PayloadAction<AddItemPayload>) => {
@@ -111,15 +110,25 @@ export const resumeSlice = createSlice({
 
       // Do not delete the first page
       if (page === 0) return;
+      // Don't delete the second page if the cover exists.
+      if (state.metadata.hasCover === 1 && page === 1) return;
 
       // Get Sections defined in Page X
       const [main, sidebar] = state.metadata.layout[page];
 
-      // Add sections to page 0 as a default
-      state.metadata.layout[0][0].push(...main);
-      state.metadata.layout[0][1].push(...sidebar);
+
+      if (state.metadata.hasCover !== 1) {
+        // Add sections to page 0 as a default
+        state.metadata.layout[0][0].push(...main);
+        state.metadata.layout[0][1].push(...sidebar);
+      } else{
+        state.metadata.layout[page - 1][0].push(...main);
+        state.metadata.layout[page - 1][1].push(...sidebar);
+      }
 
       state.metadata.layout.splice(page, 1);
+
+
     },
     changeRatio: (state: Resume, action: PayloadAction<number>) => {
       const ratio: number = action.payload;

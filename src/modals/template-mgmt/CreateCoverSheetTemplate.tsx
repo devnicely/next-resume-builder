@@ -37,7 +37,7 @@ const schema = Joi.object({
     isPublic: Joi.boolean().default(true).required(),
 });
 
-const CreateCoverSheetModal: React.FC = () => {
+const CreateCoverSheetTemplate: React.FC = () => {
 
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -70,12 +70,12 @@ const CreateCoverSheetModal: React.FC = () => {
     const onSubmit = async ({ name, slug, isPublic }: FormData) => {
         if (template_id) {
             await createCoverSheetTemplate({ name, slug, isPublic, type: TemplateType.COVER_TEMPLATE, template_id })
-                .then(() => {
+                .then((data) => {
                     handleClose();
                     refetchGetTemplates();
                     router.push({
-                        pathname: '/cover/[slug]/build',
-                        query: { slug: slug }
+                        pathname: '/cover/[id]/build',
+                        query: { id: data.resume_id }
                     });
                 }).catch(() => {
 
@@ -114,22 +114,9 @@ const CreateCoverSheetModal: React.FC = () => {
                         </>
                     )}
                 />
-
-                <Controller
-                    name="slug"
-                    control={control}
-                    render={({ field, fieldState }) => (
-                        <>
-                            <Label>Slug</Label>
-                            <Input
-                                {...field}
-                            />
-                        </>
-                    )}
-                />
             </form>
         </BaseModal>
     )
 }
 
-export default CreateCoverSheetModal;
+export default CreateCoverSheetTemplate;

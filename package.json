@@ -8,12 +8,14 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "format": "prisma format"
   },
   "dependencies": {
     "@beam-australia/react-env": "^3.1.1",
     "@emotion/css": "^11.11.2",
     "@faker-js/faker": "^8.2.0",
+    "@fontsource/ibm-plex-sans": "^5.0.17",
     "@google-cloud/storage": "^7.3.1",
     "@headlessui/react": "^1.7.17",
     "@hello-pangea/dnd": "^16.3.0",
@@ -54,6 +56,7 @@
     "@types/formidable": "^3.4.5",
     "@types/nodemailer": "^6.4.10",
     "@types/puppeteer": "^7.0.4",
+    "@types/webfontloader": "^1.6.38",
     "argon2": "^0.31.1",
     "axios": "^1.5.1",
     "bcryptjs": "^2.4.3",
@@ -113,6 +116,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "vercel": "^32.2.5",
+    "webfontloader": "^1.6.28",
     "zod": "^3.21.4",
     "zustand": "^4.4.3"
   },

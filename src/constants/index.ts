@@ -49,7 +49,7 @@ const defaultCSS = `/* Enter custom CSS here */
 
 
 export let emptyDefaultResume: Resume = {
-    id: 1,
+    id: "",
     type: TemplateType.RESUME_TEMPLATE,
     checked: false,
     shortId: '2323',
@@ -92,6 +92,23 @@ export let emptyDefaultResume: Resume = {
             "columns": 1,
             "visible": true,
             "items": [],
+            "isUppercase": true,
+            "item": ""
+        },
+        "candidate_information": {
+            "id": 'candidate_information',
+            "name": "Candidate Information",
+            "type": "candidate_information",
+            "columns": 1,
+            "visible": false,
+            "items": [{
+                id: "",
+                candidate_name: "",
+                candidate_email: "",
+                candidate_phone: "",
+                candidate_website: ""
+            }],
+            "isUppercase": true,
             "item": ""
         },
         "candidate_summary": {
@@ -101,6 +118,7 @@ export let emptyDefaultResume: Resume = {
             "columns": 1,
             "visible": true,
             "items": [],
+            "isUppercase": true,
             "item": ""
         },
         "work_experience": {
@@ -110,6 +128,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "skills": {
@@ -119,6 +138,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -129,6 +149,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -139,6 +160,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "references": {
@@ -148,6 +170,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -158,6 +181,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "strengths": {
@@ -167,6 +191,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "awards": {
@@ -176,6 +201,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -186,6 +212,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_agency_name": {
@@ -195,6 +222,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_name": {
@@ -204,6 +232,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_title": {
@@ -213,6 +242,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_email": {
@@ -222,6 +252,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_phone": {
@@ -231,6 +262,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -241,6 +273,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -251,6 +284,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -261,6 +295,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_email": {
@@ -270,6 +305,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_phone": {
@@ -279,6 +315,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_website": {
@@ -288,6 +325,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_current_organization": {
@@ -297,6 +335,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_current_position": {
@@ -306,6 +345,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -316,6 +356,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -326,6 +367,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -336,6 +378,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -346,6 +389,7 @@ export let emptyDefaultResume: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
     },
@@ -369,7 +413,7 @@ export let emptyDefaultResume: Resume = {
         hasCover: 1,
         layout: [
             [
-                ['candidate_summary', "strengths", 'work_experience', 'education', 'references', 'activities'],
+                ['candidate_information', 'candidate_summary', "strengths", 'work_experience', 'education', 'references', 'activities'],
                 ['certifications', 'skills', 'awards'],
             ],
         ],
@@ -428,6 +472,10 @@ export let emptyDefaultResume: Resume = {
                 [
                     'title_candidate_information',
                     'cover_candidate_summary',
+                    'cover_candidate_name',
+                    'cover_candidate_email',
+                    'cover_candidate_phone',
+                    'cover_candidate_website',
                     'cover_current_organization',
                     'cover_current_position',
                     'cover_current_salary',
@@ -466,12 +514,8 @@ export let emptyDefaultResume: Resume = {
 };
 
 
-
-
-
-
 export let defaultResumeState: Resume = {
-    id: 1,
+    id: "",
     type: TemplateType.RESUME_TEMPLATE,
     checked: false,
     shortId: '2323',
@@ -512,18 +556,35 @@ export let defaultResumeState: Resume = {
             "name": "Recruiter Information",
             "type": "recruiter_information",
             "columns": 1,
+            "isUppercase": true,
             "visible": true,
             "items": [
                 {
-                    'id': '27f44ddc-afdd-42b9-b6cf-481f1784ab1a',
+                    'id': 'c8c53993-e4ef-498c-812f-0a9076dcb82c',
                     'agency_name': 'Apple Recruiting Firm',
-                    'recruiter_name': 'Daisy Chen',
+                    'recruiter_name': 'Recruiter',
                     'recruiter_title': 'Senior recruiting consultant',
-                    'recruiter_email': 'daisy.sample@abcrecruiting.com',
-                    'recruiter_phone': '+852 4344 133'
+                    'recruiter_email': 'recruiter@sample.com',
+                    'recruiter_phone': '+000 0000 000'
                 }
             ],
-            "item": "This is the summary part."
+            "item": "Lorem ipsum dolor sit amet"
+        },
+        "candidate_information": {
+            "id": 'candidate_information',
+            "name": "Candidate Information",
+            "type": "candidate_information",
+            "columns": 1,
+            "visible": false,
+            "items": [{
+                id: "",
+                candidate_name: "",
+                candidate_email: "",
+                candidate_phone: "",
+                candidate_website: ""
+            }],
+            "isUppercase": true,
+            "item": ""
         },
         "candidate_summary": {
             "id": 'candiate_summary',
@@ -532,7 +593,8 @@ export let defaultResumeState: Resume = {
             "columns": 1,
             "visible": true,
             "items": [],
-            "item": "This is the summary part."
+            "isUppercase": true,
+            "item": "Lorem ipsum dolor sit amet"
         },
         "work_experience": {
             "id": "work_experience",
@@ -546,14 +608,15 @@ export let defaultResumeState: Resume = {
                         "end": "2023-09-14",
                         "start": "2022-04-01"
                     },
-                    "organization": "Orange System",
+                    "organization": "Sample Company",
                     "title": "Web Developer",
-                    "summary": "•\tLed the design and execution of technical projects. Delivered the partner showcase portal for presentation towards investors in Italy.\n•\t Saved over 100 hours of the developer’s time by optimizing the project development pipeline from 40+ minutes to under five minutes.\n•\tBuilt mobile wallet app for Solana, SPL token based payment EcoSystem using React Native.",
+                    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                     "location": "USA"
                 }
             ],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "skills": {
@@ -563,6 +626,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "Next, Android, Telegram, React, IOS, Asp.net, Laravel, GPT, Ruby on Rails",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -573,6 +637,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "Web and Mobile Developer, Footballer, Singer",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -597,6 +662,7 @@ export let defaultResumeState: Resume = {
             ],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "references": {
@@ -606,16 +672,17 @@ export let defaultResumeState: Resume = {
             "items": [
                 {
                     "id": "d982ead7-a9bd-465e-80da-118ae8f6a27b",
-                    "name": "Helane Anderson",
+                    "name": "Reference",
                     "title": "Director",
                     "organization": "The Key Consulting for the Performing Arts",
                     "location": "Culver City, Calif.90232",
-                    "phone": "301.945.5481",
-                    "email": "hemander@yahoo.com"
+                    "phone": "111.111.1111",
+                    "email": "reference@sample.com"
                 },
             ],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -626,6 +693,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "This is the certification part",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "strengths": {
@@ -633,8 +701,9 @@ export let defaultResumeState: Resume = {
             "name": "Strengths",
             "type": "strengths",
             "items": [],
-            "item": "Breaking coverage, Feature writing, Investigative, reporting, Interviewing, Research, Fact-checking, Copy editing, AP Style, Leadership, Mentoring, Training, Headlines, Cutlines, Digital Photo",
+            "item": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "awards": {
@@ -643,7 +712,7 @@ export let defaultResumeState: Resume = {
             "type": "awards",
             "items": [
                 {
-                    "id": "d982ead7-a9bd-465e-80da-118ae8f6a27b",
+                    "id": "99b79111-e600-4035-96a7-0b94ad935671",
                     "title": "Director",
                     "organization": "The Key Consulting for the Performing Arts",
                     "year": "2023",
@@ -651,6 +720,7 @@ export let defaultResumeState: Resume = {
             ],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -661,6 +731,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_agency_name": {
@@ -670,6 +741,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "Apple Recruiter Firm",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_name": {
@@ -679,6 +751,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "Daisy Chen",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_title": {
@@ -688,6 +761,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "Senior Recruiting Consultant, focused on media and marketing",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_email": {
@@ -695,8 +769,9 @@ export let defaultResumeState: Resume = {
             "name": "Email",
             "type": "cover_recruiter_email",
             "items": [],
-            "item": "daisy.sample@ABCRecruiting.com",
+            "item": "recruiter@sample.com",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_phone": {
@@ -704,8 +779,9 @@ export let defaultResumeState: Resume = {
             "name": "Phone number",
             "type": "cover_recruiter_phone",
             "items": [],
-            "item": "+852 5347 1333",
+            "item": "+111 1111 1111",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -716,6 +792,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "candidate",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -724,8 +801,9 @@ export let defaultResumeState: Resume = {
             "name": "Candiate Sumary",
             "type": "cover_agency_name",
             "items": [],
-            "item": "Experienced journalist with a background in reporting, editing, breaking coverage, feature writing, investigative reporting, interviwewing, research, fact-checking, copy, editing, AP Style, leadership, mentoring, training, headlines, cutlines, and difital photo",
+            "item": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -736,6 +814,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "Maxim",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_email": {
@@ -745,6 +824,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "maxim@outlook.com",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_phone": {
@@ -754,6 +834,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "+8512323456",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_website": {
@@ -761,8 +842,9 @@ export let defaultResumeState: Resume = {
             "name": "Candiate Website",
             "type": "cover_agency_name",
             "items": [],
-            "item": "https://hello.com",
+            "item": "https://sample.com",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_current_organization": {
@@ -772,6 +854,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "The Madison Commons",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_current_position": {
@@ -781,6 +864,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "Position",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -791,6 +875,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "100",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -799,8 +884,9 @@ export let defaultResumeState: Resume = {
             "name": "Date of Availability",
             "type": "cover_agency_name",
             "items": [],
-            "item": "12",
+            "item": "2023-11-15",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -811,6 +897,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "type...",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -821,6 +908,7 @@ export let defaultResumeState: Resume = {
             "items": [],
             "item": "visa",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
     },
@@ -844,7 +932,7 @@ export let defaultResumeState: Resume = {
         hasCover: 1,
         layout: [
             [
-                ['candidate_summary', "strengths", 'work_experience', 'education', 'references', 'activities'],
+                ['candidate_information', 'candidate_summary', "strengths", 'work_experience', 'education', 'references', 'activities'],
                 ['certifications', 'skills', 'awards'],
             ],
         ],
@@ -903,6 +991,10 @@ export let defaultResumeState: Resume = {
                 [
                     'title_candidate_information',
                     'cover_candidate_summary',
+                    'cover_candidate_name',
+                    'cover_candidate_email',
+                    'cover_candidate_phone',
+                    'cover_candidate_website',
                     'cover_current_organization',
                     'cover_current_position',
                     'cover_current_salary',
@@ -941,7 +1033,7 @@ export let defaultResumeState: Resume = {
 };
 
 export const defaultCoverState: Resume = {
-    id: 1,
+    id: "",
     type: TemplateType.COVER_TEMPLATE,
     shortId: '2323',
     name: 'first cover',
@@ -985,6 +1077,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_agency_name": {
@@ -994,6 +1087,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "Apple Recruiter Firm",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_name": {
@@ -1003,6 +1097,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "Daisy Chen",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_title": {
@@ -1012,6 +1107,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "Senior Recruiting Consultant, focused on media and marketing",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_email": {
@@ -1019,8 +1115,9 @@ export const defaultCoverState: Resume = {
             "name": "Email",
             "type": "cover_recruiter_email",
             "items": [],
-            "item": "daisy.sample@ABCRecruiting.com",
+            "item": "recruiter@sample.com",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_recruiter_phone": {
@@ -1028,8 +1125,9 @@ export const defaultCoverState: Resume = {
             "name": "Phone number",
             "type": "cover_recruiter_phone",
             "items": [],
-            "item": "+852 5347 1333",
+            "item": "+111 1111 1111",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -1040,6 +1138,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "candidate",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -1048,8 +1147,9 @@ export const defaultCoverState: Resume = {
             "name": "Candiate Sumary",
             "type": "cover_agency_name",
             "items": [],
-            "item": "Experienced journalist with a background in reporting, editing, breaking coverage, feature writing, investigative reporting, interviwewing, research, fact-checking, copy, editing, AP Style, leadership, mentoring, training, headlines, cutlines, and difital photo",
+            "item": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -1060,6 +1160,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "Maxim",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_email": {
@@ -1069,6 +1170,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "maxim@outlook.com",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_phone": {
@@ -1078,6 +1180,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "+8512323456",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_candidate_website": {
@@ -1085,8 +1188,9 @@ export const defaultCoverState: Resume = {
             "name": "Candiate Website",
             "type": "cover_agency_name",
             "items": [],
-            "item": "https://hello.com",
+            "item": "https://sample.com",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_current_organization": {
@@ -1096,6 +1200,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "The Madison Commons",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
         "cover_current_position": {
@@ -1105,6 +1210,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "Position",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -1115,6 +1221,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "100",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -1123,8 +1230,9 @@ export const defaultCoverState: Resume = {
             "name": "Date of Availability",
             "type": "cover_agency_name",
             "items": [],
-            "item": "12",
+            "item": "2023-11-15",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -1135,6 +1243,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "type...",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
 
@@ -1145,6 +1254,7 @@ export const defaultCoverState: Resume = {
             "items": [],
             "item": "visa",
             "columns": 1,
+            "isUppercase": true,
             "visible": true
         },
     },
@@ -1178,6 +1288,10 @@ export const defaultCoverState: Resume = {
                 [
                     'title_candidate_information',
                     'cover_candidate_summary',
+                    'cover_candidate_name',
+                    'cover_candidate_email',
+                    'cover_candidate_phone',
+                    'cover_candidate_website',
                     'cover_current_organization',
                     'cover_current_position',
                     'cover_current_salary',
@@ -1242,6 +1356,10 @@ export const defaultCoverState: Resume = {
                 [
                     'title_candidate_information',
                     'cover_candidate_summary',
+                    'cover_candidate_name',
+                    'cover_candidate_email',
+                    'cover_candidate_phone',
+                    'cover_candidate_website',
                     'cover_current_organization',
                     'cover_current_position',
                     'cover_current_salary',
@@ -1300,26 +1418,7 @@ export const parsingResume = {
         current_org: "", 
         work_years: "3" 
     }, 
-    education: [
-        { 
-            institution: "Cerritos College", 
-            location: "Cerritos, CA", 
-            degree: "Associates Degree", 
-            start_date: "08/08", 
-            end_date: "05/12", 
-            majors: "Business Management", 
-            GPA: "2.7/4.0" 
-        }, 
-        { 
-            institution: "Richard Gahr High School", 
-            location: "Cerritos, CA", 
-            degree: "High School Diploma", 
-            start_date: "09/04", 
-            end_date: "06/08", 
-            majors: "Concentration in Business", 
-            GPA: "3.0/4.0" 
-        }
-    ], 
+    education: "Education", 
     
     skills: [
         "Business management skills to promote business", 

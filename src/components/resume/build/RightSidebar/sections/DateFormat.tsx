@@ -23,7 +23,7 @@ const DateFormat = () => {
                     <SelectContent>
                         <SelectGroup>
                             {
-                                dateFormatOptions.map((option) => <SelectItem value={option}>{option}</SelectItem>)
+                                dateFormatOptions.map((option, i) => <SelectItem key={i} value={option}>{option}</SelectItem>)
                             }
                         </SelectGroup>
                     </SelectContent>

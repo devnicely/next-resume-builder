@@ -50,17 +50,9 @@ const ColorPicker: React.FC<Props> = ({ label, color, onChange, className }) => 
             {label}
             <TextField
             value={color}
-            error={!isValid}
             onClick={handleOpen}
             onChange={handleChange}
             className={cn("mt-1",className)}
-            InputProps={{
-              startAdornment: (
-                <div className="mr-2">
-                  <ColorAvatar color={color} />
-                </div>
-              ),
-            }}
           />
           </Label>
         </PopoverTrigger>

@@ -54,9 +54,10 @@ const Resumes: NextPage = () => {
                 </header>
 
                 <main className={styles.resumes}>
-                    {Object.values(templateMap).map((template) => (
+                    {Object.values(templateMap).map((template, i) => (
                         template.type === TemplateType.RESUME_TEMPLATE && 
                         <ResumeCard
+                            key={i}
                             modal="create-resume-template"
                             template_name={template.name}
                             template_preview={template.preview}
@@ -68,8 +69,8 @@ const Resumes: NextPage = () => {
 
                 <div>Saved Resume Templates</div><hr />
                 <main className={styles.resumes}>
-                    {resumes && resumes.map((resume) => (
-                        <ResumePreview key={resume.id} resume={resume} />
+                    {resumes && resumes.map((resume, i) => (
+                        <ResumePreview key={i} resume={resume} />
                     ))}
                 </main>
 

@@ -85,6 +85,8 @@ export type CandidiateSummary = {
   summary?: string
 };
 
+
+
 export type Award = {
   id?: string;
   organization: string;
@@ -143,4 +145,5 @@ export type Section = {
   items: ListItem[];
   item: string;
   isDuplicated?: boolean;
+  isUppercase: boolean;
 };

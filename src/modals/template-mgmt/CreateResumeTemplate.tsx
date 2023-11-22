@@ -71,13 +71,12 @@ const CreateResumeTemplate: React.FC = () => {
     const onSubmit = async ({ name, slug, isPublic }: FormData) => {
         if (template_id) {
             await createResume({ name, slug, isPublic, type: TemplateType.RESUME_TEMPLATE, template_id })
-                .then(() => {
+                .then((data) => {
                     handleClose();
-
                     refetchGetTemplates();
                     router.push({
-                        pathname: '/resume/[slug]/build',
-                        query: { slug: slug }
+                        pathname: '/resume/[id]/build',
+                        query: { id: data.resume_id }
                     });
                 }).catch(() => {
 
@@ -114,19 +113,6 @@ const CreateResumeTemplate: React.FC = () => {
                                 <Label>Name</Label>
                                 <Input
                                     autoFocus
-                                    {...field}
-                                />
-                            </>
-                        )}
-                    />
-
-                    <Controller
-                        name="slug"
-                        control={control}
-                        render={({ field, fieldState }) => (
-                            <>
-                                <Label>Slug</Label>
-                                <Input
                                     {...field}
                                 />
                             </>

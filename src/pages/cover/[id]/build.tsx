@@ -9,39 +9,37 @@ import isEmpty from 'lodash/isEmpty';
 import { api } from "~/utils/api";
 
 type QueryParams = {
-    slug: string
+    id: string
 }
 
 type Props = {
-    slug: string,
+    id: string,
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({query}) => {
-    const {slug} = query as QueryParams;    
+export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
+    const { id } = query as QueryParams;
     return {
-        props: {slug}
+        props: { id }
     }
 };
 
-const Build: NextPage<Props> = ({slug}) => {
-
+const Build: NextPage<Props> = ({ id }) => {
     const dispatch = useAppDispatch();
-
     const {
-        data: resume,
+        data: cover,
         isLoading,
         refetch
-    } = api.template.getResumeBySlug.useQuery({slug: slug});
+    } = api.template.getResumeById.useQuery({ id });
 
-    if (!resume || isEmpty(resume)) return null;
+    if (!cover || isEmpty(cover)) return null;
     
-    dispatch(setResume(resume));
+    dispatch(setResume(cover));
 
-    return(
+    return (
         <UserLayout>
-            <div style={{position: 'relative'}}>
-                <LeftSidebar/>
-                <Center/>
+            <div style={{ position: 'relative' }}>
+                <LeftSidebar />
+                <Center />
                 <RightSidebar />
             </div>
         </UserLayout>

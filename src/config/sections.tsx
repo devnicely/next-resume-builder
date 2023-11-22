@@ -23,7 +23,7 @@ import SidebarMain from '~/components/resume/build/RightSidebar/sections/SidbarM
 import DateFormat from '~/components/resume/build/RightSidebar/sections/DateFormat';
 import Typography from '~/components/resume/build/RightSidebar/sections/Typography';
 import ColorTone from '~/components/resume/build/RightSidebar/sections/ColorTone';
-import Cover from '~/components/resume/build/LeftSidebar/sections/Cover';
+
 
 export const left: SidebarSection[] = [
  
@@ -33,12 +33,6 @@ export const left: SidebarSection[] = [
     component: <Basics />,
   },
   
-  {
-    id: 'recruiter',
-    kind: TemplateType.RESUME,
-    component: <Cover />
-  },
-
   {
     id: 'recruiter',
     kind: TemplateType.RESUME_TEMPLATE,
@@ -97,6 +91,7 @@ export const left: SidebarSection[] = [
     kind: TemplateType.RESUME_TEMPLATE,
     component: <Activities/>,
   },
+  
   {
     id: 'references',
     kind: TemplateType.RESUME_TEMPLATE,
@@ -125,12 +120,6 @@ export const left: SidebarSection[] = [
     id: 'recruiter_title',
     kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Recruiter Title' path='sections.cover_recruiter_title'/>,
-  },
-
-  {
-    id: 'recruiter_email',
-    kind: TemplateType.COVER_TEMPLATE,
-    component: <CoverInputSection name='Recruiter Email' path='sections.cover_recruiter_email'/>,
   },
 
   {
@@ -184,7 +173,7 @@ export const left: SidebarSection[] = [
   {
     id: 'cover_candidate_organizaion',
     kind: TemplateType.COVER_TEMPLATE,
-    component: <CoverInputSection name='Candidate Organization' path='sections.cover_current_organization'/>,
+    component: <CoverInputSection name='Current Organization' path='sections.cover_current_organization'/>,
   },
 
   {
@@ -202,7 +191,7 @@ export const left: SidebarSection[] = [
   {
     id: 'cover_date_of_available',
     kind: TemplateType.COVER_TEMPLATE,
-    component: <CoverInputSection name='Date Of Available' path='sections.cover_date_of_availability'/>,
+    component: <CoverInputSection name='Date Of Availability' type='date' path='sections.cover_date_of_availability'/>,
   },
 
   {
@@ -216,8 +205,6 @@ export const left: SidebarSection[] = [
     kind: TemplateType.COVER_TEMPLATE,
     component: <CoverInputSection name='Work Visa Status' path='sections.cover_work_visa_status'/>,
   },
-
-
 ];
 
 export const right: SidebarSection[] = [

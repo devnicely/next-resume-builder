@@ -23,6 +23,7 @@ const Section: React.FC<SectionProps> = ({
   
 }) => {
   const section: SectionType = useAppSelector((state) => get(state.resume.present, path, {} as SectionType));
+  
   const metadata: Metadata = useAppSelector((state) => get(state.resume.present, 'metadata'));
   const dateFormat: string = metadata.date.format;
   const primaryColor: string = metadata.theme.primary;
@@ -30,17 +31,36 @@ const Section: React.FC<SectionProps> = ({
   const {subtitle: spacingSubtitle, text: spacingText} = spacing;
   const {text: fontSizeText, section: fontSizeSection, subtitle: fontSizeSubtitle} = metadata.typography.size;
   const {text: colorText, section: colorSection, subtitle: colorSubtitle} = metadata.typography.color;
+  const {text: familyText, section: familySection, subtitle: familySubtitle} = metadata.typography.family;
 
-  
   const sectionId = useMemo(() => section.id || path.replace('sections.', ''), [path, section]);
-
+  
   if (!section.visible) return null;
+
+  if (!isEmpty(section.item)) {
+    const summary: string = section.item;
+    return (
+      <section id={`Leafish_${sectionId}`}>
+        <Heading path={path}>{section.name}</Heading>
+        <div
+          className="grid items-start"
+          style={{ gridTemplateColumns: `repeat(${section.columns}, minmax(0, 1fr))` }}
+        >
+          <div className="mb-2 grid gap-1">
+            <div className="grid gap-1" style={{ lineHeight: spacingText, fontSize: `${fontSizeText}pt`, color: colorText}}>
+              {summary && <Markdown>{summary}</Markdown>}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   if (isArray(section.items) && isEmpty(section.items)) return null;
 
   return (
     <section id={`Leafish_${sectionId}`}>
-      <Heading>{section.name}</Heading>
+      <Heading path={path}>{section.name}</Heading>
       <div
         className="grid items-start"
         style={{ gridTemplateColumns: `repeat(${section.columns}, minmax(0, 1fr))` }}
@@ -55,7 +75,7 @@ const Section: React.FC<SectionProps> = ({
             email: string = get(item, 'email', ''),
             summary: string = get(item, 'summary', ''),
             date = formatDateString(get(item, 'date', ''), dateFormat);
-
+            
           return (
             <div key={id} className="mb-2 grid gap-1">
               <div className="grid gap-1">
