@@ -16,12 +16,9 @@ export const breakpoints = {
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-export const generateTypographyStyles = ({ family, size }: Typography): string => `
-  font-size: ${size.body}px !important;
-  font-family: ${family.body} !important;
-
-  p, li, svg { font-size: ${size.body}px !important; line-height: ${size.body * 1.5}px !important; }
-
+export const generateTypographyStyles = ({ family, size }: Typography): string => {
+  return `
+  font-family: ${family.subtitle} !important;
   h1,
   h2,
   h3,
@@ -29,16 +26,18 @@ export const generateTypographyStyles = ({ family, size }: Typography): string =
   h5,
   h6 {
     font-weight: bold !important;
-    font-family: ${family.heading} !important;
+    font-family: ${family.section}, sans-serif !important;
   }
 
-  h1 { font-size: ${size.heading}px !important; line-height: ${size.heading}px !important; }
-  h2 { font-size: ${size.heading / 1.5}px !important; line-height: ${size.heading / 1.5}px !important; }
-  h3 { font-size: ${size.heading / 2}px !important; line-height: ${size.heading / 2}px !important; }
-  h4 { font-size: ${size.heading / 2.5}px !important; line-height: ${size.heading / 2.5}px !important; }
-  h5 { font-size: ${size.heading / 3}px !important; line-height: ${size.heading / 3}px !important; }
-  h6 { font-size: ${size.heading / 3.5}px !important; line-height: ${size.heading / 3.5}px !important; }
-`;
+  div{
+    font-family: ${family.subtitle} !important;
+  }
+
+  p{
+    font-family: ${family.text} !important;
+  }
+`
+};
 
 export const generateThemeStyles = ({ text, background, primary }: ThemeConfig): string => `
   --text-color: ${text} !important;
@@ -71,10 +70,10 @@ export const hexToRgb = (hex: string): RgbColor | null => {
 
   return result
     ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16),
+    }
     : null;
 };
 

@@ -2,7 +2,6 @@ import debounce from 'lodash/debounce';
 import { select, takeLatest } from 'redux-saga/effects';
 import { Resume } from '../../schema';
 
-//import { updateResume } from '~/services/resume';
 import { AppDispatch, RootState } from '~/store/index';
 import { addItem, setResume, setResumeState } from '../resume/resumeSlice';
 

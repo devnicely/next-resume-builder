@@ -39,8 +39,11 @@ export function DataTableRowActions<TData>({
 
   const id = row.getValue("id");
   const title = row.getValue("title");
-  const status = row.getValue("status");
-  const [dataToUpdate, setDataToUpdate] = useState({ title, status });
+  // const status = row.getValue("status");
+  const [dataToUpdate, setDataToUpdate] = useState({
+    title,
+    // , status
+  });
 
   const { mutateAsync: getSingleResume, data: singleResume } =
     api.resume.getSingleResume.useMutation();
@@ -53,12 +56,12 @@ export function DataTableRowActions<TData>({
   const { mutateAsync: updateResumeTitleStatus } =
     api.resume.updateResumeTitleStatus.useMutation();
 
-  // const { refetchResumes } = useRefetch();
+  const { refetchResumes } = useRefetch();
 
   const deleteCV = async (id) => {
     await deleteResumes({ resumeIds: [id] }).then(() => {
       notify({ message: "Delete success" });
-      // void refetchResumes();
+      void refetchResumes();
     });
   };
 
@@ -92,12 +95,12 @@ export function DataTableRowActions<TData>({
       console.log({
         resumeId: id,
         title: dataToUpdate.title,
-        status: dataToUpdate.status,
+        // status: dataToUpdate.status,
       });
       await updateResumeTitleStatus({
         resumeId: id,
         title: dataToUpdate.title,
-        status: dataToUpdate.status,
+        // status: dataToUpdate.status,
       }).then(() => {
         notify({ message: "Update success" });
         refetchResumes();
@@ -129,7 +132,7 @@ export function DataTableRowActions<TData>({
 
         <DataTableEditModal
           title={title}
-          status={status}
+          // status={status}
           dataToUpdate={dataToUpdate}
           setDataToUpdate={setDataToUpdate}
           updateDocument={updateDocument}

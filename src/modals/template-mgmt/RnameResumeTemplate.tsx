@@ -15,6 +15,7 @@ import { Input } from '~/components/common/input';
 import { Label } from '~/components/common/label';
 import { Button } from '~/components/common/button';
 import { TemplateType } from '~/constants';
+import useRefetchResumes from '~/hooks/useRefetchResumes';
 
 type FormData = {
     name: string;
@@ -33,14 +34,15 @@ const schema = Joi.object({
 const RenameResumeModal: React.FC = () => {
 
     const dispatch = useAppDispatch();
-    const { refetchGetResumes } = useRefetch(TemplateType.RESUME);
+    const { refetchGetResumes } = useRefetchResumes(TemplateType.RESUME_TEMPLATE);
 
     const {
         mutateAsync: renameResumeTemplate,
         isLoading,
-    } = api.resume.renameResumeTemplate.useMutation();
+    } = api.template.renameResumeTemplate.useMutation();
 
-    const { open: isOpen, payload } = useAppSelector((state) => state.modal['rename-resume']) as ModalState;
+    const { open: isOpen, payload } = useAppSelector((state) => state.modal['rename-resume-template']) as ModalState;
+    
     const resume: Resume = get(payload, 'item') as Resume;
     const onComplete = get(payload, 'onComplete', noop);
 
@@ -88,7 +90,7 @@ const RenameResumeModal: React.FC = () => {
     };
 
     const handleClose = () => {
-        dispatch(setModalState({ modal: 'rename-resume', state: { open: false } }));
+        dispatch(setModalState({ modal: 'rename-resume-template', state: { open: false } }));
         reset();
     };
 
@@ -117,20 +119,7 @@ const RenameResumeModal: React.FC = () => {
                             />
                         </>
                     )}
-                />
-
-                <Controller
-                    name="slug"
-                    control={control}
-                    render={({ field, fieldState }) => (
-                        <>
-                            <Label>Slug</Label>
-                        <Input
-                            {...field}
-                        />
-                        </>
-                    )}
-                />
+                /> 
             </form>
         </BaseModal>
     );

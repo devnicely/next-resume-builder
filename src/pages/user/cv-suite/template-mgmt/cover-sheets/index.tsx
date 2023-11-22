@@ -11,6 +11,7 @@ import { TemplateType } from "~/constants";
 import CoverPreview from "~/components/resume/cover-preview/CoverPreview";
 import ResumeCard from "~/components/resume/resume-card/ResumeCard";
 import { api } from "~/utils/api";
+import templateMap from "~/templates/templateMap";
 
 
 const CoverSheets = () => {
@@ -20,7 +21,7 @@ const CoverSheets = () => {
     const {
         data: covers,
         refetch
-    } = api.resume.getResumes.useQuery({type: TemplateType.COVER});
+    } = api.template.getResumes.useQuery({ type: TemplateType.COVER_TEMPLATE });
 
 
     return (
@@ -45,13 +46,18 @@ const CoverSheets = () => {
                 </header>
 
                 <main className={styles.resumes}>
-                    <ResumeCard
-                        modal="create-coversheet"
-                        title=""
-                        subtitle=""
-                    />
+                    {Object.values(templateMap).map((template) => (
+                        template.type === TemplateType.COVER_TEMPLATE &&
+                        <ResumeCard
+                            modal="create-coversheet-template"
+                            template_name={template.name}
+                            template_preview={template.preview}
+                            template_id={template.id}
+                        />
+                    ))}
                 </main>
-                <div>Saved CoverSheet</div><hr/>
+                <div>Saved CoverSheet</div><hr />
+
 
                 <main className={styles.resumes}>
                     {covers && covers.map((cover) => (

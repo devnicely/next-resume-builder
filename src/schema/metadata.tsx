@@ -32,6 +32,7 @@ export type CustomCSS = {
     css: CustomCSS;
     locale: string;
     date: DateConfig;
+    hasCover: number
     layout: string[][][]; // page.column.section
     template: string;
     theme: ThemeConfig;

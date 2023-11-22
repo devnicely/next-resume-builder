@@ -10,3 +10,12 @@ export type User = {
     createdAt: Date;
     updatedAt: Date;
 }
+
+
+export interface SessionData {
+    user: {
+      userId: string;
+    };
+    message: string;
+    success: boolean;
+  }

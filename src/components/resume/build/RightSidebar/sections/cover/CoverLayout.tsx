@@ -124,7 +124,7 @@ const Layout = () => {
           </div>
         ))}
         {
-          resume.type == TemplateType.RESUME &&
+          resume.type == TemplateType.RESUME_TEMPLATE &&
           <div className="flex items-center justify-end">
             <Button variant="outline" onClick={handleAddPage}>
               <Add size="28" />&nbsp; Add New Page

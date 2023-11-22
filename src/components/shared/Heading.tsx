@@ -1,10 +1,9 @@
 
-import { Check, Eye, EyeOff, PencilLine, Trash2, Star } from 'lucide-react';
+import { Check, Eye, EyeOff, PencilLine, Trash2, Star, CaseUpper, CaseLowerIcon, CaseSensitive, CaseLower } from 'lucide-react';
 
 import clsx from 'clsx';
 import get from 'lodash/get';
 import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'next-i18next';
 import sections from '~/config/sections';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -12,7 +11,6 @@ import { deleteSection, setResumeState } from '~/store/resume/resumeSlice';
 
 import styles from './Heading.module.scss';
 import { Input } from '../common/input';
-import { Button } from '../common/button';
 import {
   Tooltip,
   TooltipContent,
@@ -26,6 +24,7 @@ type Props = {
   isEditable?: boolean;
   isHideable?: boolean;
   isDeletable?: boolean;
+  isUppercase?: boolean;
   action?: React.ReactNode;
   className?: string;
 };
@@ -36,13 +35,14 @@ const Heading: React.FC<Props> = ({
   isEditable = false,
   isHideable = false,
   isDeletable = false,
+  isUppercase = false,
   action,
 }) => {
 
-  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const heading = useAppSelector((state) => get(state.resume.present, `${path}.name`, name));
+  const isCase = useAppSelector((state) => get(state.resume.present, `${path}.isUppercase`, true));
   const visibility = useAppSelector((state) => get(state.resume.present, `${path}.visible`, true));
 
   const [editMode, setEditMode] = useState(false);
@@ -65,6 +65,10 @@ const Heading: React.FC<Props> = ({
     dispatch(deleteSection({ path }));
   };
 
+  const handlToggleCase = () => {
+    dispatch(setResumeState({ path: `${path}.isUppercase`, value: !isCase }));
+  };
+
   return (
     <div className={styles.container}>
       <div className="flex w-full items-center gap-3">
@@ -84,9 +88,9 @@ const Heading: React.FC<Props> = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Button size={"icon"}  className="w-7" variant={"ghost"} onClick={toggleEditMode}>
+                <div className="w-7" onClick={toggleEditMode}>
                   {editMode ? <Check /> : <PencilLine />}
-                </Button>
+                </div>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Rename Section</p>
@@ -99,9 +103,9 @@ const Heading: React.FC<Props> = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Button size={"icon"} className="w-7" variant={"ghost"} onClick={toggleVisibility}>
+                <div className="w-7" onClick={toggleVisibility}>
                   {visibility ? <Eye /> : <EyeOff />}
-                </Button>
+                </div>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Toggle Visibility</p>
@@ -114,9 +118,9 @@ const Heading: React.FC<Props> = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Button size={"icon"} variant={"ghost"} onClick={handleDelete}>
+                <div onClick={handleDelete}>
                   <Trash2 className="w-4 h-4 text-primary-500" />
-                </Button>
+                </div>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Delete Section</p>
@@ -124,6 +128,24 @@ const Heading: React.FC<Props> = ({
             </Tooltip>
           </TooltipProvider>
         )}
+
+        {isUppercase && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <div onClick={handlToggleCase}>
+                  <CaseUpper className={clsx("w-7 h-7", {"hidden": isCase})} />
+                  <CaseLower className={clsx("w-7 h-7", {"hidden": !isCase})} />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className={clsx({"hidden": isCase})}>Uppercase</p>
+                <p className={clsx({"hidden": !isCase})}>Lowercase</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+
         {action}
       </div>
     </div>

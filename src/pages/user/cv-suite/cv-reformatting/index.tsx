@@ -10,7 +10,6 @@ import { api } from "~/utils/api";
 const Resume = () => {
   const { profile } = useUserProfile();
   const { data, refetch } = api.resume.getAllUserResumes.useQuery();
-  console.log("data", data);
   const transformedData =
     data?.response?.map((item) => ({
       id: item.resumeId,

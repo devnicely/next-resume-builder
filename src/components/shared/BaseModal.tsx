@@ -17,9 +17,10 @@ type Props = {
   children?: React.ReactNode;
   footerChildren?: React.ReactNode;
   handleClose: () => void;
+  className?: string;
 };
 
-const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClose, footerChildren }) => {
+const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClose, footerChildren, ...props }) => {
   const router = useRouter();
   const { pathname, query } = router;
 
@@ -38,7 +39,7 @@ const BaseModal: React.FC<Props> = ({ icon, isOpen, heading, children, handleClo
     <Dialog
       open={isOpen}
     >
-      <DialogContent >
+      <DialogContent {...props}>
         <DialogHeader>
           <DialogTitle className="flex items-start">
             {icon}

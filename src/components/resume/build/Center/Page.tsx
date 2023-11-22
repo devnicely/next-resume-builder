@@ -2,7 +2,6 @@ import { css } from '@emotion/css';
 import clsx from 'clsx';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
-import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { CustomCSS, PageConfig, ThemeConfig, Typography } from '~/schema';
 
@@ -13,6 +12,7 @@ import { PageProps } from '~/utils/template';
 
 import styles from './Page.module.scss';
 
+
 type Props = PageProps & {
   showPageNumbers?: boolean;
 };
@@ -20,7 +20,6 @@ type Props = PageProps & {
 const Page: React.FC<Props> = ({ page, showPageNumbers = false }) => {
   
   const resume = useAppSelector((state) => state.resume.present);
-
 
   const breakLine: boolean = useAppSelector((state) => state.build.page.breakLine);
 
@@ -32,7 +31,7 @@ const Page: React.FC<Props> = ({ page, showPageNumbers = false }) => {
 
   const themeCSS = useMemo(() => !isEmpty(theme) && generateThemeStyles(theme), [theme]);
   const typographyCSS = useMemo(() => !isEmpty(typography) && generateTypographyStyles(typography), [typography]);
-  
+
   const TemplatePage: React.FC<PageProps> | null = useMemo(() => templateMap[template].component, [template]);
 
   return (

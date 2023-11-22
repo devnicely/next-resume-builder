@@ -6,7 +6,7 @@ import { Section } from './section';
 import { User } from './user';
 
 export type Resume = {
-  id: number;
+  id: string;
   type: string;
   shortId: string;
   name: string;
@@ -16,10 +16,13 @@ export type Resume = {
   basics: Basics;
   sections: Record<string, Section>;
   metadata: Metadata;
+  covermetadata: Metadata;
   public: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  userid: string,
+  userid: string;
+  checked: boolean;
+  resumeId?: string;
 }
 
 export const CreateResumeParamsSchema = object(
@@ -28,12 +31,13 @@ export const CreateResumeParamsSchema = object(
     slug: string(),
     isPublic: boolean(),
     type: string(),
+    template_id: string(),
   }
 )
 
 export const ResumeSchema = object(
   {
-    id: number(),
+    id: string(),
     shortId: string(),
     name: string(),
     slug: string(),
@@ -43,15 +47,16 @@ export const ResumeSchema = object(
     metadata: string().nullable(),
     public: boolean(),
     userId: string(),
+    resumeId: string().nullable().optional(),
   }
 );
 
 export const DeleteResumeParamsSchema = object({
-  id: number(),
+  id: string(),
 })
 
 export const RenameResumeParamsSchema = object({
-  id: number(),
+  id: string(),
   name: string(),
   slug: string(),
 });

@@ -1,25 +1,63 @@
 import { roleAuthorization } from "~/server/middleware/roleAuthorization";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { TRPCError } from "@trpc/server";
+
 import {
   deleteResumesSchema,
   inviteTeamMembersSchema,
   parseResumeSchema,
+  removeTeamMembersSchema,
+  updateResumeSchema,
   updateResumeStatusSchema,
   updateTeamAccessInputSchema,
 } from "~/validation/resume";
 import { generateResumeId } from "~/helpers/generateRandomId";
-import {  PrismaClient } from "@prisma/client";
+import { $Enums, type PrismaClient } from "@prisma/client";
 import { sendInviteToParse } from "~/utils/sendEmail";
 import axios from "axios";
 import FormData from "form-data";
 import { Storage } from "@google-cloud/storage";
+import { z } from "zod";
 import { Readable } from "stream";
 import path from "path";
-import { SHORT_ID_LENGTH, TemplateType, defaultCoverState, defaultResumeState } from "~/constants";
-import { nanoid } from "nanoid";
-import { CreateResumeParamsSchema, ResumeSchema, ResumeSchemaType, Resume, Basics, DeleteResumeParamsSchema, RenameResumeParamsSchema } from "~/schema";
-import { z } from "zod";
+import { TRPCError } from "@trpc/server";
+
+interface ResumeInput {
+  content: string;
+  title: string;
+  teamMembers: Array<{ id: string; permission: PermissionType }>;
+}
+
+interface ResumeOutput {
+  success: boolean;
+  error?: string;
+}
+
+enum PermissionType {
+  EDITOR,
+  VIEWER,
+  LEAD,
+}
+
+interface MemberInput {
+  id: string;
+  permission: PermissionType;
+}
+
+interface RemoveTeamMembersInput {
+  resumeId: string;
+  userIds: string[];
+}
+
+interface UpdateResumeInput {
+  resumeId: string;
+  title: string;
+  addMembers: MemberInput[];
+  removeMembers: string[];
+}
+
+interface DeleteResumesInput {
+  resumeIds: string[];
+}
 
 interface CTX {
   prisma: PrismaClient;
@@ -205,193 +243,7 @@ const userSelect = {
   },
 };
 
-
 export const resumeRouter = createTRPCRouter({
-  createResume: protectedProcedure
-    .input(CreateResumeParamsSchema)
-    .mutation(async ({ input, ctx }) => {
-      try {
-        const shortId = nanoid(SHORT_ID_LENGTH);
-        const { name, slug, isPublic, type } = input;
-        const user = ctx.session?.user;
-        const userId = user?.userId;
-        const username = user?.name;
-        // Create Resume and get its id
-
-        if (type == TemplateType.RESUME)
-         {
-           await ctx.prisma.resume.create({
-            data: {
-              shortId,
-              name,
-              slug,
-              image: defaultResumeState.image,
-              basics: JSON.stringify({
-                ...defaultResumeState.basics,
-                name: username,
-              }),
-              sections: JSON.stringify({
-                ...defaultResumeState.sections
-              }),
-              public: isPublic,
-              userId,
-              metadata: JSON.stringify({
-                ...defaultResumeState.metadata
-              }),
-              type
-            },
-          });}
-        else{
-          await ctx.prisma.resume.create({
-            data: {
-              shortId,
-              name,
-              slug,
-              image: defaultCoverState.image,
-              basics: JSON.stringify({
-                ...defaultCoverState.basics,
-                name: username,
-              }),
-              sections: JSON.stringify({
-                ...defaultCoverState.sections
-              }),
-              public: isPublic,
-              userId,
-              metadata: JSON.stringify({
-                ...defaultCoverState.metadata
-              }),
-              type
-            },
-          });}
-        return { success: true }
-      } catch (error) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create resume",
-        });
-      }
-    }),
-
-  getResumes: protectedProcedure
-  .input(z.object({
-    type: z.string(),
-  }))
-  .query(async ({input, ctx}) => {
-    try {
-      const {type} = input;
-      const userId = ctx.session?.user.userId;
-      const resumes: ResumeSchemaType[] = await ctx.prisma.resume.findMany({
-        where: {userId: userId, type},
-        orderBy: {createdAt: 'asc'}
-      });
-      return resumes.length > 0? resumes : [];
-    } catch (error) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal server error, please contact support",
-      });
-    }
-  }),
-  
-  updateResum: protectedProcedure
-  .input(ResumeSchema)
-  .mutation(async ({ input, ctx }) => {
-    try {
-      const {id, sections, metadata, basics} = input;
-      await ctx.prisma.resume.update({
-        where: { id: id },
-        data: {
-          basics: basics,
-          sections: sections,
-          metadata: metadata
-        },
-      });
-      return { success: true }
-    } catch (error) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to upload avatar",
-      });
-    }
-  }),
-
-  getResumeBySlug: protectedProcedure
-  .input(z.object({
-    slug: z.string(),
-  }))
-  .query(async ({input, ctx}) => {
-    const {slug} = input;
-    try {
-      const resumeSchemaObj = await ctx.prisma.resume.findFirst({
-        where: { slug: slug},
-      });
-      const resume: Resume = {
-        id: resumeSchemaObj?.id ?? 0,
-        shortId: resumeSchemaObj?.shortId ?? '',
-        name: resumeSchemaObj?.name ?? '',
-        slug: resumeSchemaObj?.slug ?? '',
-        image: resumeSchemaObj?.image ?? '',
-        basics: JSON.parse(resumeSchemaObj?.basics ?? "{}"),
-        sections: JSON.parse(resumeSchemaObj?.sections ?? "{}"),
-        metadata: JSON.parse(resumeSchemaObj?.metadata ?? "{}"),
-        public: resumeSchemaObj?.public || false,
-        userid: resumeSchemaObj?.userId ?? "",
-        type: resumeSchemaObj?.type ?? "",
-      }
-      return resume;
-    } catch (error) {
-      throw error instanceof TRPCError
-          ? error
-          : new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Internal server error, please contact support",
-          });
-    }
-  }),
-
-  deleteResume: protectedProcedure
-  .input(DeleteResumeParamsSchema)
-  .mutation(async ({ input, ctx }) => {
-    try {
-      const {id} = input;
-      await ctx.prisma.resume.delete({
-        where: { id: id },
-      });
-      return { success: true }
-    } catch (error) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to upload avatar",
-      });
-    }
-  }),
-
-  renameResumeTemplate: protectedProcedure
-  .input(RenameResumeParamsSchema)
-  .mutation(async ({ input, ctx }) => {
-    try {
-      const {id, name, slug} = input;
-      await ctx.prisma.resume.update({
-        where: { id: id },
-        data: {
-          name: name,
-          slug: slug,
-        }
-      });
-      return { success: true }
-    } catch (error) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to upload avatar",
-      });
-    }
-  }),
-
-  
-
-
-
-
   parseResume: protectedProcedure
     .input(parseResumeSchema)
     .use(roleAuthorization(["admin", "owner", "member"]))
@@ -456,7 +308,7 @@ export const resumeRouter = createTRPCRouter({
     .use(roleAuthorization(["admin", "owner", "member"]))
     .query(async ({ ctx }) => {
       try {
-        const userId = ctx.session?.user.userId;
+        const userId = ctx.session.user.userId;
 
         const createdByUser = await ctx.prisma.resume.findMany({
           where: { uploadedById: userId },
@@ -563,6 +415,7 @@ export const resumeRouter = createTRPCRouter({
         });
       }
     }),
+
   getResumeJsonFromGcloud: protectedProcedure
     .input(z.object({ resumeId: z.string() }))
     .query(async ({ input, ctx }) => {
@@ -583,7 +436,7 @@ export const resumeRouter = createTRPCRouter({
 
         const bucketName = "resume-parser-v1-1";
         const sanitizedFileName = resume.content.replace(`${bucketName}/`, "");
-
+        
         // Your existing logic to read JSON from GCS
         const readJSONFromGCS = async (
           bucketName: string,
@@ -595,7 +448,6 @@ export const resumeRouter = createTRPCRouter({
 
           return new Promise((resolve, reject) => {
             let data = "";
-
             const readStream: Readable = file.createReadStream();
 
             readStream.on("data", (chunk) => {
@@ -615,7 +467,7 @@ export const resumeRouter = createTRPCRouter({
           });
         };
 
-        const json = await readJSONFromGCS(bucketName, sanitizedFileName);
+        const json = await readJSONFromGCS(bucketName, sanitizedFileName);        
         return { json };
       } catch (error) {
         console.log("error", error);
